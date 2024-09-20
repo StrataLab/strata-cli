@@ -1,4 +1,4 @@
-package xyz.stratalab.brambl.cli
+package xyz.stratalab.strata.cli
 
 trait WalletConstants extends BaseConstants {
 

@@ -175,8 +175,8 @@ lazy val cli = project
     )
   )
   .settings(
-    assembly / mainClass := Some("xyz.stratalab.brambl.cli.Main"),
-    assembly / assemblyJarName := "bramblcli.jar",
+    assembly / mainClass := Some("xyz.stratalab.strata.cli.Main"),
+    assembly / assemblyJarName := "stratacli.jar",
 
     // Gets rid of "(server / assembly) deduplicate: different file contents found in the following" errors
     // https://stackoverflow.com/questions/54834125/sbt-assembly-deduplicate-module-info-class
