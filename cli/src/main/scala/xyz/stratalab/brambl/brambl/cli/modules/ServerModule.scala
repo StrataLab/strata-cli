@@ -1,15 +1,15 @@
-package co.topl.brambl.cli.modules
+package xyz.stratalab.brambl.cli.modules
 
 import cats.data.Kleisli
 import cats.effect.IO
 import cats.effect._
-import co.topl.brambl.cli.BramblCliParams
-import co.topl.brambl.cli.BramblCliSubCmd
-import co.topl.brambl.cli.http.WalletHttpService
-import co.topl.brambl.cli.impl.FullTxOps
+import xyz.stratalab.brambl.cli.BramblCliParams
+import xyz.stratalab.brambl.cli.BramblCliSubCmd
+import xyz.stratalab.brambl.cli.http.WalletHttpService
+import xyz.stratalab.brambl.cli.impl.FullTxOps
 import co.topl.brambl.codecs.AddressCodecs
-import co.topl.shared.models.TxRequest
-import co.topl.shared.models.TxResponse
+import xyz.stratalab.shared.models.TxRequest
+import xyz.stratalab.shared.models.TxResponse
 import io.circe.generic.auto._
 import io.circe.syntax._
 import org.http4s.HttpRoutes
@@ -22,7 +22,7 @@ import org.http4s.server.staticcontent.resourceServiceBuilder
 
 import java.nio.file.Files
 import scopt.OParser
-import co.topl.brambl.cli.BramblCliParamsParserModule
+import xyz.stratalab.brambl.cli.BramblCliParamsParserModule
 
 trait ServerModule extends FellowshipsModeModule with WalletModeModule {
 

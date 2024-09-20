@@ -1,12 +1,12 @@
-package co.topl.brambl.cli.modules
+package xyz.stratalab.brambl.cli.modules
 
 import cats.effect.IO
-import co.topl.brambl.cli.controllers.BifrostQueryController
-import co.topl.brambl.cli.BramblCliSubCmd
+import xyz.stratalab.brambl.cli.controllers.BifrostQueryController
+import xyz.stratalab.brambl.cli.BramblCliSubCmd
 import co.topl.brambl.dataApi.{BifrostQueryAlgebra, RpcChannelResource}
-import co.topl.brambl.cli.BramblCliParams
+import xyz.stratalab.brambl.cli.BramblCliParams
 import scopt.OParser
-import co.topl.brambl.cli.BramblCliParamsParserModule
+import xyz.stratalab.brambl.cli.BramblCliParamsParserModule
 
 trait BifrostQueryModeModule extends RpcChannelResource {
 

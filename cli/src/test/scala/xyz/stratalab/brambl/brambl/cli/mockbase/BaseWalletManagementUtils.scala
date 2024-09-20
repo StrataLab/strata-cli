@@ -1,6 +1,6 @@
-package co.topl.brambl.cli.mockbase
+package xyz.stratalab.brambl.cli.mockbase
 
-import co.topl.brambl.cli.impl.WalletManagementUtils
+import xyz.stratalab.brambl.cli.impl.WalletManagementUtils
 import cats.effect.kernel.Sync
 import co.topl.crypto.encryption.VaultStore
 import quivr.models.KeyPair

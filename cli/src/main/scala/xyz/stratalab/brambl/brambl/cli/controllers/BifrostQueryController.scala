@@ -1,7 +1,7 @@
-package co.topl.brambl.cli.controllers
+package xyz.stratalab.brambl.cli.controllers
 
 import cats.effect.kernel.Sync
-import co.topl.brambl.cli.views.BlockDisplayOps
+import xyz.stratalab.brambl.cli.views.BlockDisplayOps
 import co.topl.brambl.dataApi.BifrostQueryAlgebra
 import co.topl.brambl.display.DisplayOps.DisplayTOps
 import co.topl.brambl.models.TransactionId

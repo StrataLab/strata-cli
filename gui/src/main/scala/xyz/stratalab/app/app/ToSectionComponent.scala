@@ -1,4 +1,4 @@
-package co.topl.app
+package xyz.stratalab.app
 
 import com.raquo.laminar.api.L._
 

@@ -1,4 +1,4 @@
-package co.topl.brambl.cli.impl
+package xyz.stratalab.brambl.cli.impl
 
 import cats.effect.kernel.Sync
 import co.topl.brambl.codecs.AddressCodecs
@@ -6,7 +6,7 @@ import co.topl.brambl.dataApi
 import co.topl.brambl.syntax.{AssetType, GroupType, LvlType, SeriesType}
 import co.topl.brambl.utils.Encoding
 import co.topl.genus.services.{Txo, TxoState}
-import co.topl.shared.models._
+import xyz.stratalab.shared.models._
 
 case class WalletModeHelper[F[_]: Sync](
     walletStateAlgebra: dataApi.WalletStateAlgebra[F],

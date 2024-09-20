@@ -1,4 +1,4 @@
-package co.topl.brambl.cli
+package xyz.stratalab.brambl.cli
 
 import co.topl.brambl.constants.NetworkConstants
 import co.topl.brambl.models.LockAddress

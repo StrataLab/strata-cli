@@ -1,9 +1,9 @@
-package co.topl.brambl.cli.controllers
+package xyz.stratalab.brambl.cli.controllers
 
 import cats.Monad
 import cats.effect.IO
-import co.topl.brambl.cli.mockbase.BaseWalletStateAlgebra
-import co.topl.brambl.cli.modules.DummyObjects
+import xyz.stratalab.brambl.cli.mockbase.BaseWalletStateAlgebra
+import xyz.stratalab.brambl.cli.modules.DummyObjects
 import co.topl.brambl.dataApi.GenusQueryAlgebra
 import co.topl.brambl.display.DisplayOps.DisplayTOps
 import co.topl.brambl.models.LockAddress

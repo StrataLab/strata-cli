@@ -1,4 +1,4 @@
-package co.topl.brambl.cli.controllers
+package xyz.stratalab.brambl.cli.controllers
 
 import cats.effect.IO
 import co.topl.brambl.dataApi.{TemplateStorageAlgebra, WalletTemplate}

@@ -1,4 +1,4 @@
-package co.topl.brambl.cli.views
+package xyz.stratalab.brambl.cli.views
 
 import co.topl.brambl.display.DisplayOps.DisplayTOps
 import co.topl.brambl.models.transaction.IoTransaction

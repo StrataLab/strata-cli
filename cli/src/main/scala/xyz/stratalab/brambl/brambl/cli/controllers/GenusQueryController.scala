@@ -1,8 +1,8 @@
-package co.topl.brambl.cli.controllers
+package xyz.stratalab.brambl.cli.controllers
 
 import cats.Monad
 import cats.effect.kernel.Sync
-import co.topl.brambl.cli.TokenType
+import xyz.stratalab.brambl.cli.TokenType
 import co.topl.brambl.codecs.AddressCodecs
 import co.topl.brambl.dataApi.{GenusQueryAlgebra, WalletStateAlgebra}
 import co.topl.brambl.display.DisplayOps.DisplayTOps

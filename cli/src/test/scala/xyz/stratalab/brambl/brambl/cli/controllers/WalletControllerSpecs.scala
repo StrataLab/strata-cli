@@ -1,13 +1,13 @@
-package co.topl.brambl.cli.controllers
+package xyz.stratalab.brambl.cli.controllers
 
 import cats.data.EitherT
 import cats.effect.IO
-import co.topl.brambl.cli.mockbase.BaseGenusQueryAlgebra
-import co.topl.brambl.cli.mockbase.BaseWalletAlgebra
-import co.topl.brambl.cli.mockbase.BaseWalletApi
-import co.topl.brambl.cli.mockbase.BaseWalletManagementUtils
-import co.topl.brambl.cli.mockbase.BaseWalletStateAlgebra
-import co.topl.brambl.cli.modules.WalletKeyApiModule
+import xyz.stratalab.brambl.cli.mockbase.BaseGenusQueryAlgebra
+import xyz.stratalab.brambl.cli.mockbase.BaseWalletAlgebra
+import xyz.stratalab.brambl.cli.mockbase.BaseWalletApi
+import xyz.stratalab.brambl.cli.mockbase.BaseWalletManagementUtils
+import xyz.stratalab.brambl.cli.mockbase.BaseWalletStateAlgebra
+import xyz.stratalab.brambl.cli.modules.WalletKeyApiModule
 import co.topl.brambl.models.Indices
 import co.topl.brambl.utils.Encoding
 import co.topl.brambl.wallet.WalletApi
@@ -17,11 +17,11 @@ import quivr.models.KeyPair
 import java.nio.file.Files
 import java.nio.file.Paths
 import scala.io.Source
-import co.topl.brambl.cli.Sha256
+import xyz.stratalab.brambl.cli.Sha256
 import quivr.models.Proposition
 import quivr.models.Preimage
 import com.google.protobuf.ByteString
-import co.topl.brambl.cli.Blake2b
+import xyz.stratalab.brambl.cli.Blake2b
 
 class WalletControllerSpecs extends CatsEffectSuite with WalletKeyApiModule {
 

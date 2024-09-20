@@ -1,7 +1,7 @@
-package co.topl.brambl.cli.modules
+package xyz.stratalab.brambl.cli.modules
 
 import cats.effect.IO
-import co.topl.brambl.cli.impl.TransactionAlgebra
+import xyz.stratalab.brambl.cli.impl.TransactionAlgebra
 import co.topl.brambl.dataApi.RpcChannelResource
 
 trait TransactionAlgebraModule

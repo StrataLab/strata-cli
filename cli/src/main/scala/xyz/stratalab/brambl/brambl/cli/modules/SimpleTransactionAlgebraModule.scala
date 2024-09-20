@@ -1,8 +1,8 @@
-package co.topl.brambl.cli.modules
+package xyz.stratalab.brambl.cli.modules
 
 import co.topl.brambl.constants.NetworkConstants
 import cats.effect.IO
-import co.topl.brambl.cli.impl.SimpleTransactionAlgebra
+import xyz.stratalab.brambl.cli.impl.SimpleTransactionAlgebra
 
 trait SimpleTransactionAlgebraModule
     extends WalletStateAlgebraModule

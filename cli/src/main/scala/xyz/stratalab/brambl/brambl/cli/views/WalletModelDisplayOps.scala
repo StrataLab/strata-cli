@@ -1,4 +1,4 @@
-package co.topl.brambl.cli.views
+package xyz.stratalab.brambl.cli.views
 
 import cats.Id
 import co.topl.brambl.builders.locks.LockTemplate

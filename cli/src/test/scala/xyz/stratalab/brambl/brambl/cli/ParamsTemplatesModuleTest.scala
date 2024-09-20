@@ -1,4 +1,4 @@
-package co.topl.brambl.cli
+package xyz.stratalab.brambl.cli
 
 import munit.FunSuite
 import scopt.OParser

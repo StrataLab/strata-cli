@@ -1,6 +1,6 @@
-package co.topl.brambl.cli.views
+package xyz.stratalab.brambl.cli.views
 
-import co.topl.brambl.cli.modules.DummyObjects
+import xyz.stratalab.brambl.cli.modules.DummyObjects
 import co.topl.brambl.display.DisplayOps.DisplayTOps
 
 class BlockDisplayOpsSpec extends munit.FunSuite with DummyObjects {

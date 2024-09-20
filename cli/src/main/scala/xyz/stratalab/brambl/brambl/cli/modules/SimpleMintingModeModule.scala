@@ -1,16 +1,16 @@
-package co.topl.brambl.cli.modules
+package xyz.stratalab.brambl.cli.modules
 
 import cats.effect.IO
-import co.topl.brambl.cli.BramblCliParams
-import co.topl.brambl.cli.BramblCliSubCmd
-import co.topl.brambl.cli.TokenType
-import co.topl.brambl.cli.controllers.SimpleMintingController
-import co.topl.brambl.cli.impl.GroupPolicyParserModule
-import co.topl.brambl.cli.impl.SeriesPolicyParserModule
+import xyz.stratalab.brambl.cli.BramblCliParams
+import xyz.stratalab.brambl.cli.BramblCliSubCmd
+import xyz.stratalab.brambl.cli.TokenType
+import xyz.stratalab.brambl.cli.controllers.SimpleMintingController
+import xyz.stratalab.brambl.cli.impl.GroupPolicyParserModule
+import xyz.stratalab.brambl.cli.impl.SeriesPolicyParserModule
 import co.topl.brambl.constants.NetworkConstants
-import co.topl.brambl.cli.impl.AssetStatementParserModule
+import xyz.stratalab.brambl.cli.impl.AssetStatementParserModule
 import scopt.OParser
-import co.topl.brambl.cli.BramblCliParamsParserModule
+import xyz.stratalab.brambl.cli.BramblCliParamsParserModule
 
 trait SimpleMintingModeModule
     extends GroupPolicyParserModule

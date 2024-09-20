@@ -1,6 +1,6 @@
-package co.topl.brambl.cli.mockbase
+package xyz.stratalab.brambl.cli.mockbase
 
-import co.topl.brambl.cli.impl.WalletAlgebra
+import xyz.stratalab.brambl.cli.impl.WalletAlgebra
 
 class BaseWalletAlgebra[F[_]] extends WalletAlgebra[F] {
 

@@ -1,4 +1,4 @@
-package co.topl.brambl.cli.impl
+package xyz.stratalab.brambl.cli.impl
 
 import cats.effect.kernel.Resource
 import cats.effect.kernel.Sync

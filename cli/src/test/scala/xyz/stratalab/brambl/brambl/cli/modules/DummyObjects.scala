@@ -1,4 +1,4 @@
-package co.topl.brambl.cli.modules
+package xyz.stratalab.brambl.cli.modules
 
 
 import cats.Monad

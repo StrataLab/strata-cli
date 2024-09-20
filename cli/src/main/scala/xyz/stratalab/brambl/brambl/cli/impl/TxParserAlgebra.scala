@@ -1,11 +1,11 @@
-package co.topl.brambl.cli.impl
+package xyz.stratalab.brambl.cli.impl
 
 import cats.data.Validated
 import cats.effect.kernel.Resource
 import cats.effect.kernel.Sync
 import co.topl.brambl.builders.TransactionBuilderApi
 import co.topl.brambl.builders.locks.LockTemplate
-import co.topl.brambl.cli.NetworkIdentifiers
+import xyz.stratalab.brambl.cli.NetworkIdentifiers
 import co.topl.brambl.models.box.Value
 import co.topl.brambl.models.transaction.IoTransaction
 import co.topl.brambl.models.transaction.SpentTransactionOutput

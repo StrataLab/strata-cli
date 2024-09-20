@@ -1,4 +1,4 @@
-package co.topl.brambl.cli.impl
+package xyz.stratalab.brambl.cli.impl
 
 sealed trait SimpleTransactionAlgebraError extends Throwable {
 

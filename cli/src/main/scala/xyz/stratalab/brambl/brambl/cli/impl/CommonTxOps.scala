@@ -1,4 +1,4 @@
-package co.topl.brambl.cli.impl
+package xyz.stratalab.brambl.cli.impl
 
 import com.google.protobuf.struct.ListValue
 import com.google.protobuf.struct.NullValue

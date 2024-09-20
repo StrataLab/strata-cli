@@ -1,13 +1,13 @@
-package co.topl.brambl.cli
+package xyz.stratalab.brambl.cli
 
 import cats.data.Kleisli
 import cats.effect.ExitCode
 import cats.effect.IO
-import co.topl.brambl.cli.controllers.WalletController
-import co.topl.brambl.cli.modules.TransactionBuilderApiModule
-import co.topl.brambl.cli.modules.WalletAlgebraModule
-import co.topl.brambl.cli.modules.WalletManagementUtilsModule
-import co.topl.brambl.cli.modules.WalletStateAlgebraModule
+import xyz.stratalab.brambl.cli.controllers.WalletController
+import xyz.stratalab.brambl.cli.modules.TransactionBuilderApiModule
+import xyz.stratalab.brambl.cli.modules.WalletAlgebraModule
+import xyz.stratalab.brambl.cli.modules.WalletManagementUtilsModule
+import xyz.stratalab.brambl.cli.modules.WalletStateAlgebraModule
 import co.topl.brambl.dataApi.{GenusQueryAlgebra, RpcChannelResource}
 
 trait CommonTxOperations

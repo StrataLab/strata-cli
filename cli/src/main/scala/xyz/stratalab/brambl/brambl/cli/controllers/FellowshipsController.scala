@@ -1,4 +1,4 @@
-package co.topl.brambl.cli.controllers
+package xyz.stratalab.brambl.cli.controllers
 
 import cats.Applicative
 import co.topl.brambl.dataApi.{FellowshipStorageAlgebra, WalletFellowship}
@@ -18,7 +18,7 @@ class FellowshipsController[F[_]: Applicative](
   }
 
   def listFellowships(): F[Either[String, String]] = {
-    import co.topl.brambl.cli.views.WalletModelDisplayOps._
+    import xyz.stratalab.brambl.cli.views.WalletModelDisplayOps._
     import cats.implicits._
     fellowshipStorageAlgebra
       .findFellowships()

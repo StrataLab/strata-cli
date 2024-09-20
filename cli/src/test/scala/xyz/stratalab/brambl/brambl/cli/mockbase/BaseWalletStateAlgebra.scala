@@ -1,4 +1,4 @@
-package co.topl.brambl.cli.mockbase
+package xyz.stratalab.brambl.cli.mockbase
 
 import cats.data.ValidatedNel
 import co.topl.brambl.builders.locks.LockTemplate

@@ -1,6 +1,6 @@
-package co.topl.brambl.cli.modules
+package xyz.stratalab.brambl.cli.modules
 
-import co.topl.brambl.cli.impl.WalletAlgebra
+import xyz.stratalab.brambl.cli.impl.WalletAlgebra
 
 trait WalletAlgebraModule
     extends WalletStateAlgebraModule

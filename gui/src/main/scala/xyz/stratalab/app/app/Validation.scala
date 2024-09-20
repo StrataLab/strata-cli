@@ -1,4 +1,4 @@
-package co.topl.app
+package xyz.stratalab.app
 
 import scala.util.Try
 import scala.util.Success

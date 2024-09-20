@@ -1,4 +1,4 @@
-package co.topl.shared.models
+package xyz.stratalab.shared.models
 
 case class TxRequest(
     fromFellowship: String,

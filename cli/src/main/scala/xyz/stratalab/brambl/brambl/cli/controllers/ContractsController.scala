@@ -1,10 +1,10 @@
-package co.topl.brambl.cli.controllers
+package xyz.stratalab.brambl.cli.controllers
 
 import cats.Id
 import cats.data.Validated
 import cats.effect.kernel.Sync
 import co.topl.brambl.dataApi.{TemplateStorageAlgebra, WalletTemplate}
-import co.topl.brambl.cli.impl.QuivrFastParser
+import xyz.stratalab.brambl.cli.impl.QuivrFastParser
 import co.topl.brambl.codecs.LockTemplateCodecs
 
 class TemplatesController[F[_]: Sync](
@@ -46,7 +46,7 @@ class TemplatesController[F[_]: Sync](
   }
 
   def listTemplates(): F[Either[String, String]] = {
-    import co.topl.brambl.cli.views.WalletModelDisplayOps._
+    import xyz.stratalab.brambl.cli.views.WalletModelDisplayOps._
     import cats.implicits._
 
     templateStorageAlgebra

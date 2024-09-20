@@ -1,13 +1,13 @@
-package co.topl.brambl.cli.controllers
+package xyz.stratalab.brambl.cli.controllers
 
 import cats.effect.IO
-import co.topl.brambl.cli.mockbase.BaseBifrostQueryAlgebra
+import xyz.stratalab.brambl.cli.mockbase.BaseBifrostQueryAlgebra
 import co.topl.brambl.models.transaction.IoTransaction
 import co.topl.consensus.models.BlockId
 import co.topl.node.models.BlockBody
 import munit.CatsEffectSuite
-import co.topl.brambl.cli.modules.DummyObjects
-import co.topl.brambl.cli.views.BlockDisplayOps
+import xyz.stratalab.brambl.cli.modules.DummyObjects
+import xyz.stratalab.brambl.cli.views.BlockDisplayOps
 import co.topl.brambl.display.DisplayOps.DisplayTOps
 import co.topl.brambl.models.TransactionId
 import co.topl.consensus.models.BlockHeader

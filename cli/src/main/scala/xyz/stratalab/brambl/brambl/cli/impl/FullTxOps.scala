@@ -1,14 +1,14 @@
-package co.topl.brambl.cli.impl
+package xyz.stratalab.brambl.cli.impl
 
 import cats.data.EitherT
 import cats.effect.IO
-import co.topl.brambl.cli.NetworkIdentifiers
-import co.topl.brambl.cli.TokenType
-import co.topl.brambl.cli.controllers.SimpleTransactionController
-import co.topl.brambl.cli.controllers.TxController
-import co.topl.brambl.cli.modules.SimpleTransactionModeModule
-import co.topl.brambl.cli.modules.TxModeModule
-import co.topl.brambl.cli.modules.WalletModeModule
+import xyz.stratalab.brambl.cli.NetworkIdentifiers
+import xyz.stratalab.brambl.cli.TokenType
+import xyz.stratalab.brambl.cli.controllers.SimpleTransactionController
+import xyz.stratalab.brambl.cli.controllers.TxController
+import xyz.stratalab.brambl.cli.modules.SimpleTransactionModeModule
+import xyz.stratalab.brambl.cli.modules.TxModeModule
+import xyz.stratalab.brambl.cli.modules.WalletModeModule
 import co.topl.brambl.constants.NetworkConstants
 import co.topl.brambl.models.LockAddress
 import co.topl.brambl.models.GroupId

@@ -1,4 +1,4 @@
-package co.topl.brambl.cli.impl
+package xyz.stratalab.brambl.cli.impl
 
 import munit.CatsEffectSuite
 import co.topl.brambl.constants.NetworkConstants

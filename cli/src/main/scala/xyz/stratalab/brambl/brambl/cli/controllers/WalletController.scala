@@ -1,13 +1,13 @@
-package co.topl.brambl.cli.controllers
+package xyz.stratalab.brambl.cli.controllers
 
 import cats.data.OptionT
 import cats.effect.kernel.Resource
 import cats.effect.kernel.Sync
 import co.topl.brambl.builders.TransactionBuilderApi
-import co.topl.brambl.cli.BramblCliParams
-import co.topl.brambl.cli.impl.WalletAlgebra
-import co.topl.brambl.cli.impl.WalletManagementUtils
-import co.topl.brambl.cli.impl.WalletModeHelper
+import xyz.stratalab.brambl.cli.BramblCliParams
+import xyz.stratalab.brambl.cli.impl.WalletAlgebra
+import xyz.stratalab.brambl.cli.impl.WalletManagementUtils
+import xyz.stratalab.brambl.cli.impl.WalletModeHelper
 import co.topl.brambl.codecs.AddressCodecs
 import co.topl.brambl.constants.NetworkConstants
 import co.topl.brambl.dataApi
@@ -18,10 +18,10 @@ import co.topl.brambl.utils.Encoding
 import co.topl.brambl.wallet.WalletApi
 import co.topl.genus.services.Txo
 import co.topl.genus.services.TxoState
-import co.topl.shared.models.AssetTokenBalanceDTO
-import co.topl.shared.models.GroupTokenBalanceDTO
-import co.topl.shared.models.LvlBalance
-import co.topl.shared.models.SeriesTokenBalanceDTO
+import xyz.stratalab.shared.models.AssetTokenBalanceDTO
+import xyz.stratalab.shared.models.GroupTokenBalanceDTO
+import xyz.stratalab.shared.models.LvlBalance
+import xyz.stratalab.shared.models.SeriesTokenBalanceDTO
 import quivr.models.VerificationKey
 
 import java.io.File
@@ -29,9 +29,9 @@ import java.io.PrintWriter
 import quivr.models.Preimage
 import com.google.protobuf.ByteString
 import quivr.models.Proposition
-import co.topl.brambl.cli.DigestType
+import xyz.stratalab.brambl.cli.DigestType
 import quivr.models.Digest
-import co.topl.brambl.cli.Sha256
+import xyz.stratalab.brambl.cli.Sha256
 import co.topl.crypto.hash.Blake2b256
 
 class WalletController[F[_]: Sync](

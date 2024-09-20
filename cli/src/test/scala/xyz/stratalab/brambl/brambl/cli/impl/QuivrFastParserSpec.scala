@@ -1,7 +1,7 @@
-package co.topl.brambl.cli.impl
+package xyz.stratalab.brambl.cli.impl
 
 import cats.Id
-import co.topl.brambl.cli.views.WalletModelDisplayOps
+import xyz.stratalab.brambl.cli.views.WalletModelDisplayOps
 
 class QuivrFastParserSpec extends munit.FunSuite {
 

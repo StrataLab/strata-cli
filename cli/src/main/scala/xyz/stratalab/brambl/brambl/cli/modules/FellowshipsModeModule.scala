@@ -1,12 +1,12 @@
-package co.topl.brambl.cli.modules
+package xyz.stratalab.brambl.cli.modules
 
 import cats.effect.IO
-import co.topl.brambl.cli.controllers.FellowshipsController
+import xyz.stratalab.brambl.cli.controllers.FellowshipsController
 import co.topl.brambl.servicekit.{FellowshipStorageApi, WalletStateResource}
-import co.topl.brambl.cli.BramblCliSubCmd
-import co.topl.brambl.cli.BramblCliParams
+import xyz.stratalab.brambl.cli.BramblCliSubCmd
+import xyz.stratalab.brambl.cli.BramblCliParams
 import scopt.OParser
-import co.topl.brambl.cli.BramblCliParamsParserModule
+import xyz.stratalab.brambl.cli.BramblCliParamsParserModule
 
 trait FellowshipsModeModule extends WalletStateResource {
   def fellowshipsModeSubcmds(

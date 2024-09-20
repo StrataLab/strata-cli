@@ -1,10 +1,10 @@
-package co.topl.brambl.cli.controllers
+package xyz.stratalab.brambl.cli.controllers
 
 import cats.effect.kernel.Resource
 import cats.effect.kernel.Sync
-import co.topl.brambl.cli.impl.CommonParserError
-import co.topl.brambl.cli.impl.TransactionAlgebra
-import co.topl.brambl.cli.impl.TxParserAlgebra
+import xyz.stratalab.brambl.cli.impl.CommonParserError
+import xyz.stratalab.brambl.cli.impl.TransactionAlgebra
+import xyz.stratalab.brambl.cli.impl.TxParserAlgebra
 import co.topl.brambl.display.DisplayOps.DisplayTOps
 import co.topl.brambl.models.transaction.IoTransaction
 

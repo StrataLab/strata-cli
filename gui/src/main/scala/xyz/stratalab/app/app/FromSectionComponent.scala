@@ -1,10 +1,10 @@
-package co.topl.app
+package xyz.stratalab.app
 
-import co.topl.shared.models.BalanceRequestDTO
-import co.topl.shared.models.BalanceResponseDTO
-import co.topl.shared.models.FellowshipDTO
-import co.topl.shared.models.SimpleErrorDTO
-import co.topl.shared.models.TemplateDTO
+import xyz.stratalab.shared.models.BalanceRequestDTO
+import xyz.stratalab.shared.models.BalanceResponseDTO
+import xyz.stratalab.shared.models.FellowshipDTO
+import xyz.stratalab.shared.models.SimpleErrorDTO
+import xyz.stratalab.shared.models.TemplateDTO
 import com.raquo.laminar.api.L._
 import io.circe.Json
 import io.circe.generic.auto._

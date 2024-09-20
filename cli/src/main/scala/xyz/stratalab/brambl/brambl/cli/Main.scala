@@ -1,18 +1,18 @@
-package co.topl.brambl.cli
+package xyz.stratalab.brambl.cli
 
 import cats.effect.ExitCode
 import cats.effect.IO
 import cats.effect.IOApp
-import co.topl.brambl.cli.modules.BifrostQueryModeModule
-import co.topl.brambl.cli.modules.TemplateModeModule
-import co.topl.brambl.cli.modules.GenusQueryModeModule
-import co.topl.brambl.cli.modules.FellowshipsModeModule
-import co.topl.brambl.cli.modules.SimpleTransactionModeModule
-import co.topl.brambl.cli.modules.TxModeModule
-import co.topl.brambl.cli.modules.WalletModeModule
+import xyz.stratalab.brambl.cli.modules.BifrostQueryModeModule
+import xyz.stratalab.brambl.cli.modules.TemplateModeModule
+import xyz.stratalab.brambl.cli.modules.GenusQueryModeModule
+import xyz.stratalab.brambl.cli.modules.FellowshipsModeModule
+import xyz.stratalab.brambl.cli.modules.SimpleTransactionModeModule
+import xyz.stratalab.brambl.cli.modules.TxModeModule
+import xyz.stratalab.brambl.cli.modules.WalletModeModule
 import scopt.OParser
-import co.topl.brambl.cli.modules.SimpleMintingModeModule
-import co.topl.brambl.cli.modules.ServerModule
+import xyz.stratalab.brambl.cli.modules.SimpleMintingModeModule
+import xyz.stratalab.brambl.cli.modules.ServerModule
 
 object Main
     extends IOApp

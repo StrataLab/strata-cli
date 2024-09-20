@@ -1,8 +1,8 @@
-package co.topl.brambl.cli.modules
+package xyz.stratalab.brambl.cli.modules
 
 
 import cats.effect.IO
-import co.topl.brambl.cli.impl.SimpleMintingAlgebra
+import xyz.stratalab.brambl.cli.impl.SimpleMintingAlgebra
 import cats.effect.kernel.Sync
 
 trait SimpleMintingAlgebraModule

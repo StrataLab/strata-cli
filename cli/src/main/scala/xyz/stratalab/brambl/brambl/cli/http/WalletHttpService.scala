@@ -1,21 +1,21 @@
-package co.topl.brambl.cli.http
+package xyz.stratalab.brambl.cli.http
 import cats.Id
 import cats.effect.IO
 import cats.effect._
-import co.topl.brambl.cli.impl.WalletModeHelper
+import xyz.stratalab.brambl.cli.impl.WalletModeHelper
 import co.topl.brambl.dataApi.GenusQueryAlgebra
 import co.topl.brambl.dataApi.WalletStateAlgebra
 import co.topl.brambl.servicekit.FellowshipStorageApi
 import co.topl.brambl.servicekit.TemplateStorageApi
-import co.topl.shared.models.AssetTokenBalanceDTO
-import co.topl.shared.models.BalanceRequestDTO
-import co.topl.shared.models.BalanceResponseDTO
-import co.topl.shared.models.FellowshipDTO
-import co.topl.shared.models.GroupTokenBalanceDTO
-import co.topl.shared.models.LvlBalance
-import co.topl.shared.models.SeriesTokenBalanceDTO
-import co.topl.shared.models.SimpleErrorDTO
-import co.topl.shared.models.TemplateDTO
+import xyz.stratalab.shared.models.AssetTokenBalanceDTO
+import xyz.stratalab.shared.models.BalanceRequestDTO
+import xyz.stratalab.shared.models.BalanceResponseDTO
+import xyz.stratalab.shared.models.FellowshipDTO
+import xyz.stratalab.shared.models.GroupTokenBalanceDTO
+import xyz.stratalab.shared.models.LvlBalance
+import xyz.stratalab.shared.models.SeriesTokenBalanceDTO
+import xyz.stratalab.shared.models.SimpleErrorDTO
+import xyz.stratalab.shared.models.TemplateDTO
 import io.circe.generic.auto._
 import io.circe.syntax._
 import io.grpc.ManagedChannel
@@ -25,7 +25,7 @@ import org.http4s.circe._
 import org.http4s.dsl.io._
 
 import java.sql.Connection
-import co.topl.shared.models.NetworkResponseDTO
+import xyz.stratalab.shared.models.NetworkResponseDTO
 import co.topl.brambl.utils.Encoding
 
 case class WalletHttpService(
@@ -116,7 +116,7 @@ case class WalletHttpService(
         val templateStorageAlgebra = TemplateStorageApi.make[IO](
           walletResource
         )
-        import co.topl.brambl.cli.views.WalletModelDisplayOps._
+        import xyz.stratalab.brambl.cli.views.WalletModelDisplayOps._
         import io.circe.parser.parse
         import co.topl.brambl.codecs.LockTemplateCodecs._
         import cats.implicits._

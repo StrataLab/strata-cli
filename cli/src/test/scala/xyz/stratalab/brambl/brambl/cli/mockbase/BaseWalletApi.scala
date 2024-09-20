@@ -1,4 +1,4 @@
-package co.topl.brambl.cli.mockbase
+package xyz.stratalab.brambl.cli.mockbase
 
 import co.topl.brambl.models.Indices
 import co.topl.brambl.wallet.WalletApi

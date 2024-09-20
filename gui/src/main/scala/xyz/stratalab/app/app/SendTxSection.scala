@@ -1,11 +1,11 @@
-package co.topl.app
+package xyz.stratalab.app
 
-import co.topl.shared.models.TxResponse
+import xyz.stratalab.shared.models.TxResponse
 import com.raquo.laminar.api.L._
 import io.circe.Json
 import io.circe.generic.auto._
 import io.circe.syntax._
-import co.topl.shared.models.TxRequest
+import xyz.stratalab.shared.models.TxRequest
 
 case class SendTxComponent(
     currentSection: Var[TxSection],

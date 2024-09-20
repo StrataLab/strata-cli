@@ -1,4 +1,4 @@
-package co.topl.brambl.cli.controllers
+package xyz.stratalab.brambl.cli.controllers
 
 import cats.Id
 import co.topl.brambl.dataApi.{FellowshipStorageAlgebra, WalletFellowship}
