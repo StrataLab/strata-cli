@@ -23,7 +23,7 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
     buildInfoPackage := "xyz.stratalab.buildinfo",
     // Because we add BuildInfo to the `shared` project, this will be available
     // on both the client and the server, but you can also make it e.g. server-only.
-    homepage := Some(url("https://github.com/Topl/brambl-cli")),
+    homepage := Some(url("https://github.com/Stratalab/strata-cli")),
     licenses := List("MPL2.0" -> url("https://www.mozilla.org/en-US/MPL/2.0/")),
     ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org",
     sonatypeRepository := "https://s01.oss.sonatype.org/service/local",
@@ -102,7 +102,7 @@ lazy val root = project
   .in(file("."))
   .settings(
     organization := "xyz.stratalab",
-    name := "brambl-cli-umbrella"
+    name := "strata-cli-umbrella"
   )
   .settings(noPublish)
   .aggregate(gui, cli, shared.jvm)
@@ -114,7 +114,7 @@ lazy val cli = project
   .settings(commonSettings)
   .settings(
     organization := "xyz.stratalab",
-    name := "brambl-cli",
+    name := "strata-cli",
     fork := true,
     javaOptions += "-Dport=9000",
     resolvers ++= Seq(
@@ -126,7 +126,7 @@ lazy val cli = project
       "Bintray" at "https://jcenter.bintray.com/",
       "jitpack" at "https://jitpack.io"
     ),
-    homepage := Some(url("https://github.com/Topl/brambl-cli")),
+    homepage := Some(url("https://github.com/Stratalab/strata-cli")),
     licenses := List("MPL2.0" -> url("https://www.mozilla.org/en-US/MPL/2.0/")),
     ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org",
     sonatypeRepository := "https://s01.oss.sonatype.org/service/local",
