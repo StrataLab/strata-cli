@@ -22,3 +22,4 @@ dist/
 cli/src/main/resources/static/
 test.fish
 *.code-workspace
+.direnv
