@@ -9,7 +9,7 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
   .enablePlugins(BuildInfoPlugin)
   .settings(commonSettings)
   .settings(
-    organization := "co.topl",
+    organization := "xyz.stratalab",
     // sbt-BuildInfo plugin can write any (simple) data available in sbt at
     // compile time to a `case class BuildInfo` that it makes available at runtime.
     buildInfoKeys := Seq[BuildInfoKey](
@@ -20,10 +20,10 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
     // The BuildInfo case class is located in target/scala<version>/src_managed,
     // and with this setting, you'll need to `import com.raquo.buildinfo.BuildInfo`
     // to use it.
-    buildInfoPackage := "co.topl.buildinfo",
+    buildInfoPackage := "xyz.stratalab.buildinfo",
     // Because we add BuildInfo to the `shared` project, this will be available
     // on both the client and the server, but you can also make it e.g. server-only.
-    homepage := Some(url("https://github.com/Topl/brambl-cli")),
+    homepage := Some(url("https://github.com/Stratalab/strata-cli")),
     licenses := List("MPL2.0" -> url("https://www.mozilla.org/en-US/MPL/2.0/")),
     ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org",
     sonatypeRepository := "https://s01.oss.sonatype.org/service/local",
@@ -101,8 +101,8 @@ lazy val gui = project
 lazy val root = project
   .in(file("."))
   .settings(
-    organization := "co.topl",
-    name := "brambl-cli-umbrella"
+    organization := "xyz.stratalab",
+    name := "strata-cli-umbrella"
   )
   .settings(noPublish)
   .aggregate(gui, cli, shared.jvm)
@@ -113,8 +113,8 @@ lazy val cli = project
   .settings(Defaults.itSettings)
   .settings(commonSettings)
   .settings(
-    organization := "co.topl",
-    name := "brambl-cli",
+    organization := "xyz.stratalab",
+    name := "strata-cli",
     fork := true,
     javaOptions += "-Dport=9000",
     resolvers ++= Seq(
@@ -126,7 +126,7 @@ lazy val cli = project
       "Bintray" at "https://jcenter.bintray.com/",
       "jitpack" at "https://jitpack.io"
     ),
-    homepage := Some(url("https://github.com/Topl/brambl-cli")),
+    homepage := Some(url("https://github.com/Stratalab/strata-cli")),
     licenses := List("MPL2.0" -> url("https://www.mozilla.org/en-US/MPL/2.0/")),
     ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org",
     sonatypeRepository := "https://s01.oss.sonatype.org/service/local",
@@ -175,8 +175,8 @@ lazy val cli = project
     )
   )
   .settings(
-    assembly / mainClass := Some("co.topl.brambl.cli.Main"),
-    assembly / assemblyJarName := "bramblcli.jar",
+    assembly / mainClass := Some("xyz.stratalab.strata.cli.Main"),
+    assembly / assemblyJarName := "stratacli.jar",
 
     // Gets rid of "(server / assembly) deduplicate: different file contents found in the following" errors
     // https://stackoverflow.com/questions/54834125/sbt-assembly-deduplicate-module-info-class
