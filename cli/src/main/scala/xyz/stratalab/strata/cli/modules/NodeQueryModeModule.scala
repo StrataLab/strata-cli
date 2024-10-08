@@ -1,19 +1,19 @@
 package xyz.stratalab.strata.cli.modules
 
 import cats.effect.IO
-import xyz.stratalab.strata.cli.controllers.BifrostQueryController
+import xyz.stratalab.strata.cli.controllers.NodeQueryController
 import xyz.stratalab.strata.cli.StrataCliSubCmd
-import co.topl.brambl.dataApi.{BifrostQueryAlgebra, RpcChannelResource}
+import xyz.stratalab.sdk.dataApi.{NodeQueryAlgebra, RpcChannelResource}
 import xyz.stratalab.strata.cli.StrataCliParams
 import scopt.OParser
 import xyz.stratalab.strata.cli.StrataCliParamsParserModule
 
-trait BifrostQueryModeModule extends RpcChannelResource {
+trait NodeQueryModeModule extends RpcChannelResource {
 
   def bifrostQuerySubcmd(
       validateParams: StrataCliParams
   ): IO[Either[String, String]] = {
-    val bifrostQueryAlgebra = BifrostQueryAlgebra.make[IO](
+    val bifrostQueryAlgebra = NodeQueryAlgebra.make[IO](
       channelResource(
         validateParams.host,
         validateParams.bifrostPort,
@@ -30,20 +30,20 @@ trait BifrostQueryModeModule extends RpcChannelResource {
           )
         )
       case StrataCliSubCmd.mintblock =>
-        new BifrostQueryController(bifrostQueryAlgebra)
+        new NodeQueryController(bifrostQueryAlgebra)
           .makeBlock(
             validateParams.nbOfBlocks
           )
       case StrataCliSubCmd.blockbyheight =>
-        new BifrostQueryController(
+        new NodeQueryController(
           bifrostQueryAlgebra
         ).blockByHeight(validateParams.height)
       case StrataCliSubCmd.blockbyid =>
-        new BifrostQueryController(
+        new NodeQueryController(
           bifrostQueryAlgebra
         ).blockById(validateParams.blockId)
       case StrataCliSubCmd.transactionbyid =>
-        new BifrostQueryController(
+        new NodeQueryController(
           bifrostQueryAlgebra
         ).fetchTransaction(validateParams.transactionId)
     }

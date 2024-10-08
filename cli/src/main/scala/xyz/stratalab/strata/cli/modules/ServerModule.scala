@@ -7,7 +7,7 @@ import xyz.stratalab.strata.cli.StrataCliParams
 import xyz.stratalab.strata.cli.StrataCliSubCmd
 import xyz.stratalab.strata.cli.http.WalletHttpService
 import xyz.stratalab.strata.cli.impl.FullTxOps
-import co.topl.brambl.codecs.AddressCodecs
+import xyz.stratalab.sdk.codecs.AddressCodecs
 import xyz.stratalab.shared.models.TxRequest
 import xyz.stratalab.shared.models.TxResponse
 import io.circe.generic.auto._

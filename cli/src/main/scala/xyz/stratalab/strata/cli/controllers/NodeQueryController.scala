@@ -2,15 +2,15 @@ package xyz.stratalab.strata.cli.controllers
 
 import cats.effect.kernel.Sync
 import xyz.stratalab.strata.cli.views.BlockDisplayOps
-import co.topl.brambl.dataApi.BifrostQueryAlgebra
-import co.topl.brambl.display.DisplayOps.DisplayTOps
-import co.topl.brambl.models.TransactionId
-import co.topl.brambl.utils.Encoding
-import co.topl.consensus.models.BlockId
+import xyz.stratalab.sdk.dataApi.NodeQueryAlgebra
+import xyz.stratalab.sdk.display.DisplayOps.DisplayTOps
+import xyz.stratalab.sdk.models.TransactionId
+import xyz.stratalab.sdk.utils.Encoding
+import xyz.stratalab.consensus.models.BlockId
 import com.google.protobuf.ByteString
 
-class BifrostQueryController[F[_]: Sync](
-    bifrostQueryAlgebra: BifrostQueryAlgebra[F]
+class NodeQueryController[F[_]: Sync](
+    bifrostQueryAlgebra: NodeQueryAlgebra[F]
 ) {
 
   def makeBlock(

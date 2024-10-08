@@ -9,12 +9,12 @@ import xyz.stratalab.strata.cli.controllers.TxController
 import xyz.stratalab.strata.cli.modules.SimpleTransactionModeModule
 import xyz.stratalab.strata.cli.modules.TxModeModule
 import xyz.stratalab.strata.cli.modules.WalletModeModule
-import co.topl.brambl.constants.NetworkConstants
-import co.topl.brambl.models.LockAddress
-import co.topl.brambl.models.GroupId
-import co.topl.brambl.utils.Encoding
+import xyz.stratalab.sdk.constants.NetworkConstants
+import xyz.stratalab.sdk.models.LockAddress
+import xyz.stratalab.sdk.models.GroupId
+import xyz.stratalab.sdk.utils.Encoding
 import com.google.protobuf.ByteString
-import co.topl.brambl.models.SeriesId
+import xyz.stratalab.sdk.models.SeriesId
 
 object FullTxOps
     extends WalletModeModule
