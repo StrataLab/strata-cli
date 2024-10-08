@@ -40,6 +40,10 @@ Asset Minting Statements
 ========================
 
 
+Asset Merging Statements
+========================
+
+
 Inputs
 ======
 TxoAddress                 : DAas2fmY1dfpVkTYSJXp3U1CD7yTMEonum2xG9BJmNtQ#1
