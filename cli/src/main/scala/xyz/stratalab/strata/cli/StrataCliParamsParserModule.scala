@@ -493,7 +493,7 @@ object StrataCliParamsParserModule {
           )): _*
         )
     )
-  val bifrostQueryMode = cmd("bifrost-query")
+  val bifrostQueryMode = cmd("node-query")
     .action((_, c) => c.copy(mode = StrataCliMode.bifrostquery))
     .text("Node query mode")
     .children(

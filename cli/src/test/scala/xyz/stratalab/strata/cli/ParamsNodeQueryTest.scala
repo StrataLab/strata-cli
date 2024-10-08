@@ -10,7 +10,7 @@ class ParamsNodeQueryTest extends FunSuite {
 
   test("Block by height") {
     val args0 = List(
-      "bifrost-query",
+      "node-query",
       "block-by-height",
       "--height",
       "1",
@@ -23,7 +23,7 @@ class ParamsNodeQueryTest extends FunSuite {
   }
   test("Block by id") {
     val args0 = List(
-      "bifrost-query",
+      "node-query",
       "block-by-id",
       "--block-id",
       "8PrjN9RtFK44nmR1dTo1jG2ggaRHaGNYhePEhnWY1TTM",
@@ -36,7 +36,7 @@ class ParamsNodeQueryTest extends FunSuite {
   }
   test("Transaction by id") {
     val args0 = List(
-      "bifrost-query",
+      "node-query",
       "transaction-by-id",
       "--transaction-id",
       "8PrjN9RtFK44nmR1dTo1jG2ggaRHaGNYhePEhnWY1TTM",
