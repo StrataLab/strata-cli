@@ -1,20 +1,20 @@
 package xyz.stratalab.strata.cli.controllers
 
 import cats.effect.kernel.Sync
-import xyz.stratalab.strata.cli.views.BlockDisplayOps
 import co.topl.brambl.dataApi.BifrostQueryAlgebra
 import co.topl.brambl.display.DisplayOps.DisplayTOps
 import co.topl.brambl.models.TransactionId
 import co.topl.brambl.utils.Encoding
 import co.topl.consensus.models.BlockId
 import com.google.protobuf.ByteString
+import xyz.stratalab.strata.cli.views.BlockDisplayOps
 
 class BifrostQueryController[F[_]: Sync](
-    bifrostQueryAlgebra: BifrostQueryAlgebra[F]
+  bifrostQueryAlgebra: BifrostQueryAlgebra[F]
 ) {
 
   def makeBlock(
-      nbOfBlocks: Int
+    nbOfBlocks: Int
   ): F[Either[String, String]] = {
     import cats.implicits._
     bifrostQueryAlgebra.makeBlock(nbOfBlocks).map { _ =>
@@ -23,7 +23,7 @@ class BifrostQueryController[F[_]: Sync](
   }
 
   def blockByHeight(
-      height: Long
+    height: Long
   ): F[Either[String, String]] = {
     import cats.implicits._
     bifrostQueryAlgebra
@@ -50,7 +50,7 @@ class BifrostQueryController[F[_]: Sync](
   }
 
   def blockById(
-      pBlockId: String
+    pBlockId: String
   ): F[Either[String, String]] = {
     import cats.implicits._
     bifrostQueryAlgebra

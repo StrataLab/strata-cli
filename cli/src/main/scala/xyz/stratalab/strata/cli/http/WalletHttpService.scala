@@ -1,37 +1,25 @@
 package xyz.stratalab.strata.cli.http
+
 import cats.Id
-import cats.effect.IO
-import cats.effect._
-import xyz.stratalab.strata.cli.impl.WalletModeHelper
-import co.topl.brambl.dataApi.GenusQueryAlgebra
-import co.topl.brambl.dataApi.WalletStateAlgebra
-import co.topl.brambl.servicekit.FellowshipStorageApi
-import co.topl.brambl.servicekit.TemplateStorageApi
-import xyz.stratalab.shared.models.AssetTokenBalanceDTO
-import xyz.stratalab.shared.models.BalanceRequestDTO
-import xyz.stratalab.shared.models.BalanceResponseDTO
-import xyz.stratalab.shared.models.FellowshipDTO
-import xyz.stratalab.shared.models.GroupTokenBalanceDTO
-import xyz.stratalab.shared.models.LvlBalance
-import xyz.stratalab.shared.models.SeriesTokenBalanceDTO
-import xyz.stratalab.shared.models.SimpleErrorDTO
-import xyz.stratalab.shared.models.TemplateDTO
+import cats.effect.{IO, _}
+import co.topl.brambl.dataApi.{GenusQueryAlgebra, WalletStateAlgebra}
+import co.topl.brambl.servicekit.{FellowshipStorageApi, TemplateStorageApi}
+import co.topl.brambl.utils.Encoding
 import io.circe.generic.auto._
 import io.circe.syntax._
 import io.grpc.ManagedChannel
-import org.http4s.HttpRoutes
-import org.http4s._
 import org.http4s.circe._
 import org.http4s.dsl.io._
+import org.http4s.{HttpRoutes, _}
+import xyz.stratalab.shared.models.{AssetTokenBalanceDTO, BalanceRequestDTO, BalanceResponseDTO, FellowshipDTO, GroupTokenBalanceDTO, LvlBalance, NetworkResponseDTO, SeriesTokenBalanceDTO, SimpleErrorDTO, TemplateDTO}
+import xyz.stratalab.strata.cli.impl.WalletModeHelper
 
 import java.sql.Connection
-import xyz.stratalab.shared.models.NetworkResponseDTO
-import co.topl.brambl.utils.Encoding
 
 case class WalletHttpService(
-    walletStateAlgebra: WalletStateAlgebra[IO],
-    channelResource: Resource[IO, ManagedChannel],
-    walletResource: Resource[IO, Connection]
+  walletStateAlgebra: WalletStateAlgebra[IO],
+  channelResource:    Resource[IO, ManagedChannel],
+  walletResource:     Resource[IO, Connection]
 ) {
 
   def walletService(networkName: String, networkId: String) =
@@ -72,13 +60,9 @@ case class WalletHttpService(
                 (x: @unchecked) match { // we have filtered out Unknown tokens
                   case LvlBalance(b) => acc.copy(lvlBalance = b)
                   case GroupTokenBalanceDTO(g, b) =>
-                    acc.copy(groupBalances =
-                      acc.groupBalances :+ GroupTokenBalanceDTO(g, b)
-                    )
+                    acc.copy(groupBalances = acc.groupBalances :+ GroupTokenBalanceDTO(g, b))
                   case SeriesTokenBalanceDTO(id, balance) =>
-                    acc.copy(seriesBalances =
-                      acc.seriesBalances :+ SeriesTokenBalanceDTO(id, balance)
-                    )
+                    acc.copy(seriesBalances = acc.seriesBalances :+ SeriesTokenBalanceDTO(id, balance))
                   case AssetTokenBalanceDTO(group, series, balance) =>
                     acc.copy(assetBalances =
                       acc.assetBalances :+ AssetTokenBalanceDTO(
@@ -125,7 +109,7 @@ case class WalletHttpService(
           resTemplates <- templates.traverse { x =>
             IO(
               (for {
-                json <- parse(x.lockTemplate)
+                json    <- parse(x.lockTemplate)
                 decoded <- decodeLockTemplate[Id](json)
               } yield TemplateDTO(
                 x.yIdx,

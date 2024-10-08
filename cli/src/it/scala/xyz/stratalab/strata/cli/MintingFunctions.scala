@@ -8,10 +8,7 @@ import munit.CatsEffectSuite
 
 trait MintingFunctions extends PolicyTemplates {
 
-  self: CatsEffectSuite
-    with CommonTxOperations
-    with AliceConstants
-    with BobConstants =>
+  self: CatsEffectSuite with CommonTxOperations with AliceConstants with BobConstants =>
 
   import scala.concurrent.duration._
 
@@ -42,7 +39,7 @@ trait MintingFunctions extends PolicyTemplates {
         1,
         100,
         ALICE_FIRST_GROUP_POLICY,
-        ALICE_FIRST_GROUP_MINTING_TX, 
+        ALICE_FIRST_GROUP_MINTING_TX,
         secure
       ).run(aliceContext),
       ExitCode.Success

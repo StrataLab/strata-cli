@@ -1,21 +1,17 @@
 package xyz.stratalab.app
 
-import xyz.stratalab.shared.models.BalanceRequestDTO
-import xyz.stratalab.shared.models.BalanceResponseDTO
-import xyz.stratalab.shared.models.FellowshipDTO
-import xyz.stratalab.shared.models.SimpleErrorDTO
-import xyz.stratalab.shared.models.TemplateDTO
 import com.raquo.laminar.api.L._
 import io.circe.Json
 import io.circe.generic.auto._
 import io.circe.parser.parse
+import xyz.stratalab.shared.models.{BalanceRequestDTO, BalanceResponseDTO, FellowshipDTO, SimpleErrorDTO, TemplateDTO}
 
 case class FromSectionComponent(
-    currentSection: Var[TxSection],
-    fromFellowship: Var[String],
-    fromTemplate: Var[String],
-    fromInteraction: Var[String],
-    availableAssets: Var[List[(Option[String], Option[String])]]
+  currentSection:  Var[TxSection],
+  fromFellowship:  Var[String],
+  fromTemplate:    Var[String],
+  fromInteraction: Var[String],
+  availableAssets: Var[List[(Option[String], Option[String])]]
 ) {
 
   private val fellowshipOptions: Var[Seq[Node]] = Var(
@@ -26,6 +22,7 @@ case class FromSectionComponent(
       )
     )
   )
+
   private val templateOptions: Var[Seq[Node]] = Var(
     Seq(
       option(
@@ -124,9 +121,9 @@ case class FromSectionComponent(
     .combineWith(fromInteraction.signal)
 
   private def getHeader(
-      txSection: TxSection,
-      fromFellowship: String,
-      fromTemplate: String
+    txSection:      TxSection,
+    fromFellowship: String,
+    fromTemplate:   String
   ) =
     txSection match {
       case FromSection =>
@@ -283,7 +280,7 @@ case class FromSectionComponent(
           child.text <-- lvlBalance.signal.map(x =>
             x match {
               case Left(error) => error
-              case Right(_)    => s"Successfully obtained balance."
+              case Right(_)    => "Successfully obtained balance."
             }
           )
         ),
@@ -343,25 +340,25 @@ case class FromSectionComponent(
 
                   assetBalance.update(_ =>
                     tr(td(x.lvlBalance), td("LVL")) ::
-                      x.groupBalances.map(y =>
-                        tr(
-                          td(y.balance),
-                          td("Group Token [" + y.id + "]")
-                        )
-                      ) ++ x.seriesBalances.map(y =>
-                        tr(
-                          td(y.balance),
-                          td("Series Token [" + y.id + "]")
-                        )
-                      ) ++
-                      x.assetBalances.map(y =>
-                        tr(
-                          td(y.balance),
-                          td(
-                            "Asset [" + y.group + ":" + y.series + " " + "]"
-                          )
+                    x.groupBalances.map(y =>
+                      tr(
+                        td(y.balance),
+                        td("Group Token [" + y.id + "]")
+                      )
+                    ) ++ x.seriesBalances.map(y =>
+                      tr(
+                        td(y.balance),
+                        td("Series Token [" + y.id + "]")
+                      )
+                    ) ++
+                    x.assetBalances.map(y =>
+                      tr(
+                        td(y.balance),
+                        td(
+                          "Asset [" + y.group + ":" + y.series + " " + "]"
                         )
                       )
+                    )
                   )
                   lvlBalance.update(_ => Right(x.lvlBalance))
                 case None =>

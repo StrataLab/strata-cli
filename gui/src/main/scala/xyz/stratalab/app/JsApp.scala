@@ -5,8 +5,8 @@ import com.raquo.laminar.api.L._
 import org.scalajs.dom
 
 object JsApp {
-  
-  def main(args: Array[String]): Unit  = {
+
+  def main(args: Array[String]): Unit = {
     // Scala.js outputs to the browser dev console, not the sbt session
     // Always have the browser dev console open when developing web UIs.
     println("-- Scala.js app start --")

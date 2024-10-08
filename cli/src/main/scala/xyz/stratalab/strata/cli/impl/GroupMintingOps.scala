@@ -1,13 +1,10 @@
 package xyz.stratalab.strata.cli.impl
 
-import cats.effect.kernel.Resource
-import cats.effect.kernel.Sync
+import cats.effect.kernel.{Resource, Sync}
 import co.topl.brambl.builders.TransactionBuilderApi
 import co.topl.brambl.dataApi.WalletStateAlgebra
-import co.topl.brambl.models.Event
-import co.topl.brambl.models.Indices
-import co.topl.brambl.models.LockAddress
 import co.topl.brambl.models.box.Lock
+import co.topl.brambl.models.{Event, Indices, LockAddress}
 import co.topl.brambl.utils.Encoding
 import co.topl.brambl.wallet.WalletApi
 import co.topl.genus.services.Txo
@@ -30,16 +27,16 @@ trait GroupMintingOps[G[_]] extends CommonTxOps {
   val wa: WalletApi[G]
 
   def buildGroupTxAux(
-      lvlTxos: Seq[Txo],
-      nonlvlTxos: Seq[Txo],
-      predicateFundsToUnlock: Lock.Predicate,
-      amount: Long,
-      fee: Long,
-      someNextIndices: Option[Indices],
-      keyPair: KeyPair,
-      outputFile: String,
-      groupPolicy: Event.GroupPolicy,
-      changeLock: Option[Lock]
+    lvlTxos:                Seq[Txo],
+    nonlvlTxos:             Seq[Txo],
+    predicateFundsToUnlock: Lock.Predicate,
+    amount:                 Long,
+    fee:                    Long,
+    someNextIndices:        Option[Indices],
+    keyPair:                KeyPair,
+    outputFile:             String,
+    groupPolicy:            Event.GroupPolicy,
+    changeLock:             Option[Lock]
   ) = (if (lvlTxos.isEmpty) {
          Sync[G].raiseError(CreateTxError("No LVL txos found"))
        } else {
@@ -69,16 +66,16 @@ trait GroupMintingOps[G[_]] extends CommonTxOps {
        })
 
   private def buildGroupTransaction(
-      txos: Seq[Txo],
-      predicateFundsToUnlock: Lock.Predicate,
-      lockForChange: Lock,
-      recipientLockAddress: LockAddress,
-      amount: Long,
-      fee: Long,
-      someNextIndices: Option[Indices],
-      keyPair: KeyPair,
-      outputFile: String,
-      groupPolicy: Event.GroupPolicy
+    txos:                   Seq[Txo],
+    predicateFundsToUnlock: Lock.Predicate,
+    lockForChange:          Lock,
+    recipientLockAddress:   LockAddress,
+    amount:                 Long,
+    fee:                    Long,
+    someNextIndices:        Option[Indices],
+    keyPair:                KeyPair,
+    outputFile:             String,
+    groupPolicy:            Event.GroupPolicy
   ): G[Unit] =
     for {
       changeAddress <- tba.lockAddress(

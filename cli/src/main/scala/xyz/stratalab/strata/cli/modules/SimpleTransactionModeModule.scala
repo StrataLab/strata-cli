@@ -1,27 +1,23 @@
 package xyz.stratalab.strata.cli.modules
 
 import cats.effect.IO
-import xyz.stratalab.strata.cli.StrataCliSubCmd
-import xyz.stratalab.strata.cli.controllers.SimpleTransactionController
-import xyz.stratalab.strata.cli.StrataCliParams
 import scopt.OParser
-import xyz.stratalab.strata.cli.StrataCliParamsParserModule
+import xyz.stratalab.strata.cli.controllers.SimpleTransactionController
+import xyz.stratalab.strata.cli.{StrataCliParams, StrataCliParamsParserModule, StrataCliSubCmd}
 
-trait SimpleTransactionModeModule
-    extends SimpleTransactionAlgebraModule
-    with WalletStateAlgebraModule {
+trait SimpleTransactionModeModule extends SimpleTransactionAlgebraModule with WalletStateAlgebraModule {
 
   def simpleTransactionSubcmds(
-      validateParams: StrataCliParams
+    validateParams: StrataCliParams
   ): IO[Either[String, String]] = validateParams.subcmd match {
     case StrataCliSubCmd.invalid =>
-        IO.pure(
-          Left(
-            OParser.usage(
-              StrataCliParamsParserModule.simpleTransactionMode
-            ) + "\nA subcommand needs to be specified"
-          )
+      IO.pure(
+        Left(
+          OParser.usage(
+            StrataCliParamsParserModule.simpleTransactionMode
+          ) + "\nA subcommand needs to be specified"
         )
+      )
     case StrataCliSubCmd.create =>
       new SimpleTransactionController(
         walletStateAlgebra(

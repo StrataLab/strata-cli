@@ -1,12 +1,10 @@
 package xyz.stratalab.strata.cli.modules
 
 import cats.effect.IO
-import xyz.stratalab.strata.cli.StrataCliParams
-import xyz.stratalab.strata.cli.StrataCliSubCmd
-import xyz.stratalab.strata.cli.controllers.WalletController
 import co.topl.brambl.dataApi.{GenusQueryAlgebra, RpcChannelResource}
 import scopt.OParser
-import xyz.stratalab.strata.cli.StrataCliParamsParserModule
+import xyz.stratalab.strata.cli.controllers.WalletController
+import xyz.stratalab.strata.cli.{StrataCliParams, StrataCliParamsParserModule, StrataCliSubCmd}
 
 trait WalletModeModule
     extends WalletStateAlgebraModule
@@ -17,7 +15,7 @@ trait WalletModeModule
     with RpcChannelResource {
 
   def walletModeSubcmds(
-      validateParams: StrataCliParams
+    validateParams: StrataCliParams
   ): IO[Either[String, String]] = {
     val walletController = new WalletController(
       walletStateAlgebra(

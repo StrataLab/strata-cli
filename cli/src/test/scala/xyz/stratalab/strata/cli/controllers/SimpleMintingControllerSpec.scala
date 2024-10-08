@@ -1,22 +1,18 @@
 package xyz.stratalab.strata.cli.controllers
 
+import cats.Monad
 import cats.effect.IO
 import cats.effect.kernel.Sync
-import xyz.stratalab.strata.cli.impl.AssetStatementParserModule
-import xyz.stratalab.strata.cli.impl.GroupPolicyParserModule
-import xyz.stratalab.strata.cli.impl.SeriesPolicyParserModule
-import xyz.stratalab.strata.cli.impl.SimpleMintingAlgebra
-import xyz.stratalab.strata.cli.modules.DummyObjects
-import xyz.stratalab.strata.cli.modules.SimpleMintingAlgebraModule
 import co.topl.brambl.constants.NetworkConstants
-import munit.CatsEffectSuite
-import java.io.File
-import cats.Monad
-import xyz.stratalab.strata.cli.mockbase.BaseWalletStateAlgebra
 import co.topl.brambl.models.Indices
-import co.topl.brambl.models.box.Lock
-import co.topl.brambl.models.box.Challenge
+import co.topl.brambl.models.box.{Challenge, Lock}
+import munit.CatsEffectSuite
 import quivr.models.Proposition
+import xyz.stratalab.strata.cli.impl.{AssetStatementParserModule, GroupPolicyParserModule, SeriesPolicyParserModule, SimpleMintingAlgebra}
+import xyz.stratalab.strata.cli.mockbase.BaseWalletStateAlgebra
+import xyz.stratalab.strata.cli.modules.{DummyObjects, SimpleMintingAlgebraModule}
+
+import java.io.File
 
 class SimpleMintingControllerSpec
     extends CatsEffectSuite
@@ -26,37 +22,36 @@ class SimpleMintingControllerSpec
     with SimpleMintingAlgebraModule
     with DummyObjects {
 
-
   def makeWalletStateAlgebraMockWithAddress[F[_]: Monad] =
     new BaseWalletStateAlgebra[F] {
 
       override def getCurrentIndicesForFunds(
-          fellowship: String,
-          template: String,
-          interaction: Option[Int]
+        fellowship:  String,
+        template:    String,
+        interaction: Option[Int]
       ): F[Option[Indices]] = Monad[F].pure(
         Some(Indices(1, 1, 1))
       )
 
       override def getNextIndicesForFunds(
-          fellowship: String,
-          template: String
+        fellowship: String,
+        template:   String
       ): F[Option[Indices]] = Monad[F].pure(
         Some(Indices(1, 1, 1))
       )
 
       override def updateWalletState(
-          lockPredicate: String,
-          lockAddress: String,
-          routine: Option[String],
-          vk: Option[String],
-          indices: Indices
+        lockPredicate: String,
+        lockAddress:   String,
+        routine:       Option[String],
+        vk:            Option[String],
+        indices:       Indices
       ): F[Unit] = Monad[F].pure(())
 
       override def getLock(
-          fellowship: String,
-          template: String,
-          nextState: Int
+        fellowship: String,
+        template:   String,
+        nextState:  Int
       ): F[Option[Lock]] =
         Monad[F].pure(
           Some(
@@ -96,8 +91,6 @@ class SimpleMintingControllerSpec
         )
 
     }
-
-
 
   val controllerUnderTest = new SimpleMintingController(
     groupPolicyParserAlgebra(NetworkConstants.PRIVATE_NETWORK_ID),
@@ -156,6 +149,7 @@ class SimpleMintingControllerSpec
       Right("Transaction successfully created")
     )
   }
+
   test(
     "createSimpleAssetMintingTransactionFromParams should create a minting transaction"
   ) {

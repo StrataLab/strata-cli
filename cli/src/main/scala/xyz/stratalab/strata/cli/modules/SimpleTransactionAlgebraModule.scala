@@ -1,7 +1,7 @@
 package xyz.stratalab.strata.cli.modules
 
-import co.topl.brambl.constants.NetworkConstants
 import cats.effect.IO
+import co.topl.brambl.constants.NetworkConstants
 import xyz.stratalab.strata.cli.impl.SimpleTransactionAlgebra
 
 trait SimpleTransactionAlgebraModule
@@ -10,11 +10,11 @@ trait SimpleTransactionAlgebraModule
     with GenusQueryAlgebraModule {
 
   def simplTransactionOps(
-      walletFile: String,
-      networkId: Int,
-      host: String,
-      bifrostPort: Int,
-      secureConnection: Boolean
+    walletFile:       String,
+    networkId:        Int,
+    host:             String,
+    bifrostPort:      Int,
+    secureConnection: Boolean
   ) = SimpleTransactionAlgebra
     .make[IO](
       walletApi,

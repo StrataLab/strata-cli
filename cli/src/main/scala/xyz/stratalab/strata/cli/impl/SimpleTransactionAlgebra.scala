@@ -1,14 +1,11 @@
 package xyz.stratalab.strata.cli.impl
 
-import cats.effect.kernel.Resource
-import cats.effect.kernel.Sync
+import cats.effect.kernel.{Resource, Sync}
 import co.topl.brambl.builders.TransactionBuilderApi
 import co.topl.brambl.codecs.AddressCodecs
-import co.topl.brambl.dataApi.GenusQueryAlgebra
-import co.topl.brambl.dataApi.WalletStateAlgebra
-import co.topl.brambl.models.Indices
-import co.topl.brambl.models.LockAddress
+import co.topl.brambl.dataApi.{GenusQueryAlgebra, WalletStateAlgebra}
 import co.topl.brambl.models.box.Lock
+import co.topl.brambl.models.{Indices, LockAddress}
 import co.topl.brambl.syntax.ValueTypeIdentifier
 import co.topl.brambl.utils.Encoding
 import co.topl.brambl.wallet.WalletApi
@@ -20,21 +17,21 @@ import java.io.FileOutputStream
 trait SimpleTransactionAlgebra[F[_]] {
 
   def createSimpleTransactionFromParams(
-      keyfile: String,
-      password: String,
-      fromFellowship: String,
-      fromTemplate: String,
-      someFromInteraction: Option[Int],
-      someChangeFellowship: Option[String],
-      someChangeTemplate: Option[String],
-      someChangeInteraction: Option[Int],
-      someToAddress: Option[LockAddress],
-      someToFellowship: Option[String],
-      someToTemplate: Option[String],
-      amount: Long,
-      fee: Long,
-      outputFile: String,
-      tokenType: ValueTypeIdentifier
+    keyfile:               String,
+    password:              String,
+    fromFellowship:        String,
+    fromTemplate:          String,
+    someFromInteraction:   Option[Int],
+    someChangeFellowship:  Option[String],
+    someChangeTemplate:    Option[String],
+    someChangeInteraction: Option[Int],
+    someToAddress:         Option[LockAddress],
+    someToFellowship:      Option[String],
+    someToTemplate:        Option[String],
+    amount:                Long,
+    fee:                   Long,
+    outputFile:            String,
+    tokenType:             ValueTypeIdentifier
   ): F[Either[SimpleTransactionAlgebraError, Unit]]
 
 }
@@ -42,28 +39,28 @@ trait SimpleTransactionAlgebra[F[_]] {
 object SimpleTransactionAlgebra {
 
   def make[F[_]: Sync](
-      walletApi: WalletApi[F],
-      walletStateApi: WalletStateAlgebra[F],
-      utxoAlgebra: GenusQueryAlgebra[F],
-      transactionBuilderApi: TransactionBuilderApi[F],
-      walletManagementUtils: WalletManagementUtils[F]
+    walletApi:             WalletApi[F],
+    walletStateApi:        WalletStateAlgebra[F],
+    utxoAlgebra:           GenusQueryAlgebra[F],
+    transactionBuilderApi: TransactionBuilderApi[F],
+    walletManagementUtils: WalletManagementUtils[F]
   ) =
     new SimpleTransactionAlgebra[F] {
 
       private def buildTransaction(
-          txos: Seq[Txo],
-          someChangeFellowship: Option[String],
-          someChangeTemplate: Option[String],
-          someChangeInteraction: Option[Int],
-          predicateFundsToUnlock: Lock.Predicate,
-          lockForChange: Lock,
-          recipientLockAddress: LockAddress,
-          amount: Long,
-          fee: Long,
-          someNextIndices: Option[Indices],
-          keyPair: KeyPair,
-          outputFile: String,
-          typeIdentifier: ValueTypeIdentifier
+        txos:                   Seq[Txo],
+        someChangeFellowship:   Option[String],
+        someChangeTemplate:     Option[String],
+        someChangeInteraction:  Option[Int],
+        predicateFundsToUnlock: Lock.Predicate,
+        lockForChange:          Lock,
+        recipientLockAddress:   LockAddress,
+        amount:                 Long,
+        fee:                    Long,
+        someNextIndices:        Option[Indices],
+        keyPair:                KeyPair,
+        outputFile:             String,
+        typeIdentifier:         ValueTypeIdentifier
       ) = {
         import cats.implicits._
         import TransactionBuilderApi.implicits._
@@ -147,21 +144,21 @@ object SimpleTransactionAlgebra {
       }
 
       override def createSimpleTransactionFromParams(
-          keyfile: String,
-          password: String,
-          fromFellowship: String,
-          fromTemplate: String,
-          someFromInteraction: Option[Int],
-          someChangeFellowship: Option[String],
-          someChangeTemplate: Option[String],
-          someChangeInteraction: Option[Int],
-          someToAddress: Option[LockAddress],
-          someToFellowship: Option[String],
-          someToTemplate: Option[String],
-          amount: Long,
-          fee: Long,
-          outputFile: String,
-          tokenType: ValueTypeIdentifier
+        keyfile:               String,
+        password:              String,
+        fromFellowship:        String,
+        fromTemplate:          String,
+        someFromInteraction:   Option[Int],
+        someChangeFellowship:  Option[String],
+        someChangeTemplate:    Option[String],
+        someChangeInteraction: Option[Int],
+        someToAddress:         Option[LockAddress],
+        someToFellowship:      Option[String],
+        someToTemplate:        Option[String],
+        amount:                Long,
+        fee:                   Long,
+        outputFile:            String,
+        tokenType:             ValueTypeIdentifier
       ): F[Either[SimpleTransactionAlgebraError, Unit]] = {
         import cats.implicits._
 
@@ -182,9 +179,7 @@ object SimpleTransactionAlgebra {
             someFromInteraction
           )
           predicateFundsToUnlock <- someCurrentIndices
-            .map(currentIndices =>
-              walletStateApi.getLockByIndex(currentIndices)
-            )
+            .map(currentIndices => walletStateApi.getLockByIndex(currentIndices))
             .sequence
             .map(_.flatten.map(Lock().withPredicate(_)))
           someNextIndices <-
@@ -231,7 +226,7 @@ object SimpleTransactionAlgebra {
           txos = response
             .filter(x =>
               !x.transactionOutput.value.value.isTopl &&
-                !x.transactionOutput.value.value.isUpdateProposal
+              !x.transactionOutput.value.value.isUpdateProposal
             )
           // either toAddress or both toTemplate and toFellowship must be defined
           toAddressOpt <- (
@@ -244,9 +239,7 @@ object SimpleTransactionAlgebra {
               walletStateApi
                 .getAddress(fellowship, template, None)
                 .map(
-                  _.flatMap(addrStr =>
-                    AddressCodecs.decodeAddress(addrStr).toOption
-                  )
+                  _.flatMap(addrStr => AddressCodecs.decodeAddress(addrStr).toOption)
                 )
             case _ => Sync[F].point(None)
           }

@@ -1,10 +1,10 @@
 package xyz.stratalab.strata.cli
 
 case class WalletKeyConfig(
-    walletFile: String,
-    keyFile: String,
-    password: String,
-    mnemonicFile: String
+  walletFile:   String,
+  keyFile:      String,
+  password:     String,
+  mnemonicFile: String
 )
 
 trait BaseConstants {
@@ -15,7 +15,7 @@ trait BaseConstants {
 
   val BASE_FEE = 10
 
-  val HOST = "localhost"//"testnet.topl.co"
+  val HOST = "localhost" // "testnet.topl.co"
 
   val BIFROST_PORT = 9084 // 443
 

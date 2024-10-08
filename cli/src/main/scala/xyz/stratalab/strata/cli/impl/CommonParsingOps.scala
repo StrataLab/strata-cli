@@ -2,10 +2,9 @@ package xyz.stratalab.strata.cli.impl
 
 import co.topl.brambl.codecs.AddressCodecs
 import co.topl.brambl.constants.NetworkConstants
-import co.topl.brambl.models.TransactionId
-import co.topl.brambl.models.TransactionOutputAddress
 import co.topl.brambl.models.box.Value
 import co.topl.brambl.models.transaction.UnspentTransactionOutput
+import co.topl.brambl.models.{TransactionId, TransactionOutputAddress}
 import co.topl.brambl.utils.Encoding
 import com.google.protobuf.ByteString
 import quivr.models.Int128
@@ -17,8 +16,8 @@ object CommonParsingOps {
   import cats.implicits._
 
   def parseUnspentTransactionOutput(
-      lockAddressString: String,
-      value: Long
+    lockAddressString: String,
+    value:             Long
   ): Either[CommonParserError, UnspentTransactionOutput] =
     for {
       lockAddress <-
@@ -41,23 +40,21 @@ object CommonParsingOps {
     )
 
   def parseTransactionOuputAddress(
-      networkId: Int,
-      address: String
+    networkId: Int,
+    address:   String
   ) = for {
-    sp <- Right(address.split("#"))
-    idx <- Try(sp(1).toInt).toEither.leftMap(_ =>
-        InvalidAddress("Invalid index for address: " + address)
-      )
+    sp  <- Right(address.split("#"))
+    idx <- Try(sp(1).toInt).toEither.leftMap(_ => InvalidAddress("Invalid index for address: " + address))
     txIdByteArray <- Encoding
-        .decodeFromBase58(sp(0))
-        .leftMap(_ => InvalidAddress("Invalid transaction id for: " + sp(0)))
+      .decodeFromBase58(sp(0))
+      .leftMap(_ => InvalidAddress("Invalid transaction id for: " + sp(0)))
     txId <- Right(
-        TransactionId(
-          ByteString.copyFrom(
-            txIdByteArray
-          )
+      TransactionId(
+        ByteString.copyFrom(
+          txIdByteArray
         )
       )
+    )
   } yield TransactionOutputAddress(
     networkId,
     NetworkConstants.MAIN_LEDGER_ID,

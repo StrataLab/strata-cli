@@ -1,23 +1,19 @@
 package xyz.stratalab.strata.cli.controllers
 
-import cats.effect.kernel.Resource
-import cats.effect.kernel.Sync
-import xyz.stratalab.strata.cli.impl.CommonParserError
-import xyz.stratalab.strata.cli.impl.TransactionAlgebra
-import xyz.stratalab.strata.cli.impl.TxParserAlgebra
+import cats.effect.kernel.{Resource, Sync}
 import co.topl.brambl.display.DisplayOps.DisplayTOps
 import co.topl.brambl.models.transaction.IoTransaction
+import xyz.stratalab.strata.cli.impl.{CommonParserError, TransactionAlgebra, TxParserAlgebra}
 
-import java.io.FileInputStream
-import java.io.FileOutputStream
+import java.io.{FileInputStream, FileOutputStream}
 
 class TxController[F[_]: Sync](
-    txParserAlgebra: TxParserAlgebra[F],
-    transactionOps: TransactionAlgebra[F]
+  txParserAlgebra: TxParserAlgebra[F],
+  transactionOps:  TransactionAlgebra[F]
 ) {
 
   def inspectTransaction(
-      inputFile: String
+    inputFile: String
   ) = {
     import cats.implicits._
     val inputRes = Resource
@@ -26,7 +22,7 @@ class TxController[F[_]: Sync](
           .delay(new FileInputStream(inputFile))
       )(fos => Sync[F].delay(fos.close()))
     (for {
-      tx <- inputRes.use(in => Sync[F].delay(IoTransaction.parseFrom(in)))
+      tx     <- inputRes.use(in => Sync[F].delay(IoTransaction.parseFrom(in)))
       output <- Sync[F].delay(tx.display)
     } yield output).attempt.map(_ match {
       case Right(output) => Right(output)
@@ -35,8 +31,8 @@ class TxController[F[_]: Sync](
   }
 
   def createComplexTransaction(
-      inputFile: String,
-      outputFile: String
+    inputFile:  String,
+    outputFile: String
   ): F[Either[String, String]] = {
     import cats.implicits._
     (for {
@@ -52,16 +48,15 @@ class TxController[F[_]: Sync](
             .delay(new FileOutputStream(outputFile))
         )(fos => Sync[F].delay(fos.close()))
         .use(fos => Sync[F].delay(tx.writeTo(fos)))
-    } yield {
-      "Transaction created"
-    }).attempt.map(_ match {
+    } yield "Transaction created").attempt.map(_ match {
       case Right(_)                       => Right("Transaction created")
       case Left(value: CommonParserError) => Left(value.description)
       case Left(e)                        => Left(e.getMessage())
     })
   }
+
   def broadcastSimpleTransactionFromParams(
-      provedTxFile: String
+    provedTxFile: String
   ): F[Either[String, String]] = {
     import cats.implicits._
     transactionOps
@@ -75,10 +70,10 @@ class TxController[F[_]: Sync](
   }
 
   def proveSimpleTransactionFromParams(
-      inputFile: String,
-      keyFile: String,
-      password: String,
-      outputFile: String
+    inputFile:  String,
+    keyFile:    String,
+    password:   String,
+    outputFile: String
   ): F[Either[String, String]] = {
     import cats.implicits._
     val inputRes = Resource

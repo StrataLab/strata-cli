@@ -1,16 +1,15 @@
 package xyz.stratalab.strata.cli.controllers
 
 import cats.effect.IO
-import xyz.stratalab.strata.cli.mockbase.BaseBifrostQueryAlgebra
-import co.topl.brambl.models.transaction.IoTransaction
-import co.topl.consensus.models.BlockId
-import co.topl.node.models.BlockBody
-import munit.CatsEffectSuite
-import xyz.stratalab.strata.cli.modules.DummyObjects
-import xyz.stratalab.strata.cli.views.BlockDisplayOps
 import co.topl.brambl.display.DisplayOps.DisplayTOps
 import co.topl.brambl.models.TransactionId
-import co.topl.consensus.models.BlockHeader
+import co.topl.brambl.models.transaction.IoTransaction
+import co.topl.consensus.models.{BlockHeader, BlockId}
+import co.topl.node.models.BlockBody
+import munit.CatsEffectSuite
+import xyz.stratalab.strata.cli.mockbase.BaseBifrostQueryAlgebra
+import xyz.stratalab.strata.cli.modules.DummyObjects
+import xyz.stratalab.strata.cli.views.BlockDisplayOps
 
 class BifrostQueryControllerSpec extends CatsEffectSuite with DummyObjects {
 
@@ -19,7 +18,7 @@ class BifrostQueryControllerSpec extends CatsEffectSuite with DummyObjects {
       new BaseBifrostQueryAlgebra[IO] {
 
         override def blockByHeight(
-            height: Long
+          height: Long
         ): IO[Option[(BlockId, BlockHeader, BlockBody, Seq[IoTransaction])]] =
           IO(None)
 
@@ -31,12 +30,13 @@ class BifrostQueryControllerSpec extends CatsEffectSuite with DummyObjects {
         Left("No blocks found at that height")
       )
   }
+
   test("blockByHeight should display a block when it is there") {
     val bifrostQueryController = new BifrostQueryController[IO](
       new BaseBifrostQueryAlgebra[IO] {
 
         override def blockByHeight(
-            height: Long
+          height: Long
         ): IO[Option[(BlockId, BlockHeader, BlockBody, Seq[IoTransaction])]] =
           IO(
             Some((blockId01, blockHeader01, blockBody01, Seq(iotransaction01)))
@@ -56,7 +56,7 @@ class BifrostQueryControllerSpec extends CatsEffectSuite with DummyObjects {
       new BaseBifrostQueryAlgebra[IO] {
 
         override def blockById(
-            blockId: BlockId
+          blockId: BlockId
         ): IO[Option[(BlockId, BlockHeader, BlockBody, Seq[IoTransaction])]] =
           IO(None)
 
@@ -74,7 +74,7 @@ class BifrostQueryControllerSpec extends CatsEffectSuite with DummyObjects {
       new BaseBifrostQueryAlgebra[IO] {
 
         override def blockById(
-            blockId: BlockId
+          blockId: BlockId
         ): IO[Option[(BlockId, BlockHeader, BlockBody, Seq[IoTransaction])]] =
           IO(
             Some((blockId01, blockHeader01, blockBody01, Seq(iotransaction01)))
@@ -94,7 +94,7 @@ class BifrostQueryControllerSpec extends CatsEffectSuite with DummyObjects {
       new BaseBifrostQueryAlgebra[IO] {
 
         override def fetchTransaction(
-            txId: TransactionId
+          txId: TransactionId
         ): IO[Option[IoTransaction]] = IO(None)
 
       }
@@ -113,7 +113,7 @@ class BifrostQueryControllerSpec extends CatsEffectSuite with DummyObjects {
       new BaseBifrostQueryAlgebra[IO] {
 
         override def fetchTransaction(
-            txId: TransactionId
+          txId: TransactionId
         ): IO[Option[IoTransaction]] = IO(Some(iotransaction01))
 
       }

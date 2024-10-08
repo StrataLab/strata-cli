@@ -10,10 +10,7 @@ import java.nio.file.Paths
 
 trait CommonFunctions extends PolicyTemplates {
 
-  self: CatsEffectSuite
-    with CommonTxOperations
-    with AliceConstants
-    with BobConstants =>
+  self: CatsEffectSuite with CommonTxOperations with AliceConstants with BobConstants =>
 
   val tmpDirectory = FunFixture[Path](
     setup = { _ =>
@@ -29,7 +26,7 @@ trait CommonFunctions extends PolicyTemplates {
 
   import scala.concurrent.duration._
 
-  def moveFundsFromGenesisToAlice(secure: Boolean = false) = {
+  def moveFundsFromGenesisToAlice(secure: Boolean = false) =
     for {
       _ <- createWallet().run(aliceContext)
       _ <- IO.asyncForIO.timeout(
@@ -43,8 +40,8 @@ trait CommonFunctions extends PolicyTemplates {
         240.seconds
       )
       ALICE_TO_ADDRESS <- walletController(ALICE_WALLET).currentaddress("self", "default", None)
-      _ <- IO.println(s"Alice's address is $ALICE_TO_ADDRESS")
-      _ <- IO.println("Moving funds from genesis to alice")
+      _                <- IO.println(s"Alice's address is $ALICE_TO_ADDRESS")
+      _                <- IO.println("Moving funds from genesis to alice")
       _ <- assertIO(
         createSimpleTransactionToAddress(
           "nofellowship",
@@ -79,12 +76,11 @@ trait CommonFunctions extends PolicyTemplates {
       res <- IO.asyncForIO.timeout(
         (for {
           queryRes <- queryAccount("self", "default", None, secure).run(aliceContext)
-          _ <- IO.sleep(5.seconds)
+          _        <- IO.sleep(5.seconds)
         } yield queryRes)
           .iterateUntil(_ == ExitCode.Success),
         240.seconds
       )
     } yield res
-  }
 
 }

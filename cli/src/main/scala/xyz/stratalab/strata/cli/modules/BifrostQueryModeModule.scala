@@ -1,17 +1,15 @@
 package xyz.stratalab.strata.cli.modules
 
 import cats.effect.IO
-import xyz.stratalab.strata.cli.controllers.BifrostQueryController
-import xyz.stratalab.strata.cli.StrataCliSubCmd
 import co.topl.brambl.dataApi.{BifrostQueryAlgebra, RpcChannelResource}
-import xyz.stratalab.strata.cli.StrataCliParams
 import scopt.OParser
-import xyz.stratalab.strata.cli.StrataCliParamsParserModule
+import xyz.stratalab.strata.cli.controllers.BifrostQueryController
+import xyz.stratalab.strata.cli.{StrataCliParams, StrataCliParamsParserModule, StrataCliSubCmd}
 
 trait BifrostQueryModeModule extends RpcChannelResource {
 
   def bifrostQuerySubcmd(
-      validateParams: StrataCliParams
+    validateParams: StrataCliParams
   ): IO[Either[String, String]] = {
     val bifrostQueryAlgebra = BifrostQueryAlgebra.make[IO](
       channelResource(

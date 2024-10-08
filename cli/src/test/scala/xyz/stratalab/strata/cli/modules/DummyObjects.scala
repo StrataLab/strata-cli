@@ -1,39 +1,17 @@
 package xyz.stratalab.strata.cli.modules
 
-
 import cats.Monad
 import co.topl.brambl.codecs.AddressCodecs
 import co.topl.brambl.dataApi.GenusQueryAlgebra
-import co.topl.brambl.models.Datum
-import co.topl.brambl.models.GroupId
-import co.topl.brambl.models.LockAddress
-import co.topl.brambl.models.SeriesId
-import co.topl.brambl.models.TransactionId
-import co.topl.brambl.models.TransactionOutputAddress
-import co.topl.brambl.models.box.Attestation
-import co.topl.brambl.models.box.Challenge
-import co.topl.brambl.models.box.FungibilityType
-import co.topl.brambl.models.box.Lock
-import co.topl.brambl.models.box.QuantityDescriptorType
-import co.topl.brambl.models.box.Value
-import co.topl.brambl.models.transaction.SpentTransactionOutput
-import co.topl.brambl.models.transaction.UnspentTransactionOutput
+import co.topl.brambl.models.box.{Attestation, Challenge, FungibilityType, Lock, QuantityDescriptorType, Value}
+import co.topl.brambl.models.transaction.{SpentTransactionOutput, UnspentTransactionOutput}
+import co.topl.brambl.models.{Datum, GroupId, LockAddress, SeriesId, TransactionId, TransactionOutputAddress}
 import co.topl.brambl.utils.Encoding
-import co.topl.consensus.models.BlockId
-import co.topl.genus.services.Txo
-import co.topl.genus.services.TxoState
+import co.topl.consensus.models.{BlockHeader, BlockId, EligibilityCertificate, OperationalCertificate, ProtocolVersion, SignatureKesProduct, SignatureKesSum, StakingAddress, VerificationKeyKesProduct}
+import co.topl.genus.services.{Txo, TxoState}
 import co.topl.node.models.BlockBody
 import com.google.protobuf.ByteString
-import quivr.models.Int128
-import quivr.models.Proposition
-import co.topl.consensus.models.BlockHeader
-import co.topl.consensus.models.EligibilityCertificate
-import co.topl.consensus.models.OperationalCertificate
-import co.topl.consensus.models.StakingAddress
-import co.topl.consensus.models.ProtocolVersion
-import co.topl.consensus.models.VerificationKeyKesProduct
-import co.topl.consensus.models.SignatureKesProduct
-import co.topl.consensus.models.SignatureKesSum
+import quivr.models.{Int128, Proposition}
 
 trait DummyObjects {
 
@@ -47,6 +25,7 @@ trait DummyObjects {
         .get
     )
   )
+
   // corresponds to the address of the lockAddress01
   val lock01 = Lock.Predicate.of(
     Seq(
@@ -75,6 +54,7 @@ trait DummyObjects {
       )
     )
   )
+
   lazy val groupValue01 = Value(
     Value.Value.Group(
       Value.Group(
@@ -114,6 +94,7 @@ trait DummyObjects {
       )
     )
   )
+
   lazy val assetValue01 = Value(
     Value.Asset(
       Some(
@@ -219,9 +200,7 @@ trait DummyObjects {
       thresholdEvidence = ByteString.copyFrom(Array.fill[Byte](32)(0))
     ),
     operationalCertificate = OperationalCertificate(
-      VerificationKeyKesProduct(value =
-        ByteString.copyFrom(Array.fill[Byte](32)(0))
-      ),
+      VerificationKeyKesProduct(value = ByteString.copyFrom(Array.fill[Byte](32)(0))),
       SignatureKesProduct(
         SignatureKesSum(
           verificationKey = ByteString.copyFrom(Array.fill[Byte](32)(0)),
@@ -234,7 +213,7 @@ trait DummyObjects {
         subRoot = ByteString.copyFrom(Array.fill[Byte](32)(0))
       ),
       ByteString.copyFrom(Array.fill[Byte](32)(0)),
-      ByteString.copyFrom(Array.fill[Byte](64)(0)),
+      ByteString.copyFrom(Array.fill[Byte](64)(0))
     ),
     address = StakingAddress(
       value = ByteString.copyFrom(Array.fill[Byte](32)(0))
@@ -269,25 +248,24 @@ trait DummyObjects {
     new GenusQueryAlgebra[F] {
 
       override def queryUtxo(
-          fromAddress: LockAddress,
-          txoState: TxoState
-      ): F[Seq[Txo]] = {
+        fromAddress: LockAddress,
+        txoState:    TxoState
+      ): F[Seq[Txo]] =
         Monad[F].pure(
           Seq(txo01, txo02, txo03, txo04)
         )
-      }
     }
+
   def makeGenusQueryAlgebraMockWithOneAddress[F[_]: Monad] =
     new GenusQueryAlgebra[F] {
 
       override def queryUtxo(
-          fromAddress: LockAddress,
-          txoState: TxoState
-      ): F[Seq[Txo]] = {
+        fromAddress: LockAddress,
+        txoState:    TxoState
+      ): F[Seq[Txo]] =
         Monad[F].pure(
           Seq(txo01)
         )
-      }
     }
 
 }

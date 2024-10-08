@@ -1,41 +1,33 @@
 package xyz.stratalab.strata.cli.impl
 
-import cats.effect.kernel.Resource
-import cats.effect.kernel.Sync
+import cats.effect.kernel.{Resource, Sync}
 import co.topl.brambl.Context
-import co.topl.brambl.dataApi.BifrostQueryAlgebra
-import co.topl.brambl.dataApi.WalletStateAlgebra
-import co.topl.brambl.models.Datum
-import co.topl.brambl.models.Event
+import co.topl.brambl.dataApi.{BifrostQueryAlgebra, WalletStateAlgebra}
 import co.topl.brambl.models.transaction.IoTransaction
+import co.topl.brambl.models.{Datum, Event}
 import co.topl.brambl.syntax.cryptoToPbKeyPair
 import co.topl.brambl.utils.Encoding
-import co.topl.brambl.validation.TransactionAuthorizationError
-import co.topl.brambl.validation.TransactionSyntaxError
-import co.topl.brambl.validation.TransactionSyntaxError.EmptyInputs
-import co.topl.brambl.validation.TransactionSyntaxError.InvalidDataLength
-import co.topl.brambl.validation.TransactionSyntaxInterpreter
-import co.topl.brambl.wallet.CredentiallerInterpreter
-import co.topl.brambl.wallet.WalletApi
+import co.topl.brambl.validation.TransactionSyntaxError.{EmptyInputs, InvalidDataLength}
+import co.topl.brambl.validation.{TransactionAuthorizationError, TransactionSyntaxError, TransactionSyntaxInterpreter}
+import co.topl.brambl.wallet.{CredentiallerInterpreter, WalletApi}
 import co.topl.crypto.signing.ExtendedEd25519
-import co.topl.quivr.runtime.QuivrRuntimeError
-import co.topl.quivr.runtime.QuivrRuntimeErrors
+import co.topl.quivr.runtime.{QuivrRuntimeError, QuivrRuntimeErrors}
 import io.grpc.ManagedChannel
 import quivr.models.KeyPair
 
-import java.io.FileInputStream
-import java.io.FileOutputStream
+import java.io.{FileInputStream, FileOutputStream}
 
 trait TransactionAlgebra[F[_]] {
+
   def proveSimpleTransactionFromParams(
-      inputRes: Resource[F, FileInputStream],
-      keyFile: String,
-      password: String,
-      outputRes: Resource[F, FileOutputStream]
+    inputRes:  Resource[F, FileInputStream],
+    keyFile:   String,
+    password:  String,
+    outputRes: Resource[F, FileOutputStream]
   ): F[Either[SimpleTransactionAlgebraError, Unit]]
 
   def broadcastSimpleTransactionFromParams(
-      provedTxFile: String
+    provedTxFile: String
   ): F[Either[SimpleTransactionAlgebraError, String]]
 
 }
@@ -43,10 +35,10 @@ trait TransactionAlgebra[F[_]] {
 object TransactionAlgebra {
 
   def make[F[_]: Sync](
-      walletApi: WalletApi[F],
-      walletStateApi: WalletStateAlgebra[F],
-      walletManagementUtils: WalletManagementUtils[F],
-      channelResource: Resource[F, ManagedChannel]
+    walletApi:             WalletApi[F],
+    walletStateApi:        WalletStateAlgebra[F],
+    walletManagementUtils: WalletManagementUtils[F],
+    channelResource:       Resource[F, ManagedChannel]
   ) =
     new TransactionAlgebra[F] {
 
@@ -67,7 +59,7 @@ object TransactionAlgebra {
         }
 
       override def broadcastSimpleTransactionFromParams(
-          provedTxFile: String
+        provedTxFile: String
       ): F[Either[SimpleTransactionAlgebraError, String]] = {
         import co.topl.brambl.models.transaction.IoTransaction
         import cats.implicits._
@@ -82,11 +74,11 @@ object TransactionAlgebra {
             inputRes.use(fis =>
               Sync[F]
                 .blocking(IoTransaction.parseFrom(fis))
-                .adaptErr({ case _ =>
+                .adaptErr { case _ =>
                   InvalidProtobufFile("Invalid protobuf file")
-                })
+                }
             )
-          _ <- validateTx(provedTransaction)
+          _           <- validateTx(provedTransaction)
           validations <- checkSignatures(provedTransaction)
           _ <- Sync[F]
             .raiseError(
@@ -117,7 +109,7 @@ object TransactionAlgebra {
               import co.topl.brambl.syntax._
               Encoding.encodeToBase58(tx.id.value.toByteArray()).asRight
             case Left(e: SimpleTransactionAlgebraError) => e.asLeft
-            case Left(e) => UnexpectedError(e.getMessage()).asLeft
+            case Left(e)                                => UnexpectedError(e.getMessage()).asLeft
           }
         )
       }
@@ -208,10 +200,10 @@ object TransactionAlgebra {
       }
 
       override def proveSimpleTransactionFromParams(
-          inputRes: Resource[F, FileInputStream],
-          keyFile: String,
-          password: String,
-          outputRes: Resource[F, FileOutputStream]
+        inputRes:  Resource[F, FileInputStream],
+        keyFile:   String,
+        password:  String,
+        outputRes: Resource[F, FileOutputStream]
       ): F[Either[SimpleTransactionAlgebraError, Unit]] = {
         import co.topl.brambl.models.transaction.IoTransaction
         import cats.implicits._
@@ -233,7 +225,7 @@ object TransactionAlgebra {
                 .make[F](walletApi, walletStateApi, keyPair)
             )
           provedTransaction <- credentialer.prove(ioTransaction)
-          _ <- validateTx(ioTransaction)
+          _                 <- validateTx(ioTransaction)
           _ <- outputRes.use(fos =>
             Sync[F]
               .delay(provedTransaction.writeTo(fos))
@@ -242,7 +234,7 @@ object TransactionAlgebra {
           e match {
             case Right(_)                               => ().asRight
             case Left(e: SimpleTransactionAlgebraError) => e.asLeft
-            case Left(e) => UnexpectedError(e.getMessage()).asLeft
+            case Left(e)                                => UnexpectedError(e.getMessage()).asLeft
           }
         )
       }

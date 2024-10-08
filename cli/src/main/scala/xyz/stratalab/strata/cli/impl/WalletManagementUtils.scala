@@ -7,8 +7,8 @@ import co.topl.crypto.encryption.VaultStore
 import quivr.models.KeyPair
 
 class WalletManagementUtils[F[_]: Sync](
-    walletApi: WalletApi[F],
-    dataApi: WalletKeyApiAlgebra[F]
+  walletApi: WalletApi[F],
+  dataApi:   WalletKeyApiAlgebra[F]
 ) {
 
   def loadKeys(keyfile: String, password: String) = {
@@ -41,7 +41,7 @@ class WalletManagementUtils[F[_]: Sync](
   }
 
   def readInputFile(
-      inputFile: String
+    inputFile: String
   ): F[VaultStore[F]] = {
     import cats.implicits._
     dataApi

@@ -2,22 +2,22 @@ package xyz.stratalab.strata.cli.controllers
 
 import cats.Monad
 import cats.effect.kernel.Sync
-import xyz.stratalab.strata.cli.TokenType
 import co.topl.brambl.codecs.AddressCodecs
 import co.topl.brambl.dataApi.{GenusQueryAlgebra, WalletStateAlgebra}
 import co.topl.brambl.display.DisplayOps.DisplayTOps
+import xyz.stratalab.strata.cli.TokenType
 
 class GenusQueryController[F[_]: Sync](
-    walletStateAlgebra: WalletStateAlgebra[F],
-    genusQueryAlgebra: GenusQueryAlgebra[F]
+  walletStateAlgebra: WalletStateAlgebra[F],
+  genusQueryAlgebra:  GenusQueryAlgebra[F]
 ) {
 
   def queryUtxoFromParams(
-      someFromAddress: Option[String],
-      fromFellowship: String,
-      fromTemplate: String,
-      someFromInteraction: Option[Int],
-      tokenType: TokenType.Value = TokenType.all
+    someFromAddress:     Option[String],
+    fromFellowship:      String,
+    fromTemplate:        String,
+    someFromInteraction: Option[Int],
+    tokenType:           TokenType.Value = TokenType.all
   ): F[Either[String, String]] = {
 
     import cats.implicits._

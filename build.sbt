@@ -234,3 +234,6 @@ buildClient := {
       (cli / baseDirectory).value / "src" / "main" / "resources" / "static"
   )
 }
+
+addCommandAlias("checkFormat", s"; scalafixAll --check; scalafmtCheckAll")
+addCommandAlias("format", s"; scalafmtAll; scalafixAll; ")

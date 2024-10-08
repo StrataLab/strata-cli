@@ -1,28 +1,24 @@
 package xyz.stratalab.strata.cli.modules
 
 import cats.effect.IO
-import xyz.stratalab.strata.cli.controllers.GenusQueryController
 import co.topl.brambl.dataApi.{GenusQueryAlgebra, RpcChannelResource}
-import xyz.stratalab.strata.cli.StrataCliSubCmd
-import xyz.stratalab.strata.cli.StrataCliParams
 import scopt.OParser
-import xyz.stratalab.strata.cli.StrataCliParamsParserModule
+import xyz.stratalab.strata.cli.controllers.GenusQueryController
+import xyz.stratalab.strata.cli.{StrataCliParams, StrataCliParamsParserModule, StrataCliSubCmd}
 
-trait GenusQueryModeModule
-    extends WalletStateAlgebraModule
-    with RpcChannelResource {
+trait GenusQueryModeModule extends WalletStateAlgebraModule with RpcChannelResource {
 
   def genusQuerySubcmd(
-      validateParams: StrataCliParams
+    validateParams: StrataCliParams
   ): IO[Either[String, String]] = validateParams.subcmd match {
     case StrataCliSubCmd.invalid =>
-        IO.pure(
-          Left(
-            OParser.usage(
-              StrataCliParamsParserModule.genusQueryMode
-            ) + "\nA subcommand needs to be specified"
-          )
+      IO.pure(
+        Left(
+          OParser.usage(
+            StrataCliParamsParserModule.genusQueryMode
+          ) + "\nA subcommand needs to be specified"
         )
+      )
     case StrataCliSubCmd.utxobyaddress =>
       new GenusQueryController(
         walletStateAlgebra(

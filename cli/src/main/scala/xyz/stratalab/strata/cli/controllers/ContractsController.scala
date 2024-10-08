@@ -3,17 +3,17 @@ package xyz.stratalab.strata.cli.controllers
 import cats.Id
 import cats.data.Validated
 import cats.effect.kernel.Sync
+import co.topl.brambl.codecs.LockTemplateCodecs
 import co.topl.brambl.dataApi.{TemplateStorageAlgebra, WalletTemplate}
 import xyz.stratalab.strata.cli.impl.QuivrFastParser
-import co.topl.brambl.codecs.LockTemplateCodecs
 
 class TemplatesController[F[_]: Sync](
-    templateStorageAlgebra: TemplateStorageAlgebra[F]
+  templateStorageAlgebra: TemplateStorageAlgebra[F]
 ) {
 
   def addTemplate(
-      name: String,
-      lockTemplate: String
+    name:         String,
+    lockTemplate: String
   ): F[Either[String, String]] = {
     import cats.implicits._
     for {

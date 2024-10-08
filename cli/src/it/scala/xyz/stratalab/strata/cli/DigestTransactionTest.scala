@@ -92,9 +92,9 @@ class DigestTransactionTest
         )
         res <- IO.asyncForIO.timeout(
           (for {
-            _ <- IO.println("Querying bob's digest")
+            _        <- IO.println("Querying bob's digest")
             queryRes <- queryAccount("bob_digest_fellowship", "digest_template").run(bobContext)
-            _ <- IO.sleep(5.seconds)
+            _        <- IO.sleep(5.seconds)
           } yield queryRes)
             .iterateUntil(_ == ExitCode.Success),
           240.seconds
@@ -103,6 +103,7 @@ class DigestTransactionTest
       ExitCode.Success
     )
   }
+
   test("Move funds from digest locked account to bob's normal account") {
     import scala.concurrent.duration._
     assertIO(
@@ -146,9 +147,9 @@ class DigestTransactionTest
         )
         res <- IO.asyncForIO.timeout(
           (for {
-            _ <- IO.println("Querying bob's address")
+            _        <- IO.println("Querying bob's address")
             queryRes <- queryAccount("self", "default").run(bobContext)
-            _ <- IO.sleep(5.seconds)
+            _        <- IO.sleep(5.seconds)
           } yield queryRes)
             .iterateUntil(_ == ExitCode.Success),
           240.seconds

@@ -1,49 +1,48 @@
 package xyz.stratalab.strata.cli.impl
 
 import cats.data.Validated
-import cats.effect.kernel.Resource
-import cats.effect.kernel.Sync
+import cats.effect.kernel.{Resource, Sync}
 import co.topl.brambl.builders.TransactionBuilderApi
 import co.topl.brambl.builders.locks.LockTemplate
-import xyz.stratalab.strata.cli.NetworkIdentifiers
 import co.topl.brambl.models.box.Value
-import co.topl.brambl.models.transaction.IoTransaction
-import co.topl.brambl.models.transaction.SpentTransactionOutput
+import co.topl.brambl.models.transaction.{IoTransaction, SpentTransactionOutput}
 import co.topl.brambl.utils.Encoding
 import com.google.protobuf.ByteString
-import quivr.models.Int128
-import quivr.models.VerificationKey
+import quivr.models.{Int128, VerificationKey}
+import xyz.stratalab.strata.cli.NetworkIdentifiers
 
 import scala.io.BufferedSource
 
 case class Tx(
-    network: String,
-    keys: List[GlobalKeyEntry],
-    inputs: List[Stxo],
-    outputs: List[UtxoAddress]
+  network: String,
+  keys:    List[GlobalKeyEntry],
+  inputs:  List[Stxo],
+  outputs: List[UtxoAddress]
 )
 
 case class GlobalKeyEntry(id: String, vk: String)
 case class IdxMapping(index: Int, identifier: String)
+
 case class Stxo(
-    address: String,
-    keyMap: List[IdxMapping],
-    proposition: String,
-    value: Long
+  address:     String,
+  keyMap:      List[IdxMapping],
+  proposition: String,
+  value:       Long
 )
 case class UtxoAddress(address: String, value: Long)
 
 trait TxParserAlgebra[F[_]] {
 
   def parseComplexTransaction(
-      inputFileRes: Resource[F, BufferedSource]
+    inputFileRes: Resource[F, BufferedSource]
   ): F[Either[CommonParserError, IoTransaction]]
 
 }
 
 object TxParserAlgebra {
+
   def make[F[_]: Sync](
-      transactionBuilderApi: TransactionBuilderApi[F]
+    transactionBuilderApi: TransactionBuilderApi[F]
   ) =
     new TxParserAlgebra[F] {
 
@@ -52,7 +51,7 @@ object TxParserAlgebra {
       import cats.implicits._
 
       private def parsePropositionTemaplate(
-          proposition: String
+        proposition: String
       ): F[LockTemplate[F]] = for {
         lockTemplateStruct <- Sync[F].delay(
           QuivrFastParser.make[F].parseQuivr(proposition)
@@ -62,9 +61,7 @@ object TxParserAlgebra {
             Sync[F].delay(lockTemplate)
           case Validated.Invalid(e) =>
             e.toList
-              .traverse(x =>
-                Sync[F].delay(s"Error at ${x.location}: ${x.error}")
-              )
+              .traverse(x => Sync[F].delay(s"Error at ${x.location}: ${x.error}"))
               .map(x => PropositionParseError(x.mkString("\n")))
               .flatMap(e => Sync[F].raiseError(e): F[LockTemplate[F]])
         }
@@ -88,12 +85,12 @@ object TxParserAlgebra {
           .map(Map(_: _*))
 
       private def parseSpentTransactionOutput(
-          networkId: Int,
-          address: String,
-          keyMap: List[IdxMapping],
-          encodedVks: Map[String, VerificationKey],
-          proposition: String,
-          value: Long
+        networkId:   Int,
+        address:     String,
+        keyMap:      List[IdxMapping],
+        encodedVks:  Map[String, VerificationKey],
+        proposition: String,
+        value:       Long
       ): F[SpentTransactionOutput] = for {
         toa <- Sync[F].fromEither(
           CommonParsingOps.parseTransactionOuputAddress(networkId, address)
@@ -178,13 +175,11 @@ object TxParserAlgebra {
         )
 
       def parseComplexTransaction(
-          inputFileRes: Resource[F, BufferedSource]
+        inputFileRes: Resource[F, BufferedSource]
       ): F[Either[CommonParserError, IoTransaction]] = {
         import cats.implicits._
         (for {
-          inputString <- inputFileRes.use(file =>
-            Sync[F].blocking(file.getLines().mkString("\n"))
-          )
+          inputString <- inputFileRes.use(file => Sync[F].blocking(file.getLines().mkString("\n")))
           txOrFailure <- Sync[F]
             .fromEither(
               yaml.v12.parser

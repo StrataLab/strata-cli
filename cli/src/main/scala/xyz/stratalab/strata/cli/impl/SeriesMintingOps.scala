@@ -1,13 +1,10 @@
 package xyz.stratalab.strata.cli.impl
 
-import cats.effect.kernel.Resource
-import cats.effect.kernel.Sync
+import cats.effect.kernel.{Resource, Sync}
 import co.topl.brambl.builders.TransactionBuilderApi
 import co.topl.brambl.dataApi.WalletStateAlgebra
-import co.topl.brambl.models.Event
-import co.topl.brambl.models.Indices
-import co.topl.brambl.models.LockAddress
 import co.topl.brambl.models.box.Lock
+import co.topl.brambl.models.{Event, Indices, LockAddress}
 import co.topl.brambl.utils.Encoding
 import co.topl.brambl.wallet.WalletApi
 import co.topl.genus.services.Txo
@@ -30,30 +27,30 @@ trait SeriesMintingOps[G[_]] extends CommonTxOps {
   val wa: WalletApi[G]
 
   private def buildSeriesTransaction(
-      txos: Seq[Txo],
-      predicateFundsToUnlock: Lock.Predicate,
-      lockForChange: Lock,
-      recipientLockAddress: LockAddress,
-      amount: Long,
-      fee: Long,
-      someNextIndices: Option[Indices],
-      keyPair: KeyPair,
-      outputFile: String,
-      seriesPolicy: Event.SeriesPolicy
+    txos:                   Seq[Txo],
+    predicateFundsToUnlock: Lock.Predicate,
+    lockForChange:          Lock,
+    recipientLockAddress:   LockAddress,
+    amount:                 Long,
+    fee:                    Long,
+    someNextIndices:        Option[Indices],
+    keyPair:                KeyPair,
+    outputFile:             String,
+    seriesPolicy:           Event.SeriesPolicy
   ): G[Unit] =
     for {
       changeAddress <- tba.lockAddress(
         lockForChange
       )
       eitherIoTransaction <- tba.buildSeriesMintingTransaction(
-          txos,
-          predicateFundsToUnlock,
-          seriesPolicy,
-          amount,
-          recipientLockAddress,
-          changeAddress,
-          fee
-        )
+        txos,
+        predicateFundsToUnlock,
+        seriesPolicy,
+        amount,
+        recipientLockAddress,
+        changeAddress,
+        fee
+      )
       ioTransaction <- Sync[G].fromEither(eitherIoTransaction)
       // Only save to wallet interaction if there is a change output in the transaction
       _ <-
@@ -100,16 +97,16 @@ trait SeriesMintingOps[G[_]] extends CommonTxOps {
     } yield ()
 
   def buildSeriesTxAux(
-      lvlTxos: Seq[Txo],
-      nonLvlTxos: Seq[Txo],
-      predicateFundsToUnlock: Lock.Predicate,
-      amount: Long,
-      fee: Long,
-      someNextIndices: Option[Indices],
-      keyPair: KeyPair,
-      outputFile: String,
-      seriesPolicy: Event.SeriesPolicy,
-      changeLock: Option[Lock]
+    lvlTxos:                Seq[Txo],
+    nonLvlTxos:             Seq[Txo],
+    predicateFundsToUnlock: Lock.Predicate,
+    amount:                 Long,
+    fee:                    Long,
+    someNextIndices:        Option[Indices],
+    keyPair:                KeyPair,
+    outputFile:             String,
+    seriesPolicy:           Event.SeriesPolicy,
+    changeLock:             Option[Lock]
   ) = (if (lvlTxos.isEmpty) {
          Sync[G].raiseError(CreateTxError("No LVL txos found"))
        } else {

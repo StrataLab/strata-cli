@@ -7,8 +7,8 @@ import co.topl.genus.services.{Txo, TxoState}
 class BaseGenusQueryAlgebra[F[_]] extends GenusQueryAlgebra[F] {
 
   override def queryUtxo(
-      fromAddress: LockAddress,
-      txoState: TxoState
+    fromAddress: LockAddress,
+    txoState:    TxoState
   ): F[Seq[Txo]] = ???
 
 }

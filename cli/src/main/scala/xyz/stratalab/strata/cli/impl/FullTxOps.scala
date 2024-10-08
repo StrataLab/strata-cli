@@ -2,24 +2,15 @@ package xyz.stratalab.strata.cli.impl
 
 import cats.data.EitherT
 import cats.effect.IO
-import xyz.stratalab.strata.cli.NetworkIdentifiers
-import xyz.stratalab.strata.cli.TokenType
-import xyz.stratalab.strata.cli.controllers.SimpleTransactionController
-import xyz.stratalab.strata.cli.controllers.TxController
-import xyz.stratalab.strata.cli.modules.SimpleTransactionModeModule
-import xyz.stratalab.strata.cli.modules.TxModeModule
-import xyz.stratalab.strata.cli.modules.WalletModeModule
 import co.topl.brambl.constants.NetworkConstants
-import co.topl.brambl.models.LockAddress
-import co.topl.brambl.models.GroupId
+import co.topl.brambl.models.{GroupId, LockAddress, SeriesId}
 import co.topl.brambl.utils.Encoding
 import com.google.protobuf.ByteString
-import co.topl.brambl.models.SeriesId
+import xyz.stratalab.strata.cli.controllers.{SimpleTransactionController, TxController}
+import xyz.stratalab.strata.cli.modules.{SimpleTransactionModeModule, TxModeModule, WalletModeModule}
+import xyz.stratalab.strata.cli.{NetworkIdentifiers, TokenType}
 
-object FullTxOps
-    extends WalletModeModule
-    with SimpleTransactionModeModule
-    with TxModeModule {
+object FullTxOps extends WalletModeModule with SimpleTransactionModeModule with TxModeModule {
 
   private def selectToken(token: String) =
     if (token == "LVL")
@@ -76,25 +67,25 @@ object FullTxOps
       )
 
   def sendFunds(
-      networkId: NetworkIdentifiers,
-      password: String,
-      walletFile: String,
-      keyFile: String,
-      fromFellowship: String,
-      fromTemplate: String,
-      someFromInteraction: Option[Int],
-      someChangeFellowship: Option[String],
-      someChangeTemplate: Option[String],
-      someChangeInteraction: Option[Int],
-      toAddress: Option[LockAddress],
-      amount: Long,
-      fee: Long,
-      token: String,
-      txFile: String,
-      provedTxFile: String,
-      host: String,
-      bifrostPort: Int,
-      secureConnection: Boolean
+    networkId:             NetworkIdentifiers,
+    password:              String,
+    walletFile:            String,
+    keyFile:               String,
+    fromFellowship:        String,
+    fromTemplate:          String,
+    someFromInteraction:   Option[Int],
+    someChangeFellowship:  Option[String],
+    someChangeTemplate:    Option[String],
+    someChangeInteraction: Option[Int],
+    toAddress:             Option[LockAddress],
+    amount:                Long,
+    fee:                   Long,
+    token:                 String,
+    txFile:                String,
+    provedTxFile:          String,
+    host:                  String,
+    bifrostPort:           Int,
+    secureConnection:      Boolean
   ): IO[Either[String, String]] = {
     val simpleTxController = new SimpleTransactionController(
       walletStateAlgebra(

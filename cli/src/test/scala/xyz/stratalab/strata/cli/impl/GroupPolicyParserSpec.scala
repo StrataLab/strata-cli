@@ -1,13 +1,11 @@
 package xyz.stratalab.strata.cli.impl
 
-import munit.CatsEffectSuite
-import co.topl.brambl.constants.NetworkConstants
-import cats.effect.kernel.Resource
 import cats.effect.IO
+import cats.effect.kernel.Resource
+import co.topl.brambl.constants.NetworkConstants
+import munit.CatsEffectSuite
 
-class GroupPolicyParserSpec
-    extends CatsEffectSuite
-    with GroupPolicyParserModule {
+class GroupPolicyParserSpec extends CatsEffectSuite with GroupPolicyParserModule {
 
   test(
     "parseGroupPolicy should support transactions with no fixed series"
@@ -48,6 +46,7 @@ class GroupPolicyParserSpec
       true
     )
   }
+
   test(
     "parseGroupPolicy should fail if fixed seriesl too large"
   ) {
@@ -63,9 +62,7 @@ class GroupPolicyParserSpec
             )
           )(source => IO.delay(source.close()))
         )
-        .map(policy => {
-          policy
-        }),
+        .map(policy => policy),
       Left(
         InvalidHex(
           "The hex string for the series must be 32 bytes long"

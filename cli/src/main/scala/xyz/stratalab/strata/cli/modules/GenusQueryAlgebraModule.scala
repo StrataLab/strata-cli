@@ -1,7 +1,7 @@
 package xyz.stratalab.strata.cli.modules
 
-import co.topl.brambl.dataApi.{GenusQueryAlgebra, RpcChannelResource}
 import cats.effect.IO
+import co.topl.brambl.dataApi.{GenusQueryAlgebra, RpcChannelResource}
 
 trait GenusQueryAlgebraModule extends RpcChannelResource {
 

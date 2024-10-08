@@ -3,23 +3,17 @@ package xyz.stratalab.strata.cli.controllers
 import cats.Monad
 import cats.data.ValidatedNel
 import cats.effect.IO
-import xyz.stratalab.strata.cli.TokenType
-import xyz.stratalab.strata.cli.impl.AssetStatementParserModule
-import xyz.stratalab.strata.cli.impl.GroupPolicyParserModule
-import xyz.stratalab.strata.cli.impl.SeriesPolicyParserModule
-import xyz.stratalab.strata.cli.impl.SimpleTransactionAlgebra
-import xyz.stratalab.strata.cli.mockbase.BaseWalletStateAlgebra
-import xyz.stratalab.strata.cli.modules.DummyObjects
-import xyz.stratalab.strata.cli.modules.SimpleMintingAlgebraModule
 import co.topl.brambl.codecs.AddressCodecs
 import co.topl.brambl.constants.NetworkConstants
-import co.topl.brambl.models.Indices
 import co.topl.brambl.models.box.Lock
-import munit.CatsEffectSuite
-import com.google.protobuf.ByteString
-import co.topl.brambl.models.GroupId
+import co.topl.brambl.models.{GroupId, Indices, SeriesId}
 import co.topl.brambl.utils.Encoding
-import co.topl.brambl.models.SeriesId
+import com.google.protobuf.ByteString
+import munit.CatsEffectSuite
+import xyz.stratalab.strata.cli.TokenType
+import xyz.stratalab.strata.cli.impl.{AssetStatementParserModule, GroupPolicyParserModule, SeriesPolicyParserModule, SimpleTransactionAlgebra}
+import xyz.stratalab.strata.cli.mockbase.BaseWalletStateAlgebra
+import xyz.stratalab.strata.cli.modules.{DummyObjects, SimpleMintingAlgebraModule}
 
 class SimpleTransactionControllerSpec
     extends CatsEffectSuite
@@ -33,10 +27,10 @@ class SimpleTransactionControllerSpec
     new BaseWalletStateAlgebra[F] {
 
       override def getAddress(
-          fellowship: String,
-          template: String,
-          interaction: Option[Int]
-      ): F[Option[String]] = {
+        fellowship:  String,
+        template:    String,
+        interaction: Option[Int]
+      ): F[Option[String]] =
         Monad[F].pure(
           Some(
             AddressCodecs.encodeAddress(
@@ -51,35 +45,34 @@ class SimpleTransactionControllerSpec
             )
           )
         )
-      }
 
       override def getCurrentIndicesForFunds(
-          fellowship: String,
-          template: String,
-          interaction: Option[Int]
+        fellowship:  String,
+        template:    String,
+        interaction: Option[Int]
       ): F[Option[Indices]] = Monad[F].pure(
         Some(Indices(1, 1, 1))
       )
 
       override def getNextIndicesForFunds(
-          fellowship: String,
-          template: String
+        fellowship: String,
+        template:   String
       ): F[Option[Indices]] = Monad[F].pure(
         Some(Indices(1, 1, 1))
       )
 
       override def updateWalletState(
-          lockPredicate: String,
-          lockAddress: String,
-          routine: Option[String],
-          vk: Option[String],
-          indices: Indices
+        lockPredicate: String,
+        lockAddress:   String,
+        routine:       Option[String],
+        vk:            Option[String],
+        indices:       Indices
       ): F[Unit] = Monad[F].pure(())
 
       override def getLock(
-          fellowship: String,
-          template: String,
-          nextState: Int
+        fellowship: String,
+        template:   String,
+        nextState:  Int
       ): F[Option[Lock]] =
         Monad[F].pure(
           Some(
@@ -97,9 +90,9 @@ class SimpleTransactionControllerSpec
         )
 
       override def validateCurrentIndicesForFunds(
-          fellowship: String,
-          template: String,
-          someInteraction: Option[Int]
+        fellowship:      String,
+        template:        String,
+        someInteraction: Option[Int]
       ): F[ValidatedNel[String, Indices]] = {
         import cats.implicits._
         Indices(1, 2, 3).validNel.pure[F]
@@ -236,6 +229,7 @@ class SimpleTransactionControllerSpec
       Right("Transaction successfully created")
     )
   }
+
   test(
     "createSimpleTransactionFromParams should create an asset transfer transaction"
   ) {

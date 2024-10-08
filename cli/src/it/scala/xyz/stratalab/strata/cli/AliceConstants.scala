@@ -49,7 +49,7 @@ trait AliceConstants extends BaseConstants {
   val ALICE_THIRD_COMPLEX_TX = s"$TMP_DIR/alice_third_complex_tx.yaml"
 
   val ALICE_FIRST_COMPLEX_TX_RAW = s"$TMP_DIR/alice_first_complex_tx.pbuf"
-  
+
   val ALICE_SECOND_COMPLEX_TX_RAW = s"$TMP_DIR/alice_second_complex_tx.pbuf"
 
   val ALICE_THIRD_COMPLEX_TX_RAW = s"$TMP_DIR/alice_third_complex_tx.pbuf"

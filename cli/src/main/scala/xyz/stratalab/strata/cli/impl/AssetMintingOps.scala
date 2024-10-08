@@ -1,23 +1,21 @@
 package xyz.stratalab.strata.cli.impl
 
-import cats.effect.kernel.Resource
-import cats.effect.kernel.Sync
+import cats.effect.kernel.{Resource, Sync}
 import co.topl.brambl.builders.TransactionBuilderApi
 import co.topl.brambl.dataApi.WalletStateAlgebra
-import co.topl.brambl.models.Indices
-import co.topl.brambl.models.LockAddress
-import co.topl.brambl.models.box.AssetMintingStatement
-import co.topl.brambl.models.box.Lock
+import co.topl.brambl.models.box.{AssetMintingStatement, Lock}
+import co.topl.brambl.models.{Indices, LockAddress}
 import co.topl.brambl.utils.Encoding
 import co.topl.brambl.wallet.WalletApi
 import co.topl.genus.services.Txo
 import com.google.protobuf.ByteString
 import com.google.protobuf.struct.Struct
+import io.circe.Json
 import quivr.models.KeyPair
 
 import java.io.FileOutputStream
+
 import TransactionBuilderApi.implicits._
-import io.circe.Json
 
 trait AssetMintingOps[G[_]] extends CommonTxOps {
 
@@ -32,20 +30,20 @@ trait AssetMintingOps[G[_]] extends CommonTxOps {
   val wa: WalletApi[G]
 
   def buildAssetTxAux(
-      keyPair: KeyPair,
-      outputFile: String,
-      lvlTxos: Seq[Txo],
-      nonLvlTxos: Seq[Txo],
-      groupTxo: Txo,
-      seriesTxo: Txo,
-      lockAddrToUnlock: LockAddress,
-      lockPredicateFrom: Lock.Predicate,
-      fee: Long,
-      someNextIndices: Option[Indices],
-      assetMintingStatement: AssetMintingStatement,
-      ephemeralMetadata: Option[Json],
-      commitment: Option[ByteString],
-      changeLock: Option[Lock]
+    keyPair:               KeyPair,
+    outputFile:            String,
+    lvlTxos:               Seq[Txo],
+    nonLvlTxos:            Seq[Txo],
+    groupTxo:              Txo,
+    seriesTxo:             Txo,
+    lockAddrToUnlock:      LockAddress,
+    lockPredicateFrom:     Lock.Predicate,
+    fee:                   Long,
+    someNextIndices:       Option[Indices],
+    assetMintingStatement: AssetMintingStatement,
+    ephemeralMetadata:     Option[Json],
+    commitment:            Option[ByteString],
+    changeLock:            Option[Lock]
   ) = (if (lvlTxos.isEmpty) {
          Sync[G].raiseError(CreateTxError("No LVL txos found"))
        } else {
@@ -76,17 +74,17 @@ trait AssetMintingOps[G[_]] extends CommonTxOps {
        })
 
   private def buildAssetTransaction(
-      keyPair: KeyPair,
-      outputFile: String,
-      txos: Seq[Txo],
-      lockPredicateFrom: Map[LockAddress, Lock.Predicate],
-      lockForChange: Lock,
-      recipientLockAddress: LockAddress,
-      fee: Long,
-      assetMintingStatement: AssetMintingStatement,
-      ephemeralMetadata: Option[Struct],
-      commitment: Option[ByteString],
-      someNextIndices: Option[Indices]
+    keyPair:               KeyPair,
+    outputFile:            String,
+    txos:                  Seq[Txo],
+    lockPredicateFrom:     Map[LockAddress, Lock.Predicate],
+    lockForChange:         Lock,
+    recipientLockAddress:  LockAddress,
+    fee:                   Long,
+    assetMintingStatement: AssetMintingStatement,
+    ephemeralMetadata:     Option[Struct],
+    commitment:            Option[ByteString],
+    someNextIndices:       Option[Indices]
   ): G[Unit] =
     for {
       changeAddress <- tba.lockAddress(

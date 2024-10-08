@@ -2,9 +2,7 @@ package xyz.stratalab.strata.cli
 
 import co.topl.brambl.codecs.AddressCodecs
 import co.topl.brambl.constants.NetworkConstants
-import co.topl.brambl.models.GroupId
-import co.topl.brambl.models.LockAddress
-import co.topl.brambl.models.SeriesId
+import co.topl.brambl.models.{GroupId, LockAddress, SeriesId}
 import co.topl.brambl.utils.Encoding
 import com.google.protobuf.ByteString
 import scopt.OParser
@@ -203,9 +201,7 @@ object StrataCliParamsParserModule {
     opt[String]('h', "host")
       .action((x, c) => c.copy(host = x))
       .text("The host of the node. (mandatory)")
-      .validate(x =>
-        if (x.trim().isEmpty) failure("Host may not be empty") else success
-      )
+      .validate(x => if (x.trim().isEmpty) failure("Host may not be empty") else success)
       .required()
 
   def portArg = opt[Int]("port")
@@ -297,9 +293,7 @@ object StrataCliParamsParserModule {
         .text("Interaction where we are sending the change to")
         .optional(),
       checkConfig(c =>
-        if (
-          c.mode == StrataCliMode.simpletransaction && c.subcmd == StrataCliSubCmd.create
-        ) {
+        if (c.mode == StrataCliMode.simpletransaction && c.subcmd == StrataCliSubCmd.create) {
           if (c.fromFellowship == "nofellowship") {
             (
               c.someChangeFellowship,
@@ -395,12 +389,11 @@ object StrataCliParamsParserModule {
     )
     .required()
 
-  val keyfileAndPassword = {
+  val keyfileAndPassword =
     Seq(
       keyfileArg,
       passwordArg
     )
-  }
 
   val serverMode = cmd("server")
     .action((_, c) => c.copy(mode = StrataCliMode.server))
@@ -411,8 +404,8 @@ object StrataCliParamsParserModule {
         .text("Run the server")
         .children(
           (Seq(walletDbArg.required()) ++ Seq(secureArg) ++
-            keyfileAndPassword.map(_.required()) ++ hostPortNetwork.reverse.tail
-              .map(_.required())): _*
+          keyfileAndPassword.map(_.required()) ++ hostPortNetwork.reverse.tail
+            .map(_.required())): _*
         )
     )
 
@@ -493,6 +486,7 @@ object StrataCliParamsParserModule {
           )): _*
         )
     )
+
   val bifrostQueryMode = cmd("bifrost-query")
     .action((_, c) => c.copy(mode = StrataCliMode.bifrostquery))
     .text("Bifrost query mode")
@@ -577,9 +571,9 @@ object StrataCliParamsParserModule {
         .text("Set the current interaction")
         .children(
           coordinates.map(_.required()) ++
-            Seq(
-              walletDbArg
-            ): _*
+          Seq(
+            walletDbArg
+          ): _*
         ),
       cmd("list-interactions")
         .action((_, c) => c.copy(subcmd = StrataCliSubCmd.listinteraction))
@@ -833,67 +827,65 @@ object StrataCliParamsParserModule {
             walletDbArg,
             outputArg.required()
           )) ++
-            Seq(
-              feeArg,
-              opt[Option[LockAddress]]('t', "to")
-                .action((x, c) => c.copy(toAddress = x))
-                .text(
-                  "Address to send LVLs to. (mandatory if to-fellowship and to-template are not provided)"
-                ),
-              opt[Option[String]]("to-fellowship")
-                .action((x, c) => c.copy(someToFellowship = x))
-                .text(
-                  "Fellowship to send LVLs to. (mandatory if to is not provided)"
-                ),
-              opt[Option[String]]("to-template")
-                .action((x, c) => c.copy(someToTemplate = x))
-                .text(
-                  "Template to send LVLs to. (mandatory if to is not provided)"
-                ),
-              amountArg,
-              transferTokenType,
-              groupId,
-              seriesId,
-              checkConfig { c =>
-                if (
-                  c.mode == StrataCliMode.simpletransaction && c.subcmd == StrataCliSubCmd.create
-                )
-                  if (c.fromAddress.isDefined) {
-                    failure(
-                      "From address is not supported for simple transactions"
-                    )
-                  } else
-                    (c.toAddress, c.someToFellowship, c.someToTemplate) match {
-                      case (Some(address), None, None) =>
-                        checkAddress(address, c.network).flatMap(_ =>
-                          checkTokenAndId(
-                            c.tokenType,
-                            c.someGroupId,
-                            c.someSeriesId
-                          )
-                        )
-                      case (None, Some(_), Some(_)) =>
+          Seq(
+            feeArg,
+            opt[Option[LockAddress]]('t', "to")
+              .action((x, c) => c.copy(toAddress = x))
+              .text(
+                "Address to send LVLs to. (mandatory if to-fellowship and to-template are not provided)"
+              ),
+            opt[Option[String]]("to-fellowship")
+              .action((x, c) => c.copy(someToFellowship = x))
+              .text(
+                "Fellowship to send LVLs to. (mandatory if to is not provided)"
+              ),
+            opt[Option[String]]("to-template")
+              .action((x, c) => c.copy(someToTemplate = x))
+              .text(
+                "Template to send LVLs to. (mandatory if to is not provided)"
+              ),
+            amountArg,
+            transferTokenType,
+            groupId,
+            seriesId,
+            checkConfig { c =>
+              if (c.mode == StrataCliMode.simpletransaction && c.subcmd == StrataCliSubCmd.create)
+                if (c.fromAddress.isDefined) {
+                  failure(
+                    "From address is not supported for simple transactions"
+                  )
+                } else
+                  (c.toAddress, c.someToFellowship, c.someToTemplate) match {
+                    case (Some(address), None, None) =>
+                      checkAddress(address, c.network).flatMap(_ =>
                         checkTokenAndId(
                           c.tokenType,
                           c.someGroupId,
                           c.someSeriesId
                         )
-                      case _ =>
-                        failure(
-                          "Exactly toFellowship and toTemplate together or only toAddress must be specified"
-                        )
-                    }
-                else
-                  success
-              }
-            )): _*
+                      )
+                    case (None, Some(_), Some(_)) =>
+                      checkTokenAndId(
+                        c.tokenType,
+                        c.someGroupId,
+                        c.someSeriesId
+                      )
+                    case _ =>
+                      failure(
+                        "Exactly toFellowship and toTemplate together or only toAddress must be specified"
+                      )
+                  }
+              else
+                success
+            }
+          )): _*
         )
     )
 
   private def checkAddress(
-      lockAddress: LockAddress,
-      networkId: NetworkIdentifiers
-  ) = {
+    lockAddress: LockAddress,
+    networkId:   NetworkIdentifiers
+  ) =
     if (lockAddress.ledger != NetworkConstants.MAIN_LEDGER_ID) {
       failure("Invalid ledger id")
     } else if (lockAddress.network != networkId.networkId) {
@@ -904,13 +896,12 @@ object StrataCliParamsParserModule {
     } else {
       success
     }
-  }
 
   private def checkTokenAndId(
-      tokenType: TokenType.Value,
-      groupId: Option[GroupId],
-      seriesId: Option[SeriesId]
-  ): Either[String, Unit] = {
+    tokenType: TokenType.Value,
+    groupId:   Option[GroupId],
+    seriesId:  Option[SeriesId]
+  ): Either[String, Unit] =
     (tokenType, groupId, seriesId) match {
       case (TokenType.group, Some(_), None) =>
         success
@@ -925,9 +916,8 @@ object StrataCliParamsParserModule {
           "Exactly group and groupId together, or series and seriesId, or only lvl must be specified"
         )
     }
-  }
 
-  val paramParser = {
+  val paramParser =
     OParser.sequence(
       templatesMode,
       fellowshipsMode,
@@ -939,5 +929,4 @@ object StrataCliParamsParserModule {
       simpleMintingMode,
       serverMode
     )
-  }
 }
