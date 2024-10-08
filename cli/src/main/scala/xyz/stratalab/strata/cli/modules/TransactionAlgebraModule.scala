@@ -8,12 +8,12 @@ trait TransactionAlgebraModule
     extends WalletStateAlgebraModule
     with WalletManagementUtilsModule
     with RpcChannelResource {
-      
+
   def transactionOps(
-      walletFile: String,
-      host: String,
-      port: Int,
-      secureConnection: Boolean
+    walletFile:       String,
+    host:             String,
+    port:             Int,
+    secureConnection: Boolean
   ) = TransactionAlgebra
     .make[IO](
       walletApi,

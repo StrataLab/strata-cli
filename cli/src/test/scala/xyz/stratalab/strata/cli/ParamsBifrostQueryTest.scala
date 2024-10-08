@@ -21,6 +21,7 @@ class ParamsBifrostQueryTest extends FunSuite {
     )
     assert(OParser.parse(paramParser, args0, StrataCliParams()).isDefined)
   }
+
   test("Block by id") {
     val args0 = List(
       "bifrost-query",
@@ -34,6 +35,7 @@ class ParamsBifrostQueryTest extends FunSuite {
     )
     assert(OParser.parse(paramParser, args0, StrataCliParams()).isDefined)
   }
+
   test("Transaction by id") {
     val args0 = List(
       "bifrost-query",

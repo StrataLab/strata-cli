@@ -20,9 +20,9 @@ class GeneralTransferTests
   tmpDirectory.test("Move funds from genesis to alice") { _ =>
     assertIO(
       for {
-        _ <- moveFundsFromGenesisToAlice()
-        _ <- mintGroup()
-        _ <- mintSeries()
+        _   <- moveFundsFromGenesisToAlice()
+        _   <- mintGroup()
+        _   <- mintSeries()
         res <- mintAsset()
       } yield res,
       ExitCode.Success

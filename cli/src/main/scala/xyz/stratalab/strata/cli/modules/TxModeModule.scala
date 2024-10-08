@@ -11,8 +11,8 @@ import xyz.stratalab.strata.cli.StrataCliParamsParserModule
 trait TxModeModule extends TxParserAlgebraModule with TransactionAlgebraModule {
 
   def txModeSubcmds(
-      validateParams: StrataCliParams
-  ): IO[Either[String, String]] = {
+    validateParams: StrataCliParams
+  ): IO[Either[String, String]] =
     validateParams.subcmd match {
       case StrataCliSubCmd.invalid =>
         IO.pure(
@@ -84,6 +84,5 @@ trait TxModeModule extends TxParserAlgebraModule with TransactionAlgebraModule {
             validateParams.someOutputFile.get
           )
     }
-  }
 
 }

@@ -8,21 +8,19 @@ import xyz.stratalab.strata.cli.StrataCliParams
 import scopt.OParser
 import xyz.stratalab.strata.cli.StrataCliParamsParserModule
 
-trait GenusQueryModeModule
-    extends WalletStateAlgebraModule
-    with RpcChannelResource {
+trait GenusQueryModeModule extends WalletStateAlgebraModule with RpcChannelResource {
 
   def genusQuerySubcmd(
-      validateParams: StrataCliParams
+    validateParams: StrataCliParams
   ): IO[Either[String, String]] = validateParams.subcmd match {
     case StrataCliSubCmd.invalid =>
-        IO.pure(
-          Left(
-            OParser.usage(
-              StrataCliParamsParserModule.genusQueryMode
-            ) + "\nA subcommand needs to be specified"
-          )
+      IO.pure(
+        Left(
+          OParser.usage(
+            StrataCliParamsParserModule.genusQueryMode
+          ) + "\nA subcommand needs to be specified"
         )
+      )
     case StrataCliSubCmd.utxobyaddress =>
       new GenusQueryController(
         walletStateAlgebra(

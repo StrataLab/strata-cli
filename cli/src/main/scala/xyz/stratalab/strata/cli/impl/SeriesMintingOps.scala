@@ -30,30 +30,30 @@ trait SeriesMintingOps[G[_]] extends CommonTxOps {
   val wa: WalletApi[G]
 
   private def buildSeriesTransaction(
-      txos: Seq[Txo],
-      predicateFundsToUnlock: Lock.Predicate,
-      lockForChange: Lock,
-      recipientLockAddress: LockAddress,
-      amount: Long,
-      fee: Long,
-      someNextIndices: Option[Indices],
-      keyPair: KeyPair,
-      outputFile: String,
-      seriesPolicy: Event.SeriesPolicy
+    txos:                   Seq[Txo],
+    predicateFundsToUnlock: Lock.Predicate,
+    lockForChange:          Lock,
+    recipientLockAddress:   LockAddress,
+    amount:                 Long,
+    fee:                    Long,
+    someNextIndices:        Option[Indices],
+    keyPair:                KeyPair,
+    outputFile:             String,
+    seriesPolicy:           Event.SeriesPolicy
   ): G[Unit] =
     for {
       changeAddress <- tba.lockAddress(
         lockForChange
       )
       eitherIoTransaction <- tba.buildSeriesMintingTransaction(
-          txos,
-          predicateFundsToUnlock,
-          seriesPolicy,
-          amount,
-          recipientLockAddress,
-          changeAddress,
-          fee
-        )
+        txos,
+        predicateFundsToUnlock,
+        seriesPolicy,
+        amount,
+        recipientLockAddress,
+        changeAddress,
+        fee
+      )
       ioTransaction <- Sync[G].fromEither(eitherIoTransaction)
       // Only save to wallet interaction if there is a change output in the transaction
       _ <-
@@ -100,16 +100,16 @@ trait SeriesMintingOps[G[_]] extends CommonTxOps {
     } yield ()
 
   def buildSeriesTxAux(
-      lvlTxos: Seq[Txo],
-      nonLvlTxos: Seq[Txo],
-      predicateFundsToUnlock: Lock.Predicate,
-      amount: Long,
-      fee: Long,
-      someNextIndices: Option[Indices],
-      keyPair: KeyPair,
-      outputFile: String,
-      seriesPolicy: Event.SeriesPolicy,
-      changeLock: Option[Lock]
+    lvlTxos:                Seq[Txo],
+    nonLvlTxos:             Seq[Txo],
+    predicateFundsToUnlock: Lock.Predicate,
+    amount:                 Long,
+    fee:                    Long,
+    someNextIndices:        Option[Indices],
+    keyPair:                KeyPair,
+    outputFile:             String,
+    seriesPolicy:           Event.SeriesPolicy,
+    changeLock:             Option[Lock]
   ) = (if (lvlTxos.isEmpty) {
          Sync[G].raiseError(CreateTxError("No LVL txos found"))
        } else {

@@ -9,8 +9,9 @@ import scopt.OParser
 import xyz.stratalab.strata.cli.StrataCliParamsParserModule
 
 trait TemplateModeModule extends WalletStateResource {
+
   def templateModeSubcmds(
-      validateParams: StrataCliParams
+    validateParams: StrataCliParams
   ): IO[Either[String, String]] = {
     val templateStorageAlgebra = TemplateStorageApi.make[IO](
       walletResource(validateParams.walletFile)

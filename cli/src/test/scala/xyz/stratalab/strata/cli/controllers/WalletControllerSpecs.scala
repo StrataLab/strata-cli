@@ -46,82 +46,85 @@ class WalletControllerSpecs extends CatsEffectSuite with WalletKeyApiModule {
     teardown = { _ => Files.deleteIfExists(Paths.get("test.vk")) }
   )
 
-  tmpDirectory.test("exportFinalVk should export the key at the right index") {
-    _ =>
-      val controller = new WalletController[IO](
-        new BaseWalletStateAlgebra[IO] {
-          override def getCurrentIndicesForFunds(
-              fellowship: String,
-              template: String,
-              someInteraction: Option[Int]
-          ): IO[Option[Indices]] = IO.pure(Some(Indices(1, 2, 3)))
-        }, // : dataApi.WalletStateAlgebra[F],
-        new BaseWalletManagementUtils[IO] {
-          override def loadKeys(keyfile: String, password: String) = keyPair
-        }, // : WalletManagementUtils[F],
-        new BaseWalletApi[IO] {
-          override def deriveChildKeys(
-              vk: KeyPair,
-              idx: Indices
-          ): IO[KeyPair] = walletApi.deriveChildKeys(vk, idx)
-        }, // : WalletApi[F],
-        new BaseWalletAlgebra[IO], // : WalletAlgebra[F],
-        new BaseGenusQueryAlgebra[IO] // : dataApi.GenusQueryAlgebra[F]
+  tmpDirectory.test("exportFinalVk should export the key at the right index") { _ =>
+    val controller = new WalletController[IO](
+      new BaseWalletStateAlgebra[IO] {
+
+        override def getCurrentIndicesForFunds(
+          fellowship:      String,
+          template:        String,
+          someInteraction: Option[Int]
+        ): IO[Option[Indices]] = IO.pure(Some(Indices(1, 2, 3)))
+      }, // : dataApi.WalletStateAlgebra[F],
+      new BaseWalletManagementUtils[IO] {
+        override def loadKeys(keyfile: String, password: String) = keyPair
+      }, // : WalletManagementUtils[F],
+      new BaseWalletApi[IO] {
+
+        override def deriveChildKeys(
+          vk:  KeyPair,
+          idx: Indices
+        ): IO[KeyPair] = walletApi.deriveChildKeys(vk, idx)
+      }, // : WalletApi[F],
+      new BaseWalletAlgebra[IO], // : WalletAlgebra[F],
+      new BaseGenusQueryAlgebra[IO] // : dataApi.GenusQueryAlgebra[F]
+    )
+    import cats.implicits._
+    for {
+      res <- controller.exportFinalVk(
+        "keyfile.json",
+        "test",
+        "test.vk",
+        "self",
+        "default",
+        3
       )
-      import cats.implicits._
-      for {
-        res <- controller.exportFinalVk(
-          "keyfile.json",
-          "test",
-          "test.vk",
-          "self",
-          "default",
-          3
-        )
-        _ <- assertIO(
-          IO("Verification key exported".asRight[String]),
-          res
-        )
-        kp <- keyPair
-        vk <- walletApi.deriveChildKeys(
-          kp,
-          Indices(1, 2, 3)
-        )
-        res <- IO(Encoding.encodeToBase58(vk.vk.toByteArray))
-        _ <- assertIO(
-          IO({
-            val src = Source.fromFile("test.vk")
-            val vks = src.getLines().toList.mkString
-            src.close()
-            vks
-          }),
-          res
-        )
-      } yield ()
+      _ <- assertIO(
+        IO("Verification key exported".asRight[String]),
+        res
+      )
+      kp <- keyPair
+      vk <- walletApi.deriveChildKeys(
+        kp,
+        Indices(1, 2, 3)
+      )
+      res <- IO(Encoding.encodeToBase58(vk.vk.toByteArray))
+      _ <- assertIO(
+        IO({
+          val src = Source.fromFile("test.vk")
+          val vks = src.getLines().toList.mkString
+          src.close()
+          vks
+        }),
+        res
+      )
+    } yield ()
   }
 
   test("setCurrentInteraction fails with none") {
     val controller = new WalletController[IO](
       new BaseWalletStateAlgebra[IO] {
+
         override def getCurrentIndicesForFunds(
-            fellowship: String,
-            template: String,
-            someInteraction: Option[Int]
+          fellowship:      String,
+          template:        String,
+          someInteraction: Option[Int]
         ): IO[Option[Indices]] = IO.pure(Some(Indices(1, 2, 3)))
 
         override def setCurrentIndices(
-            fellowship: String,
-            template: String,
-            interaction: Int
+          fellowship:  String,
+          template:    String,
+          interaction: Int
         ): IO[Option[Indices]] = IO.pure(None)
       }, // : dataApi.WalletStateAlgebra[F],
       new BaseWalletManagementUtils[IO] {
         override def loadKeys(keyfile: String, password: String) = keyPair
       }, // : WalletManagementUtils[F],
       new BaseWalletApi[IO] {
+
         override def deriveChildKeys(
-            vk: KeyPair,
-            idx: Indices
+          vk:  KeyPair,
+          idx: Indices
         ): IO[KeyPair] = walletApi.deriveChildKeys(vk, idx)
 
       }, // : WalletApi[F],
@@ -139,12 +142,14 @@ class WalletControllerSpecs extends CatsEffectSuite with WalletKeyApiModule {
       Left("Error setting current interaction")
     )
   }
+
   test("listInteractions succeeds with valid result") {
     val controller = new WalletController[IO](
       new BaseWalletStateAlgebra[IO] {
+
         override def getInteractionList(
-            fellowship: String,
-            template: String
+          fellowship: String,
+          template:   String
         ): IO[Option[List[(Indices, String)]]] =
           IO.pure(Some(List((Indices(1, 2, 3), "test"))))
 
@@ -153,9 +158,10 @@ class WalletControllerSpecs extends CatsEffectSuite with WalletKeyApiModule {
         override def loadKeys(keyfile: String, password: String) = keyPair
       }, // : WalletManagementUtils[F],
       new BaseWalletApi[IO] {
+
         override def deriveChildKeys(
-            vk: KeyPair,
-            idx: Indices
+          vk:  KeyPair,
+          idx: Indices
         ): IO[KeyPair] = walletApi.deriveChildKeys(vk, idx)
 
       }, // : WalletApi[F],
@@ -172,12 +178,14 @@ class WalletControllerSpecs extends CatsEffectSuite with WalletKeyApiModule {
       Right("1\t2\t3\ttest")
     )
   }
+
   test("listInteractions fails with none") {
     val controller = new WalletController[IO](
       new BaseWalletStateAlgebra[IO] {
+
         override def getInteractionList(
-            fellowship: String,
-            template: String
+          fellowship: String,
+          template:   String
         ): IO[Option[List[(Indices, String)]]] =
           IO.pure(None)
 
@@ -186,9 +194,10 @@ class WalletControllerSpecs extends CatsEffectSuite with WalletKeyApiModule {
         override def loadKeys(keyfile: String, password: String) = keyPair
       }, // : WalletManagementUtils[F],
       new BaseWalletApi[IO] {
+
         override def deriveChildKeys(
-            vk: KeyPair,
-            idx: Indices
+          vk:  KeyPair,
+          idx: Indices
         ): IO[KeyPair] = walletApi.deriveChildKeys(vk, idx)
 
       }, // : WalletApi[F],
@@ -205,28 +214,31 @@ class WalletControllerSpecs extends CatsEffectSuite with WalletKeyApiModule {
       Left(s"The fellowship or template does not exist.")
     )
   }
+
   test("setCurrentInteraction succeeds with valid result") {
     val controller = new WalletController[IO](
       new BaseWalletStateAlgebra[IO] {
+
         override def getCurrentIndicesForFunds(
-            fellowship: String,
-            template: String,
-            someInteraction: Option[Int]
+          fellowship:      String,
+          template:        String,
+          someInteraction: Option[Int]
         ): IO[Option[Indices]] = IO.pure(Some(Indices(1, 2, 3)))
 
         override def setCurrentIndices(
-            fellowship: String,
-            template: String,
-            interaction: Int
+          fellowship:  String,
+          template:    String,
+          interaction: Int
         ): IO[Option[Indices]] = IO.pure(Some(Indices(1, 2, 3)))
       }, // : dataApi.WalletStateAlgebra[F],
       new BaseWalletManagementUtils[IO] {
         override def loadKeys(keyfile: String, password: String) = keyPair
       }, // : WalletManagementUtils[F],
       new BaseWalletApi[IO] {
+
         override def deriveChildKeys(
-            vk: KeyPair,
-            idx: Indices
+          vk:  KeyPair,
+          idx: Indices
         ): IO[KeyPair] = walletApi.deriveChildKeys(vk, idx)
 
       }, // : WalletApi[F],
@@ -248,8 +260,9 @@ class WalletControllerSpecs extends CatsEffectSuite with WalletKeyApiModule {
   test("addSecret fails when a secret already exists (sha256)") {
     val controller = new WalletController[IO](
       new BaseWalletStateAlgebra[IO] {
+
         override def getPreimage(
-            digestProposition: Proposition.Digest
+          digestProposition: Proposition.Digest
         ): IO[Option[Preimage]] =
           IO.pure(Some(Preimage(ByteString.copyFrom("topl-secret".getBytes()))))
       },
@@ -257,9 +270,10 @@ class WalletControllerSpecs extends CatsEffectSuite with WalletKeyApiModule {
         override def loadKeys(keyfile: String, password: String) = keyPair
       }, // : WalletManagementUtils[F],
       new BaseWalletApi[IO] {
+
         override def deriveChildKeys(
-            vk: KeyPair,
-            idx: Indices
+          vk:  KeyPair,
+          idx: Indices
         ): IO[KeyPair] = walletApi.deriveChildKeys(vk, idx)
 
       }, // : WalletApi[F],
@@ -280,23 +294,25 @@ class WalletControllerSpecs extends CatsEffectSuite with WalletKeyApiModule {
   test("addSecret succeeds when a secret does not exists (sha256)") {
     val controller = new WalletController[IO](
       new BaseWalletStateAlgebra[IO] {
+
         override def getPreimage(
-            digestProposition: Proposition.Digest
+          digestProposition: Proposition.Digest
         ): IO[Option[Preimage]] =
           IO.pure(None)
 
         override def addPreimage(
-            preimage: Preimage,
-            digest: Proposition.Digest
+          preimage: Preimage,
+          digest:   Proposition.Digest
         ): IO[Unit] = IO.unit
       },
       new BaseWalletManagementUtils[IO] {
         override def loadKeys(keyfile: String, password: String) = keyPair
       }, // : WalletManagementUtils[F],
       new BaseWalletApi[IO] {
+
         override def deriveChildKeys(
-            vk: KeyPair,
-            idx: Indices
+          vk:  KeyPair,
+          idx: Indices
         ): IO[KeyPair] = walletApi.deriveChildKeys(vk, idx)
 
       }, // : WalletApi[F],
@@ -317,8 +333,9 @@ class WalletControllerSpecs extends CatsEffectSuite with WalletKeyApiModule {
   test("addSecret fails when a secret already exists (Blake2b)") {
     val controller = new WalletController[IO](
       new BaseWalletStateAlgebra[IO] {
+
         override def getPreimage(
-            digestProposition: Proposition.Digest
+          digestProposition: Proposition.Digest
         ): IO[Option[Preimage]] =
           IO.pure(Some(Preimage(ByteString.copyFrom("topl-secret".getBytes()))))
       },
@@ -326,9 +343,10 @@ class WalletControllerSpecs extends CatsEffectSuite with WalletKeyApiModule {
         override def loadKeys(keyfile: String, password: String) = keyPair
       }, // : WalletManagementUtils[F],
       new BaseWalletApi[IO] {
+
         override def deriveChildKeys(
-            vk: KeyPair,
-            idx: Indices
+          vk:  KeyPair,
+          idx: Indices
         ): IO[KeyPair] = walletApi.deriveChildKeys(vk, idx)
 
       }, // : WalletApi[F],
@@ -349,14 +367,15 @@ class WalletControllerSpecs extends CatsEffectSuite with WalletKeyApiModule {
   test("addSecret succeeds when a secret does not exists (blake2b)") {
     val controller = new WalletController[IO](
       new BaseWalletStateAlgebra[IO] {
+
         override def getPreimage(
-            digestProposition: Proposition.Digest
+          digestProposition: Proposition.Digest
         ): IO[Option[Preimage]] =
           IO.pure(None)
 
         override def addPreimage(
-            preimage: Preimage,
-            digest: Proposition.Digest
+          preimage: Preimage,
+          digest:   Proposition.Digest
         ): IO[Unit] = IO.unit
 
       },
@@ -364,9 +383,10 @@ class WalletControllerSpecs extends CatsEffectSuite with WalletKeyApiModule {
         override def loadKeys(keyfile: String, password: String) = keyPair
       }, // : WalletManagementUtils[F],
       new BaseWalletApi[IO] {
+
         override def deriveChildKeys(
-            vk: KeyPair,
-            idx: Indices
+          vk:  KeyPair,
+          idx: Indices
         ): IO[KeyPair] = walletApi.deriveChildKeys(vk, idx)
 
       }, // : WalletApi[F],

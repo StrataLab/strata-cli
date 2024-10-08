@@ -9,8 +9,9 @@ import scopt.OParser
 import xyz.stratalab.strata.cli.StrataCliParamsParserModule
 
 trait FellowshipsModeModule extends WalletStateResource {
+
   def fellowshipsModeSubcmds(
-      validateParams: StrataCliParams
+    validateParams: StrataCliParams
   ): IO[Either[String, String]] = {
     val fellowshipStorageAlgebra = FellowshipStorageApi.make[IO](
       walletResource(validateParams.walletFile)

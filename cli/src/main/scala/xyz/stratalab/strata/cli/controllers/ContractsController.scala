@@ -8,12 +8,12 @@ import xyz.stratalab.strata.cli.impl.QuivrFastParser
 import co.topl.brambl.codecs.LockTemplateCodecs
 
 class TemplatesController[F[_]: Sync](
-    templateStorageAlgebra: TemplateStorageAlgebra[F]
+  templateStorageAlgebra: TemplateStorageAlgebra[F]
 ) {
 
   def addTemplate(
-      name: String,
-      lockTemplate: String
+    name:         String,
+    lockTemplate: String
   ): F[Either[String, String]] = {
     import cats.implicits._
     for {

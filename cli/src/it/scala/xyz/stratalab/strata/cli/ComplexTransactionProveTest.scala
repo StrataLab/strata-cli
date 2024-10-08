@@ -63,7 +63,7 @@ class ComplexTransactionProveTest
         _ <- assertIO(
           exportVk("alice_bob_0", "or_sign", BOB_VK).run(bobContext),
           ExitCode.Success
-          )
+        )
         _ <- IO.println("Importing VK to alice's wallet")
         _ <- assertIO(
           importVk("alice_bob_0", "or_sign", ALICE_VK, BOB_VK).run(bobContext),
@@ -110,9 +110,9 @@ class ComplexTransactionProveTest
         )
         res <- IO.asyncForIO.timeout(
           (for {
-            _ <- IO.println("Querying alice's shared account")
+            _        <- IO.println("Querying alice's shared account")
             queryRes <- queryAccount("alice_bob_0", "or_sign").run(aliceContext)
-            _ <- IO.sleep(5.seconds)
+            _        <- IO.sleep(5.seconds)
           } yield queryRes)
             .iterateUntil(_ == ExitCode.Success),
           240.seconds
@@ -222,11 +222,11 @@ class ComplexTransactionProveTest
           .currentaddress("alice_bob_0", "or_sign", None)
         sharedAddressForBob <- walletController(BOB_WALLET)
           .currentaddress("alice_bob_0", "or_sign", None)
-        _ <- IO.println("Address for Alice: " + sharedAddressForAlice)
-        _ <- IO.println("Address for Bob: " + sharedAddressForBob)
-        _ <- IO.println("Moving funds (200 LVLs) from shared account to alice")
+        _                <- IO.println("Address for Alice: " + sharedAddressForAlice)
+        _                <- IO.println("Address for Bob: " + sharedAddressForBob)
+        _                <- IO.println("Moving funds (200 LVLs) from shared account to alice")
         ALICE_TO_ADDRESS <- walletController(ALICE_WALLET).currentaddress("self", "default", None)
-        _ <- IO.println(s"Alice's address is $ALICE_TO_ADDRESS")
+        _                <- IO.println(s"Alice's address is $ALICE_TO_ADDRESS")
         _ <- assertIO(
           createSimpleTransactionToAddress(
             "alice_bob_0",
@@ -261,9 +261,9 @@ class ComplexTransactionProveTest
         )
         _ <- IO.asyncForIO.timeout(
           (for {
-            _ <- IO.println("Querying bob's shared account")
+            _        <- IO.println("Querying bob's shared account")
             queryRes <- queryAccount("alice_bob_0", "or_sign").run(bobContext)
-            _ <- IO.sleep(5.seconds)
+            _        <- IO.sleep(5.seconds)
           } yield queryRes)
             .iterateUntil(_ == ExitCode.Success),
           240.seconds
@@ -272,9 +272,9 @@ class ComplexTransactionProveTest
         _ <- syncWallet("alice_bob_0", "or_sign").run(aliceContext)
         res <- IO.asyncForIO.timeout(
           (for {
-            _ <- IO.println("Querying alice's shared account")
+            _        <- IO.println("Querying alice's shared account")
             queryRes <- queryAccount("alice_bob_0", "or_sign").run(aliceContext)
-            _ <- IO.sleep(5.seconds)
+            _        <- IO.sleep(5.seconds)
           } yield queryRes)
             .iterateUntil(_ == ExitCode.Success),
           240.seconds
@@ -298,7 +298,7 @@ class ComplexTransactionProveTest
           "Moving funds (100 LVLs) from shared and account to alice"
         )
         ALICE_TO_ADDRESS <- walletController(ALICE_WALLET).currentaddress("self", "default", None)
-        _ <- IO.println(s"Alice's address is $ALICE_TO_ADDRESS")
+        _                <- IO.println(s"Alice's address is $ALICE_TO_ADDRESS")
         _ <- assertIO(
           createSimpleTransactionToAddress(
             "alice_bob_0",
@@ -342,9 +342,9 @@ class ComplexTransactionProveTest
         )
         _ <- IO.asyncForIO.timeout(
           (for {
-            _ <- IO.println("Querying bob's and shared account")
+            _        <- IO.println("Querying bob's and shared account")
             queryRes <- queryAccount("alice_bob_0", "and_sign").run(bobContext)
-            _ <- IO.sleep(5.seconds)
+            _        <- IO.sleep(5.seconds)
           } yield queryRes)
             .iterateUntil(_ == ExitCode.Success),
           240.seconds

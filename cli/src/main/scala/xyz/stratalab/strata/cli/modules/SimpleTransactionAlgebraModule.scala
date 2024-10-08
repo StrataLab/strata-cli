@@ -10,11 +10,11 @@ trait SimpleTransactionAlgebraModule
     with GenusQueryAlgebraModule {
 
   def simplTransactionOps(
-      walletFile: String,
-      networkId: Int,
-      host: String,
-      bifrostPort: Int,
-      secureConnection: Boolean
+    walletFile:       String,
+    networkId:        Int,
+    host:             String,
+    bifrostPort:      Int,
+    secureConnection: Boolean
   ) = SimpleTransactionAlgebra
     .make[IO](
       walletApi,

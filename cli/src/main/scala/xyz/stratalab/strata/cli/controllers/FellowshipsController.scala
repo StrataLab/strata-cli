@@ -3,9 +3,8 @@ package xyz.stratalab.strata.cli.controllers
 import cats.Applicative
 import co.topl.brambl.dataApi.{FellowshipStorageAlgebra, WalletFellowship}
 
-
 class FellowshipsController[F[_]: Applicative](
-    fellowshipStorageAlgebra: FellowshipStorageAlgebra[F]
+  fellowshipStorageAlgebra: FellowshipStorageAlgebra[F]
 ) {
 
   def addFellowship(name: String): F[Either[String, String]] = {

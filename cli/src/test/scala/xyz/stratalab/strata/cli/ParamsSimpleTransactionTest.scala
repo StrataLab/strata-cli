@@ -30,7 +30,7 @@ class ParamsSimpleTransactionTest extends FunSuite {
       "--transfer-token",
       "group",
       "--group-id",
-      "0"*64,	
+      "0" * 64,
       "--keyfile",
       "src/test/resources/keyfile.json",
       "--walletdb",
@@ -58,7 +58,7 @@ class ParamsSimpleTransactionTest extends FunSuite {
       "--fee",
       "10",
       "--transfer-token",
-      "lvl",	
+      "lvl",
       "--keyfile",
       "src/test/resources/keyfile.json",
       "--walletdb",
@@ -86,7 +86,7 @@ class ParamsSimpleTransactionTest extends FunSuite {
       "--fee",
       "10",
       "--transfer-token",
-      "lvl",	
+      "lvl",
       "--keyfile",
       "src/test/resources/keyfile.json",
       "--walletdb",
@@ -116,7 +116,7 @@ class ParamsSimpleTransactionTest extends FunSuite {
       "--fee",
       "10",
       "--transfer-token",
-      "lvl",	
+      "lvl",
       "--keyfile",
       "src/test/resources/keyfile.json",
       "--walletdb",
@@ -150,7 +150,7 @@ class ParamsSimpleTransactionTest extends FunSuite {
       "--fee",
       "10",
       "--transfer-token",
-      "lvl",	
+      "lvl",
       "--keyfile",
       "src/test/resources/keyfile.json",
       "--walletdb",
@@ -185,7 +185,7 @@ class ParamsSimpleTransactionTest extends FunSuite {
       "--fee",
       "10",
       "--transfer-token",
-      "lvl",	
+      "lvl",
       "--keyfile",
       "src/test/resources/keyfile.json",
       "--walletdb",
@@ -227,7 +227,7 @@ class ParamsSimpleTransactionTest extends FunSuite {
       "--fee",
       "10",
       "--transfer-token",
-      "lvl",	
+      "lvl",
       "--keyfile",
       "src/test/resources/keyfile.json",
       "--walletdb",
@@ -259,7 +259,7 @@ class ParamsSimpleTransactionTest extends FunSuite {
       "--fee",
       "10",
       "--transfer-token",
-      "lvl",	
+      "lvl",
       "--keyfile",
       "src/test/resources/keyfile.json",
       "--walletdb",
@@ -299,6 +299,7 @@ class ParamsSimpleTransactionTest extends FunSuite {
     )
     assert(OParser.parse(paramParser, args0, StrataCliParams()).isEmpty)
   }
+
   test(
     "Test invalid transaction create with no toAddress, toFellowship or toTemplate"
   ) {
@@ -325,6 +326,7 @@ class ParamsSimpleTransactionTest extends FunSuite {
     assert(OParser.parse(paramParser, args0, StrataCliParams()).isEmpty)
 
   }
+
   test(
     "Test invalid transaction create with only one of toFellowship or toTemplate"
   ) {

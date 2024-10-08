@@ -11,7 +11,7 @@ import xyz.stratalab.strata.cli.StrataCliParamsParserModule
 trait BifrostQueryModeModule extends RpcChannelResource {
 
   def bifrostQuerySubcmd(
-      validateParams: StrataCliParams
+    validateParams: StrataCliParams
   ): IO[Either[String, String]] = {
     val bifrostQueryAlgebra = BifrostQueryAlgebra.make[IO](
       channelResource(

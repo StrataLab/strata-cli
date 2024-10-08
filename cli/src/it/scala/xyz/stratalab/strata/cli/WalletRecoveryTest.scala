@@ -10,10 +10,7 @@ import cats.effect.kernel.{Resource, Sync}
 
 import java.io.FileInputStream
 
-class WalletRecoveryTest
-    extends CatsEffectSuite
-    with WalletConstants
-    with CommonTxOperations {
+class WalletRecoveryTest extends CatsEffectSuite with WalletConstants with CommonTxOperations {
 
   val tmpDirectory = FunFixture[Path](
     setup = { _ =>
@@ -45,8 +42,8 @@ class WalletRecoveryTest
           240.seconds
         )
         next_address <- walletController(WALLET).currentaddress("self", "default", None)
-        _ <- IO.println(s"Next address is $next_address")
-        _ <- IO.println("Moving funds from genesis")
+        _            <- IO.println(s"Next address is $next_address")
+        _            <- IO.println("Moving funds from genesis")
         _ <- assertIO(
           createSimpleTransactionToAddress(
             "nofellowship",
@@ -80,7 +77,7 @@ class WalletRecoveryTest
         res <- IO.asyncForIO.timeout(
           (for {
             queryRes <- queryAccount("self", "default").run(walletContext)
-            _ <- IO.sleep(5.seconds)
+            _        <- IO.sleep(5.seconds)
           } yield queryRes)
             .iterateUntil(_ == ExitCode.Success),
           240.seconds
@@ -105,9 +102,9 @@ class WalletRecoveryTest
     import scala.concurrent.duration._
     assertIO(
       for {
-        _ <- IO.println("Recover wallet key")
+        _        <- IO.println("Recover wallet key")
         mnemonic <- extractMnemonic(WALLET_MNEMONIC)
-        _ <- IO(Files.deleteIfExists(Paths.get(WALLET)))
+        _        <- IO(Files.deleteIfExists(Paths.get(WALLET)))
         _ <- assertIO(
           recoverWallet(mnemonic).run(
             walletContext.copy(keyFile = WALLET_MAIN_KEY_RECOVERED)
@@ -115,8 +112,8 @@ class WalletRecoveryTest
           ExitCode.Success
         )
         next_address <- walletController(WALLET).currentaddress("self", "default", None)
-        _ <- IO.println(s"Next address is $next_address")
-        _ <- IO.println("Spend funds (500 LVLs) using new key")
+        _            <- IO.println(s"Next address is $next_address")
+        _            <- IO.println("Spend funds (500 LVLs) using new key")
         _ <- assertIO(
           createSimpleTransactionToAddress(
             "self",

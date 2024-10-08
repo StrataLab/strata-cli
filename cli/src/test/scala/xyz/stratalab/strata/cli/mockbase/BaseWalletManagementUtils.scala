@@ -5,11 +5,10 @@ import cats.effect.kernel.Sync
 import co.topl.crypto.encryption.VaultStore
 import quivr.models.KeyPair
 
-class BaseWalletManagementUtils[F[_]: Sync]
-    extends WalletManagementUtils[F](null, null) {
+class BaseWalletManagementUtils[F[_]: Sync] extends WalletManagementUtils[F](null, null) {
   override def loadKeys(keyfile: String, password: String): F[KeyPair] = ???
 
   override def readInputFile(
-      inputFile: String
+    inputFile: String
   ): F[VaultStore[F]] = ???
 }

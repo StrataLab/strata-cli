@@ -10,11 +10,11 @@ import co.topl.consensus.models.BlockId
 import com.google.protobuf.ByteString
 
 class BifrostQueryController[F[_]: Sync](
-    bifrostQueryAlgebra: BifrostQueryAlgebra[F]
+  bifrostQueryAlgebra: BifrostQueryAlgebra[F]
 ) {
 
   def makeBlock(
-      nbOfBlocks: Int
+    nbOfBlocks: Int
   ): F[Either[String, String]] = {
     import cats.implicits._
     bifrostQueryAlgebra.makeBlock(nbOfBlocks).map { _ =>
@@ -23,7 +23,7 @@ class BifrostQueryController[F[_]: Sync](
   }
 
   def blockByHeight(
-      height: Long
+    height: Long
   ): F[Either[String, String]] = {
     import cats.implicits._
     bifrostQueryAlgebra
@@ -50,7 +50,7 @@ class BifrostQueryController[F[_]: Sync](
   }
 
   def blockById(
-      pBlockId: String
+    pBlockId: String
   ): F[Either[String, String]] = {
     import cats.implicits._
     bifrostQueryAlgebra

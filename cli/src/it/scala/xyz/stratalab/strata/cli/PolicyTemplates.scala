@@ -7,17 +7,17 @@ import cats.effect.IO
 trait PolicyTemplates {
 
   def basicGroupPolicyTemplate(
-      label: String,
-      registrationUtxo: String
+    label:            String,
+    registrationUtxo: String
   ) =
     s"""|label: $label
         |registrationUtxo: $registrationUtxo
     """.stripMargin
 
   def basicAssetMintingStatementTemplate(
-      groupTokenUtxo: String,
-      seriesTokenUtxo: String,
-      quantity: Long
+    groupTokenUtxo:  String,
+    seriesTokenUtxo: String,
+    quantity:        Long
   ) = s"""
     |groupTokenUtxo: $groupTokenUtxo
     |seriesTokenUtxo: $seriesTokenUtxo
@@ -25,10 +25,10 @@ trait PolicyTemplates {
     |""".stripMargin
 
   def basicSeriesPolicyTemplate(
-      label: String,
-      registrationUtxo: String,
-      fungibility: String,
-      quantityDescriptor: String
+    label:              String,
+    registrationUtxo:   String,
+    fungibility:        String,
+    quantityDescriptor: String
   ) =
     s"""|label: $label
         |registrationUtxo: $registrationUtxo
@@ -53,11 +53,11 @@ trait PolicyTemplates {
     """.stripMargin
 
   def createAliceGroupPolicy(
-      fileName: String,
-      label: String,
-      utxo: String
-  ) = {
-    Resource.make(IO(new PrintWriter(fileName)))(f => IO(f.flush()) >>  IO(f.close)).use { file =>
+    fileName: String,
+    label:    String,
+    utxo:     String
+  ) =
+    Resource.make(IO(new PrintWriter(fileName)))(f => IO(f.flush()) >> IO(f.close)).use { file =>
       IO(
         file.write(
           basicGroupPolicyTemplate(
@@ -67,14 +67,14 @@ trait PolicyTemplates {
         )
       )
     }
-  }
+
   def createAliceSeriesPolicy(
-      fileName: String,
-      label: String,
-      fungibility: String,
-      quantityDescriptor: String,
-      utxo: String
-  ) = {
+    fileName:           String,
+    label:              String,
+    fungibility:        String,
+    quantityDescriptor: String,
+    utxo:               String
+  ) =
     Resource.make(IO(new PrintWriter(fileName)))(f => IO(f.flush()) >> IO(f.close)).use { file =>
       IO(
         file.write(
@@ -87,14 +87,13 @@ trait PolicyTemplates {
         )
       )
     }
-  }
 
   def createAliceAssetMintingStatement(
-      fileName: String,
-      groupTokenUtxo: String,
-      seriesTokenUtxo: String,
-      quantity: Long
-  ) = {
+    fileName:        String,
+    groupTokenUtxo:  String,
+    seriesTokenUtxo: String,
+    quantity:        Long
+  ) =
     Resource.make(IO(new PrintWriter(fileName)))(f => IO(f.flush()) >> IO(f.close)).use { file =>
       IO(
         file.write(
@@ -106,14 +105,13 @@ trait PolicyTemplates {
         )
       )
     }
-  }
 
   def createAliceEphemeralMetadata(
     fileName: String,
-    url: String,
-    image: String,
-    number: Int
-  ) = {
+    url:      String,
+    image:    String,
+    number:   Int
+  ) =
     Resource.make(IO(new PrintWriter(fileName)))(f => IO(f.flush()) >> IO(f.close)).use { file =>
       IO(
         file.write(
@@ -125,6 +123,5 @@ trait PolicyTemplates {
         )
       )
     }
-  }
 
 }

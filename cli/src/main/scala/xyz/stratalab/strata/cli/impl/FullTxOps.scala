@@ -16,10 +16,7 @@ import co.topl.brambl.utils.Encoding
 import com.google.protobuf.ByteString
 import co.topl.brambl.models.SeriesId
 
-object FullTxOps
-    extends WalletModeModule
-    with SimpleTransactionModeModule
-    with TxModeModule {
+object FullTxOps extends WalletModeModule with SimpleTransactionModeModule with TxModeModule {
 
   private def selectToken(token: String) =
     if (token == "LVL")
@@ -76,25 +73,25 @@ object FullTxOps
       )
 
   def sendFunds(
-      networkId: NetworkIdentifiers,
-      password: String,
-      walletFile: String,
-      keyFile: String,
-      fromFellowship: String,
-      fromTemplate: String,
-      someFromInteraction: Option[Int],
-      someChangeFellowship: Option[String],
-      someChangeTemplate: Option[String],
-      someChangeInteraction: Option[Int],
-      toAddress: Option[LockAddress],
-      amount: Long,
-      fee: Long,
-      token: String,
-      txFile: String,
-      provedTxFile: String,
-      host: String,
-      bifrostPort: Int,
-      secureConnection: Boolean
+    networkId:             NetworkIdentifiers,
+    password:              String,
+    walletFile:            String,
+    keyFile:               String,
+    fromFellowship:        String,
+    fromTemplate:          String,
+    someFromInteraction:   Option[Int],
+    someChangeFellowship:  Option[String],
+    someChangeTemplate:    Option[String],
+    someChangeInteraction: Option[Int],
+    toAddress:             Option[LockAddress],
+    amount:                Long,
+    fee:                   Long,
+    token:                 String,
+    txFile:                String,
+    provedTxFile:          String,
+    host:                  String,
+    bifrostPort:           Int,
+    secureConnection:      Boolean
   ): IO[Either[String, String]] = {
     val simpleTxController = new SimpleTransactionController(
       walletStateAlgebra(

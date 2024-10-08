@@ -19,7 +19,7 @@ trait SimpleMintingModeModule
     with SimpleMintingAlgebraModule {
 
   def simpleMintingSubcmds(
-      validateParams: StrataCliParams
+    validateParams: StrataCliParams
   ): IO[Either[String, String]] = {
     val simpleMintingController = new SimpleMintingController(
       groupPolicyParserAlgebra(validateParams.network.networkId),

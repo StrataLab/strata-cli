@@ -1,6 +1,5 @@
 package xyz.stratalab.strata.cli.modules
 
-
 import cats.Monad
 import co.topl.brambl.codecs.AddressCodecs
 import co.topl.brambl.dataApi.GenusQueryAlgebra
@@ -47,6 +46,7 @@ trait DummyObjects {
         .get
     )
   )
+
   // corresponds to the address of the lockAddress01
   val lock01 = Lock.Predicate.of(
     Seq(
@@ -75,6 +75,7 @@ trait DummyObjects {
       )
     )
   )
+
   lazy val groupValue01 = Value(
     Value.Value.Group(
       Value.Group(
@@ -114,6 +115,7 @@ trait DummyObjects {
       )
     )
   )
+
   lazy val assetValue01 = Value(
     Value.Asset(
       Some(
@@ -219,9 +221,7 @@ trait DummyObjects {
       thresholdEvidence = ByteString.copyFrom(Array.fill[Byte](32)(0))
     ),
     operationalCertificate = OperationalCertificate(
-      VerificationKeyKesProduct(value =
-        ByteString.copyFrom(Array.fill[Byte](32)(0))
-      ),
+      VerificationKeyKesProduct(value = ByteString.copyFrom(Array.fill[Byte](32)(0))),
       SignatureKesProduct(
         SignatureKesSum(
           verificationKey = ByteString.copyFrom(Array.fill[Byte](32)(0)),
@@ -234,7 +234,7 @@ trait DummyObjects {
         subRoot = ByteString.copyFrom(Array.fill[Byte](32)(0))
       ),
       ByteString.copyFrom(Array.fill[Byte](32)(0)),
-      ByteString.copyFrom(Array.fill[Byte](64)(0)),
+      ByteString.copyFrom(Array.fill[Byte](64)(0))
     ),
     address = StakingAddress(
       value = ByteString.copyFrom(Array.fill[Byte](32)(0))
@@ -269,25 +269,24 @@ trait DummyObjects {
     new GenusQueryAlgebra[F] {
 
       override def queryUtxo(
-          fromAddress: LockAddress,
-          txoState: TxoState
-      ): F[Seq[Txo]] = {
+        fromAddress: LockAddress,
+        txoState:    TxoState
+      ): F[Seq[Txo]] =
         Monad[F].pure(
           Seq(txo01, txo02, txo03, txo04)
         )
-      }
     }
+
   def makeGenusQueryAlgebraMockWithOneAddress[F[_]: Monad] =
     new GenusQueryAlgebra[F] {
 
       override def queryUtxo(
-          fromAddress: LockAddress,
-          txoState: TxoState
-      ): F[Seq[Txo]] = {
+        fromAddress: LockAddress,
+        txoState:    TxoState
+      ): F[Seq[Txo]] =
         Monad[F].pure(
           Seq(txo01)
         )
-      }
     }
 
 }

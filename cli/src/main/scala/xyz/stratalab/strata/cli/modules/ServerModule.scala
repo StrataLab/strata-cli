@@ -49,43 +49,42 @@ trait ServerModule extends FellowshipsModeModule with WalletModeModule {
       TemporaryRedirect(headers.Location(Uri.fromString("/").toOption.get))
   }
 
-  def apiServices(validateParams: StrataCliParams) = HttpRoutes.of[IO] {
-    case req @ POST -> Root / "send" =>
-      implicit val txReqDecoder: EntityDecoder[IO, TxRequest] =
-        jsonOf[IO, TxRequest]
+  def apiServices(validateParams: StrataCliParams) = HttpRoutes.of[IO] { case req @ POST -> Root / "send" =>
+    implicit val txReqDecoder: EntityDecoder[IO, TxRequest] =
+      jsonOf[IO, TxRequest]
 
-      for {
-        input <- req.as[TxRequest]
-        result <- FullTxOps.sendFunds(
-          validateParams.network,
-          validateParams.password,
-          validateParams.walletFile,
-          validateParams.someKeyFile.get,
-          input.fromFellowship,
-          input.fromTemplate,
-          input.fromInteraction.map(_.toInt),
-          Some(input.fromFellowship),
-          Some(input.fromTemplate),
-          input.fromInteraction.map(_.toInt),
-          AddressCodecs.decodeAddress(input.address).toOption,
-          input.amount.toLong,
-          input.fee.toLong,
-          input.token,
-          Files.createTempFile("txFile", ".pbuf").toAbsolutePath().toString(),
-          Files
-            .createTempFile("provedTxFile", ".pbuf")
-            .toAbsolutePath()
-            .toString(),
-          validateParams.host,
-          validateParams.bifrostPort,
-          validateParams.secureConnection
-        )
-        resp <- Ok(TxResponse(result).asJson)
-      } yield resp
+    for {
+      input <- req.as[TxRequest]
+      result <- FullTxOps.sendFunds(
+        validateParams.network,
+        validateParams.password,
+        validateParams.walletFile,
+        validateParams.someKeyFile.get,
+        input.fromFellowship,
+        input.fromTemplate,
+        input.fromInteraction.map(_.toInt),
+        Some(input.fromFellowship),
+        Some(input.fromTemplate),
+        input.fromInteraction.map(_.toInt),
+        AddressCodecs.decodeAddress(input.address).toOption,
+        input.amount.toLong,
+        input.fee.toLong,
+        input.token,
+        Files.createTempFile("txFile", ".pbuf").toAbsolutePath().toString(),
+        Files
+          .createTempFile("provedTxFile", ".pbuf")
+          .toAbsolutePath()
+          .toString(),
+        validateParams.host,
+        validateParams.bifrostPort,
+        validateParams.secureConnection
+      )
+      resp <- Ok(TxResponse(result).asJson)
+    } yield resp
   }
 
   def serverSubcmd(
-      validateParams: StrataCliParams
+    validateParams: StrataCliParams
   ): IO[Either[String, String]] = validateParams.subcmd match {
     case StrataCliSubCmd.invalid =>
       IO.pure(
@@ -148,11 +147,9 @@ trait ServerModule extends FellowshipsModeModule with WalletModeModule {
           .withLogger(logger)
           .build
 
-      } yield {
-        Right(
-          s"Server started on ${ServerConfig.host}:${ServerConfig.port}"
-        )
-      }).allocated
+      } yield Right(
+        s"Server started on ${ServerConfig.host}:${ServerConfig.port}"
+      )).allocated
         .map(_._1)
         .handleErrorWith { e =>
           IO {

@@ -8,16 +8,16 @@ import co.topl.brambl.dataApi.{GenusQueryAlgebra, WalletStateAlgebra}
 import co.topl.brambl.display.DisplayOps.DisplayTOps
 
 class GenusQueryController[F[_]: Sync](
-    walletStateAlgebra: WalletStateAlgebra[F],
-    genusQueryAlgebra: GenusQueryAlgebra[F]
+  walletStateAlgebra: WalletStateAlgebra[F],
+  genusQueryAlgebra:  GenusQueryAlgebra[F]
 ) {
 
   def queryUtxoFromParams(
-      someFromAddress: Option[String],
-      fromFellowship: String,
-      fromTemplate: String,
-      someFromInteraction: Option[Int],
-      tokenType: TokenType.Value = TokenType.all
+    someFromAddress:     Option[String],
+    fromFellowship:      String,
+    fromTemplate:        String,
+    someFromInteraction: Option[Int],
+    tokenType:           TokenType.Value = TokenType.all
   ): F[Either[String, String]] = {
 
     import cats.implicits._

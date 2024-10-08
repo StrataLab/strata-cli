@@ -19,7 +19,9 @@ Value                      : 100
 
   test("Block and transaction display should show the correct data") {
     val display = BlockDisplayOps.display(blockId01, Seq(iotransaction01))
-    assertNoDiff(display.trim(), """
+    assertNoDiff(
+      display.trim(),
+      """
 BlockId: 11111111111111111111111111111111
 
 Block Body:
@@ -54,7 +56,8 @@ Value                      : 100
 Datum
 =====
 Value                      :
-""".trim())
+""".trim()
+    )
   }
 
 }
