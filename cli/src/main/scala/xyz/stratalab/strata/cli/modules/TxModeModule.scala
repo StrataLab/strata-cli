@@ -4,7 +4,7 @@ import cats.effect.IO
 import xyz.stratalab.strata.cli.StrataCliParams
 import xyz.stratalab.strata.cli.StrataCliSubCmd
 import xyz.stratalab.strata.cli.controllers.TxController
-import co.topl.brambl.constants.NetworkConstants
+import xyz.stratalab.sdk.constants.NetworkConstants
 import scopt.OParser
 import xyz.stratalab.strata.cli.StrataCliParamsParserModule
 

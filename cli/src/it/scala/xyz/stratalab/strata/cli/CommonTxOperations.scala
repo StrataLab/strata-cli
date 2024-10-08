@@ -8,7 +8,7 @@ import xyz.stratalab.strata.cli.modules.TransactionBuilderApiModule
 import xyz.stratalab.strata.cli.modules.WalletAlgebraModule
 import xyz.stratalab.strata.cli.modules.WalletManagementUtilsModule
 import xyz.stratalab.strata.cli.modules.WalletStateAlgebraModule
-import co.topl.brambl.dataApi.{GenusQueryAlgebra, RpcChannelResource}
+import xyz.stratalab.sdk.dataApi.{IndexerQueryAlgebra, RpcChannelResource}
 
 trait CommonTxOperations
     extends TransactionBuilderApiModule
@@ -383,7 +383,7 @@ trait CommonTxOperations
     Kleisli[IO, WalletKeyConfig, ExitCode]((c: WalletKeyConfig) =>
       Main.run(
         List(
-          "genus-query",
+          "indexer-query",
           "utxo-by-address",
           "--from-fellowship",
           fellowshipName,
@@ -411,7 +411,7 @@ trait CommonTxOperations
     Kleisli[IO, WalletKeyConfig, ExitCode]((c: WalletKeyConfig) =>
       Main.run(
         List(
-          "genus-query",
+          "indexer-query",
           "utxo-by-address",
           "--from-fellowship",
           fellowshipName,
@@ -439,7 +439,7 @@ trait CommonTxOperations
     Kleisli[IO, WalletKeyConfig, ExitCode]((c: WalletKeyConfig) =>
       Main.run(
         List(
-          "genus-query",
+          "indexer-query",
           "utxo-by-address",
           "--from-fellowship",
           fellowshipName,
@@ -468,7 +468,7 @@ trait CommonTxOperations
     Kleisli[IO, WalletKeyConfig, ExitCode]((c: WalletKeyConfig) =>
       Main.run(
         List(
-          "genus-query",
+          "indexer-query",
           "utxo-by-address",
           "--from-fellowship",
           fellowshipName,
@@ -497,7 +497,7 @@ trait CommonTxOperations
     Kleisli[IO, WalletKeyConfig, ExitCode]((c: WalletKeyConfig) =>
       Main.run(
         List(
-          "genus-query",
+          "indexer-query",
           "utxo-by-address",
           "--from-fellowship",
           fellowshipName,
@@ -735,7 +735,7 @@ trait CommonTxOperations
       )
     )
 
-  val genusQueryAlgebra = GenusQueryAlgebra
+  val indexerQueryAlgebra = IndexerQueryAlgebra
     .make[IO](
       channelResource(
         HOST,
@@ -751,7 +751,7 @@ trait CommonTxOperations
     walletManagementUtils,
     walletApi,
     walletAlgebra(walletFile),
-    genusQueryAlgebra
+    indexerQueryAlgebra
   )
 
   def broadcastSimpleTx(provedTx: String, secure: Boolean = false) = Main.run(

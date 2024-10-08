@@ -4,7 +4,7 @@ import munit.FunSuite
 
 import scopt.OParser
 
-class ParamsBifrostQueryTest extends FunSuite {
+class ParamsNodeQueryTest extends FunSuite {
 
   import StrataCliParamsParserModule._
 

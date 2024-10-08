@@ -7,7 +7,7 @@ import xyz.stratalab.strata.cli.TokenType
 import xyz.stratalab.strata.cli.controllers.SimpleMintingController
 import xyz.stratalab.strata.cli.impl.GroupPolicyParserModule
 import xyz.stratalab.strata.cli.impl.SeriesPolicyParserModule
-import co.topl.brambl.constants.NetworkConstants
+import xyz.stratalab.sdk.constants.NetworkConstants
 import xyz.stratalab.strata.cli.impl.AssetStatementParserModule
 import scopt.OParser
 import xyz.stratalab.strata.cli.StrataCliParamsParserModule

@@ -1,11 +1,11 @@
 package xyz.stratalab.strata.cli
 
-import co.topl.brambl.codecs.AddressCodecs
-import co.topl.brambl.constants.NetworkConstants
-import co.topl.brambl.models.GroupId
-import co.topl.brambl.models.LockAddress
-import co.topl.brambl.models.SeriesId
-import co.topl.brambl.utils.Encoding
+import xyz.stratalab.sdk.codecs.AddressCodecs
+import xyz.stratalab.sdk.constants.NetworkConstants
+import xyz.stratalab.sdk.models.GroupId
+import xyz.stratalab.sdk.models.LockAddress
+import xyz.stratalab.sdk.models.SeriesId
+import xyz.stratalab.sdk.utils.Encoding
 import com.google.protobuf.ByteString
 import scopt.OParser
 
@@ -210,7 +210,7 @@ object StrataCliParamsParserModule {
 
   def portArg = opt[Int]("port")
     .action((x, c) => c.copy(bifrostPort = x))
-    .text("Port Bifrost node. (mandatory)")
+    .text("Port Node node. (mandatory)")
     .validate(x =>
       if (x >= 0 && x <= 65536) success
       else failure("Port must be between 0 and 65536")
@@ -478,9 +478,9 @@ object StrataCliParamsParserModule {
       }
     )
 
-  val genusQueryMode = cmd("genus-query")
-    .action((_, c) => c.copy(mode = StrataCliMode.genusquery))
-    .text("Genus query mode")
+  val indexerQueryMode = cmd("indexer-query")
+    .action((_, c) => c.copy(mode = StrataCliMode.indexerquery))
+    .text("Indexer query mode")
     .children(
       cmd("utxo-by-address")
         .action((_, c) => c.copy(subcmd = StrataCliSubCmd.utxobyaddress))
@@ -495,7 +495,7 @@ object StrataCliParamsParserModule {
     )
   val bifrostQueryMode = cmd("bifrost-query")
     .action((_, c) => c.copy(mode = StrataCliMode.bifrostquery))
-    .text("Bifrost query mode")
+    .text("Node query mode")
     .children(
       cmd("mint-block")
         .action((_, c) => c.copy(subcmd = StrataCliSubCmd.mintblock))
@@ -931,7 +931,7 @@ object StrataCliParamsParserModule {
     OParser.sequence(
       templatesMode,
       fellowshipsMode,
-      genusQueryMode,
+      indexerQueryMode,
       bifrostQueryMode,
       walletMode,
       transactionMode,
