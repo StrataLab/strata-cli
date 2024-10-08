@@ -2,10 +2,9 @@ package xyz.stratalab.strata.cli.impl
 
 import co.topl.brambl.codecs.AddressCodecs
 import co.topl.brambl.constants.NetworkConstants
-import co.topl.brambl.models.TransactionId
-import co.topl.brambl.models.TransactionOutputAddress
 import co.topl.brambl.models.box.Value
 import co.topl.brambl.models.transaction.UnspentTransactionOutput
+import co.topl.brambl.models.{TransactionId, TransactionOutputAddress}
 import co.topl.brambl.utils.Encoding
 import com.google.protobuf.ByteString
 import quivr.models.Int128

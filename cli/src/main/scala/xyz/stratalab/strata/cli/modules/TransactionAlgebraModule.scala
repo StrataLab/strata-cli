@@ -1,8 +1,8 @@
 package xyz.stratalab.strata.cli.modules
 
 import cats.effect.IO
-import xyz.stratalab.strata.cli.impl.TransactionAlgebra
 import co.topl.brambl.dataApi.RpcChannelResource
+import xyz.stratalab.strata.cli.impl.TransactionAlgebra
 
 trait TransactionAlgebraModule
     extends WalletStateAlgebraModule

@@ -3,8 +3,7 @@ package xyz.stratalab.strata.cli.impl
 import cats.Monad
 import cats.effect.kernel.Sync
 import co.topl.brambl.builders.TransactionBuilderApi
-import co.topl.brambl.dataApi.GenusQueryAlgebra
-import co.topl.brambl.dataApi.WalletStateAlgebra
+import co.topl.brambl.dataApi.{GenusQueryAlgebra, WalletStateAlgebra}
 import co.topl.brambl.models.Event
 import co.topl.brambl.models.box.AssetMintingStatement
 import co.topl.brambl.wallet.WalletApi

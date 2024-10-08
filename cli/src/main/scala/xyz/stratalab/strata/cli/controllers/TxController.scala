@@ -1,15 +1,11 @@
 package xyz.stratalab.strata.cli.controllers
 
-import cats.effect.kernel.Resource
-import cats.effect.kernel.Sync
-import xyz.stratalab.strata.cli.impl.CommonParserError
-import xyz.stratalab.strata.cli.impl.TransactionAlgebra
-import xyz.stratalab.strata.cli.impl.TxParserAlgebra
+import cats.effect.kernel.{Resource, Sync}
 import co.topl.brambl.display.DisplayOps.DisplayTOps
 import co.topl.brambl.models.transaction.IoTransaction
+import xyz.stratalab.strata.cli.impl.{CommonParserError, TransactionAlgebra, TxParserAlgebra}
 
-import java.io.FileInputStream
-import java.io.FileOutputStream
+import java.io.{FileInputStream, FileOutputStream}
 
 class TxController[F[_]: Sync](
   txParserAlgebra: TxParserAlgebra[F],

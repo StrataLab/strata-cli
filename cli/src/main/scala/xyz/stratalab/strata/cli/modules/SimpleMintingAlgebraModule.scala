@@ -1,8 +1,8 @@
 package xyz.stratalab.strata.cli.modules
 
 import cats.effect.IO
-import xyz.stratalab.strata.cli.impl.SimpleMintingAlgebra
 import cats.effect.kernel.Sync
+import xyz.stratalab.strata.cli.impl.SimpleMintingAlgebra
 
 trait SimpleMintingAlgebraModule
     extends WalletStateAlgebraModule

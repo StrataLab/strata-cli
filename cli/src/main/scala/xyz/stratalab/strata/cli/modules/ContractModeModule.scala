@@ -1,12 +1,10 @@
 package xyz.stratalab.strata.cli.modules
 
 import cats.effect.IO
-import xyz.stratalab.strata.cli.controllers.TemplatesController
 import co.topl.brambl.servicekit.{TemplateStorageApi, WalletStateResource}
-import xyz.stratalab.strata.cli.StrataCliSubCmd
-import xyz.stratalab.strata.cli.StrataCliParams
 import scopt.OParser
-import xyz.stratalab.strata.cli.StrataCliParamsParserModule
+import xyz.stratalab.strata.cli.controllers.TemplatesController
+import xyz.stratalab.strata.cli.{StrataCliParams, StrataCliParamsParserModule, StrataCliSubCmd}
 
 trait TemplateModeModule extends WalletStateResource {
 

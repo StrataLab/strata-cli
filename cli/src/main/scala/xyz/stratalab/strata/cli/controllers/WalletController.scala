@@ -1,38 +1,23 @@
 package xyz.stratalab.strata.cli.controllers
 
 import cats.data.OptionT
-import cats.effect.kernel.Resource
-import cats.effect.kernel.Sync
+import cats.effect.kernel.{Resource, Sync}
 import co.topl.brambl.builders.TransactionBuilderApi
-import xyz.stratalab.strata.cli.StrataCliParams
-import xyz.stratalab.strata.cli.impl.WalletAlgebra
-import xyz.stratalab.strata.cli.impl.WalletManagementUtils
-import xyz.stratalab.strata.cli.impl.WalletModeHelper
 import co.topl.brambl.codecs.AddressCodecs
 import co.topl.brambl.constants.NetworkConstants
 import co.topl.brambl.dataApi
-import co.topl.brambl.models.Indices
-import co.topl.brambl.models.LockAddress
-import co.topl.brambl.models.LockId
+import co.topl.brambl.models.{Indices, LockAddress, LockId}
 import co.topl.brambl.utils.Encoding
 import co.topl.brambl.wallet.WalletApi
-import co.topl.genus.services.Txo
-import co.topl.genus.services.TxoState
-import xyz.stratalab.shared.models.AssetTokenBalanceDTO
-import xyz.stratalab.shared.models.GroupTokenBalanceDTO
-import xyz.stratalab.shared.models.LvlBalance
-import xyz.stratalab.shared.models.SeriesTokenBalanceDTO
-import quivr.models.VerificationKey
-
-import java.io.File
-import java.io.PrintWriter
-import quivr.models.Preimage
-import com.google.protobuf.ByteString
-import quivr.models.Proposition
-import xyz.stratalab.strata.cli.DigestType
-import quivr.models.Digest
-import xyz.stratalab.strata.cli.Sha256
 import co.topl.crypto.hash.Blake2b256
+import co.topl.genus.services.{Txo, TxoState}
+import com.google.protobuf.ByteString
+import quivr.models.{Digest, Preimage, Proposition, VerificationKey}
+import xyz.stratalab.shared.models.{AssetTokenBalanceDTO, GroupTokenBalanceDTO, LvlBalance, SeriesTokenBalanceDTO}
+import xyz.stratalab.strata.cli.impl.{WalletAlgebra, WalletManagementUtils, WalletModeHelper}
+import xyz.stratalab.strata.cli.{DigestType, Sha256, StrataCliParams}
+
+import java.io.{File, PrintWriter}
 
 class WalletController[F[_]: Sync](
   walletStateAlgebra:    dataApi.WalletStateAlgebra[F],

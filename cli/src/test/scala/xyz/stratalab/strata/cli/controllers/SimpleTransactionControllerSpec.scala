@@ -3,23 +3,17 @@ package xyz.stratalab.strata.cli.controllers
 import cats.Monad
 import cats.data.ValidatedNel
 import cats.effect.IO
-import xyz.stratalab.strata.cli.TokenType
-import xyz.stratalab.strata.cli.impl.AssetStatementParserModule
-import xyz.stratalab.strata.cli.impl.GroupPolicyParserModule
-import xyz.stratalab.strata.cli.impl.SeriesPolicyParserModule
-import xyz.stratalab.strata.cli.impl.SimpleTransactionAlgebra
-import xyz.stratalab.strata.cli.mockbase.BaseWalletStateAlgebra
-import xyz.stratalab.strata.cli.modules.DummyObjects
-import xyz.stratalab.strata.cli.modules.SimpleMintingAlgebraModule
 import co.topl.brambl.codecs.AddressCodecs
 import co.topl.brambl.constants.NetworkConstants
-import co.topl.brambl.models.Indices
 import co.topl.brambl.models.box.Lock
-import munit.CatsEffectSuite
-import com.google.protobuf.ByteString
-import co.topl.brambl.models.GroupId
+import co.topl.brambl.models.{GroupId, Indices, SeriesId}
 import co.topl.brambl.utils.Encoding
-import co.topl.brambl.models.SeriesId
+import com.google.protobuf.ByteString
+import munit.CatsEffectSuite
+import xyz.stratalab.strata.cli.TokenType
+import xyz.stratalab.strata.cli.impl.{AssetStatementParserModule, GroupPolicyParserModule, SeriesPolicyParserModule, SimpleTransactionAlgebra}
+import xyz.stratalab.strata.cli.mockbase.BaseWalletStateAlgebra
+import xyz.stratalab.strata.cli.modules.{DummyObjects, SimpleMintingAlgebraModule}
 
 class SimpleTransactionControllerSpec
     extends CatsEffectSuite

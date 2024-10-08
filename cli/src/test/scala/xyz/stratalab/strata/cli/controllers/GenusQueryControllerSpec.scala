@@ -2,13 +2,13 @@ package xyz.stratalab.strata.cli.controllers
 
 import cats.Monad
 import cats.effect.IO
-import xyz.stratalab.strata.cli.mockbase.BaseWalletStateAlgebra
-import xyz.stratalab.strata.cli.modules.DummyObjects
 import co.topl.brambl.dataApi.GenusQueryAlgebra
 import co.topl.brambl.display.DisplayOps.DisplayTOps
 import co.topl.brambl.models.LockAddress
 import co.topl.genus.services.{Txo, TxoState}
 import munit.CatsEffectSuite
+import xyz.stratalab.strata.cli.mockbase.BaseWalletStateAlgebra
+import xyz.stratalab.strata.cli.modules.DummyObjects
 
 class GenusQueryControllerSpec extends CatsEffectSuite with DummyObjects {
 

@@ -1,16 +1,15 @@
 package xyz.stratalab.strata.cli.controllers
 
 import cats.effect.IO
-import xyz.stratalab.strata.cli.mockbase.BaseBifrostQueryAlgebra
-import co.topl.brambl.models.transaction.IoTransaction
-import co.topl.consensus.models.BlockId
-import co.topl.node.models.BlockBody
-import munit.CatsEffectSuite
-import xyz.stratalab.strata.cli.modules.DummyObjects
-import xyz.stratalab.strata.cli.views.BlockDisplayOps
 import co.topl.brambl.display.DisplayOps.DisplayTOps
 import co.topl.brambl.models.TransactionId
-import co.topl.consensus.models.BlockHeader
+import co.topl.brambl.models.transaction.IoTransaction
+import co.topl.consensus.models.{BlockHeader, BlockId}
+import co.topl.node.models.BlockBody
+import munit.CatsEffectSuite
+import xyz.stratalab.strata.cli.mockbase.BaseBifrostQueryAlgebra
+import xyz.stratalab.strata.cli.modules.DummyObjects
+import xyz.stratalab.strata.cli.views.BlockDisplayOps
 
 class BifrostQueryControllerSpec extends CatsEffectSuite with DummyObjects {
 

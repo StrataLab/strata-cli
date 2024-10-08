@@ -1,7 +1,7 @@
 package xyz.stratalab.strata.cli.impl
 
-import co.topl.brambl.dataApi.WalletStateAlgebra
 import cats.Monad
+import co.topl.brambl.dataApi.WalletStateAlgebra
 import co.topl.brambl.models.Indices
 import co.topl.brambl.models.box.Lock
 

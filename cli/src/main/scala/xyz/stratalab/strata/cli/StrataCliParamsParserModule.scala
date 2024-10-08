@@ -2,9 +2,7 @@ package xyz.stratalab.strata.cli
 
 import co.topl.brambl.codecs.AddressCodecs
 import co.topl.brambl.constants.NetworkConstants
-import co.topl.brambl.models.GroupId
-import co.topl.brambl.models.LockAddress
-import co.topl.brambl.models.SeriesId
+import co.topl.brambl.models.{GroupId, LockAddress, SeriesId}
 import co.topl.brambl.utils.Encoding
 import com.google.protobuf.ByteString
 import scopt.OParser

@@ -1,22 +1,18 @@
 package xyz.stratalab.strata.cli.controllers
 
+import cats.Monad
 import cats.effect.IO
 import cats.effect.kernel.Sync
-import xyz.stratalab.strata.cli.impl.AssetStatementParserModule
-import xyz.stratalab.strata.cli.impl.GroupPolicyParserModule
-import xyz.stratalab.strata.cli.impl.SeriesPolicyParserModule
-import xyz.stratalab.strata.cli.impl.SimpleMintingAlgebra
-import xyz.stratalab.strata.cli.modules.DummyObjects
-import xyz.stratalab.strata.cli.modules.SimpleMintingAlgebraModule
 import co.topl.brambl.constants.NetworkConstants
-import munit.CatsEffectSuite
-import java.io.File
-import cats.Monad
-import xyz.stratalab.strata.cli.mockbase.BaseWalletStateAlgebra
 import co.topl.brambl.models.Indices
-import co.topl.brambl.models.box.Lock
-import co.topl.brambl.models.box.Challenge
+import co.topl.brambl.models.box.{Challenge, Lock}
+import munit.CatsEffectSuite
 import quivr.models.Proposition
+import xyz.stratalab.strata.cli.impl.{AssetStatementParserModule, GroupPolicyParserModule, SeriesPolicyParserModule, SimpleMintingAlgebra}
+import xyz.stratalab.strata.cli.mockbase.BaseWalletStateAlgebra
+import xyz.stratalab.strata.cli.modules.{DummyObjects, SimpleMintingAlgebraModule}
+
+import java.io.File
 
 class SimpleMintingControllerSpec
     extends CatsEffectSuite

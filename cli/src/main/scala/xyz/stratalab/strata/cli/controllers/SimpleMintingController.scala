@@ -1,15 +1,9 @@
 package xyz.stratalab.strata.cli.controllers
 
-import cats.effect.kernel.Resource
-import cats.effect.kernel.Sync
-import xyz.stratalab.strata.cli.impl.AssetMintingStatementParser
-import xyz.stratalab.strata.cli.impl.CreateTxError
-import xyz.stratalab.strata.cli.impl.GroupPolicyParser
-import xyz.stratalab.strata.cli.impl.SeriesPolicyParser
-import xyz.stratalab.strata.cli.impl.SimpleMintingAlgebra
-import xyz.stratalab.strata.cli.impl.SimpleTransactionAlgebraError
+import cats.effect.kernel.{Resource, Sync}
 import co.topl.brambl.utils.Encoding
 import com.google.protobuf.ByteString
+import xyz.stratalab.strata.cli.impl.{AssetMintingStatementParser, CreateTxError, GroupPolicyParser, SeriesPolicyParser, SimpleMintingAlgebra, SimpleTransactionAlgebraError}
 
 import java.io.File
 

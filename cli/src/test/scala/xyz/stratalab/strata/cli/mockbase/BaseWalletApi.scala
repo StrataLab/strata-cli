@@ -4,8 +4,7 @@ import co.topl.brambl.models.Indices
 import co.topl.brambl.wallet.WalletApi
 import co.topl.crypto.encryption.VaultStore
 import co.topl.crypto.generation.mnemonic.MnemonicSize
-import quivr.models.KeyPair
-import quivr.models.VerificationKey
+import quivr.models.{KeyPair, VerificationKey}
 
 class BaseWalletApi[F[_]] extends WalletApi[F] {
 

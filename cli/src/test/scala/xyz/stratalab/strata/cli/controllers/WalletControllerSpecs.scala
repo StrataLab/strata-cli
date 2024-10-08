@@ -2,26 +2,18 @@ package xyz.stratalab.strata.cli.controllers
 
 import cats.data.EitherT
 import cats.effect.IO
-import xyz.stratalab.strata.cli.mockbase.BaseGenusQueryAlgebra
-import xyz.stratalab.strata.cli.mockbase.BaseWalletAlgebra
-import xyz.stratalab.strata.cli.mockbase.BaseWalletApi
-import xyz.stratalab.strata.cli.mockbase.BaseWalletManagementUtils
-import xyz.stratalab.strata.cli.mockbase.BaseWalletStateAlgebra
-import xyz.stratalab.strata.cli.modules.WalletKeyApiModule
 import co.topl.brambl.models.Indices
 import co.topl.brambl.utils.Encoding
 import co.topl.brambl.wallet.WalletApi
-import munit.CatsEffectSuite
-import quivr.models.KeyPair
-
-import java.nio.file.Files
-import java.nio.file.Paths
-import scala.io.Source
-import xyz.stratalab.strata.cli.Sha256
-import quivr.models.Proposition
-import quivr.models.Preimage
 import com.google.protobuf.ByteString
-import xyz.stratalab.strata.cli.Blake2b
+import munit.CatsEffectSuite
+import quivr.models.{KeyPair, Preimage, Proposition}
+import xyz.stratalab.strata.cli.mockbase.{BaseGenusQueryAlgebra, BaseWalletAlgebra, BaseWalletApi, BaseWalletManagementUtils, BaseWalletStateAlgebra}
+import xyz.stratalab.strata.cli.modules.WalletKeyApiModule
+import xyz.stratalab.strata.cli.{Blake2b, Sha256}
+
+import java.nio.file.{Files, Paths}
+import scala.io.Source
 
 class WalletControllerSpecs extends CatsEffectSuite with WalletKeyApiModule {
 
@@ -211,7 +203,7 @@ class WalletControllerSpecs extends CatsEffectSuite with WalletKeyApiModule {
           "default"
         )
       } yield res,
-      Left(s"The fellowship or template does not exist.")
+      Left("The fellowship or template does not exist.")
     )
   }
 

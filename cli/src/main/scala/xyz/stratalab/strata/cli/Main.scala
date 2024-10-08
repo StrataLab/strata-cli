@@ -1,18 +1,8 @@
 package xyz.stratalab.strata.cli
 
-import cats.effect.ExitCode
-import cats.effect.IO
-import cats.effect.IOApp
-import xyz.stratalab.strata.cli.modules.BifrostQueryModeModule
-import xyz.stratalab.strata.cli.modules.TemplateModeModule
-import xyz.stratalab.strata.cli.modules.GenusQueryModeModule
-import xyz.stratalab.strata.cli.modules.FellowshipsModeModule
-import xyz.stratalab.strata.cli.modules.SimpleTransactionModeModule
-import xyz.stratalab.strata.cli.modules.TxModeModule
-import xyz.stratalab.strata.cli.modules.WalletModeModule
+import cats.effect.{ExitCode, IO, IOApp}
 import scopt.OParser
-import xyz.stratalab.strata.cli.modules.SimpleMintingModeModule
-import xyz.stratalab.strata.cli.modules.ServerModule
+import xyz.stratalab.strata.cli.modules.{BifrostQueryModeModule, FellowshipsModeModule, GenusQueryModeModule, ServerModule, SimpleMintingModeModule, SimpleTransactionModeModule, TemplateModeModule, TxModeModule, WalletModeModule}
 
 object Main
     extends IOApp

@@ -1,7 +1,7 @@
 package xyz.stratalab.strata.cli.modules
 
-import co.topl.brambl.constants.NetworkConstants
 import cats.effect.IO
+import co.topl.brambl.constants.NetworkConstants
 import xyz.stratalab.strata.cli.impl.SimpleTransactionAlgebra
 
 trait SimpleTransactionAlgebraModule

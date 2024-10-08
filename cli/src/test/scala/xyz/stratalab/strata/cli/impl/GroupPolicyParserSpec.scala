@@ -1,9 +1,9 @@
 package xyz.stratalab.strata.cli.impl
 
-import munit.CatsEffectSuite
-import co.topl.brambl.constants.NetworkConstants
-import cats.effect.kernel.Resource
 import cats.effect.IO
+import cats.effect.kernel.Resource
+import co.topl.brambl.constants.NetworkConstants
+import munit.CatsEffectSuite
 
 class GroupPolicyParserSpec extends CatsEffectSuite with GroupPolicyParserModule {
 

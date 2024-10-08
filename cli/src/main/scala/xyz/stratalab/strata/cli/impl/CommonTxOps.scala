@@ -1,9 +1,6 @@
 package xyz.stratalab.strata.cli.impl
 
-import com.google.protobuf.struct.ListValue
-import com.google.protobuf.struct.NullValue
-import com.google.protobuf.struct.Struct
-import com.google.protobuf.struct.Value
+import com.google.protobuf.struct.{ListValue, NullValue, Struct, Value}
 import io.circe.Json
 
 trait CommonTxOps {

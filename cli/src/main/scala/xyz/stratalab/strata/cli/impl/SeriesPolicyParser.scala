@@ -1,10 +1,8 @@
 package xyz.stratalab.strata.cli.impl
 
-import cats.effect.kernel.Resource
-import cats.effect.kernel.Sync
+import cats.effect.kernel.{Resource, Sync}
 import co.topl.brambl.models.Event
-import co.topl.brambl.models.box.FungibilityType
-import co.topl.brambl.models.box.QuantityDescriptorType
+import co.topl.brambl.models.box.{FungibilityType, QuantityDescriptorType}
 import com.google.protobuf.struct.Value
 import io.circe.Json
 

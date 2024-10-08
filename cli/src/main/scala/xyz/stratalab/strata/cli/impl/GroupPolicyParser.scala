@@ -1,12 +1,11 @@
 package xyz.stratalab.strata.cli.impl
 
-import cats.effect.kernel.Sync
-import cats.effect.kernel.Resource
-import scala.io.BufferedSource
-import co.topl.brambl.models.Event
+import cats.effect.kernel.{Resource, Sync}
+import co.topl.brambl.models.{Event, SeriesId}
 import co.topl.brambl.utils.Encoding
 import com.google.protobuf.ByteString
-import co.topl.brambl.models.SeriesId
+
+import scala.io.BufferedSource
 
 case class GroupPolicy(
   label:            String,

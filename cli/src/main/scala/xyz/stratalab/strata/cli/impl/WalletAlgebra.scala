@@ -1,11 +1,11 @@
 package xyz.stratalab.strata.cli.impl
 
 import cats.effect.kernel.Sync
+import cats.effect.std
 import co.topl.brambl.dataApi.WalletStateAlgebra
 import co.topl.brambl.wallet.WalletApi
 import co.topl.crypto.encryption.VaultStore
 import quivr.models.KeyPair
-import cats.effect.std
 
 trait WalletAlgebra[F[_]] {
 

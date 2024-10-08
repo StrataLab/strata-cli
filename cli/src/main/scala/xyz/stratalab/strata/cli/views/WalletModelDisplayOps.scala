@@ -1,10 +1,8 @@
 package xyz.stratalab.strata.cli.views
 
 import cats.Id
-import co.topl.brambl.builders.locks.LockTemplate
-import co.topl.brambl.builders.locks.PropositionTemplate
-import co.topl.brambl.dataApi.WalletFellowship
-import co.topl.brambl.dataApi.WalletTemplate
+import co.topl.brambl.builders.locks.{LockTemplate, PropositionTemplate}
+import co.topl.brambl.dataApi.{WalletFellowship, WalletTemplate}
 import co.topl.brambl.utils.Encoding
 import io.circe.parser.parse
 

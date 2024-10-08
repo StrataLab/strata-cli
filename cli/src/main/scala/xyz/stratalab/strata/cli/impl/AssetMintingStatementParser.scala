@@ -1,10 +1,9 @@
 package xyz.stratalab.strata.cli.impl
 
-import cats.effect.kernel.Resource
-import cats.effect.kernel.Sync
+import cats.effect.kernel.{Resource, Sync}
 import co.topl.brambl.models.box.{AssetMintingStatement => PBAssetMintingStatement}
-import io.circe.Json
 import com.google.protobuf.struct.Value
+import io.circe.Json
 
 import scala.io.BufferedSource
 

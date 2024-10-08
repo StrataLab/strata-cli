@@ -1,14 +1,10 @@
 package xyz.stratalab.app
 
-import xyz.stratalab.shared.models.BalanceRequestDTO
-import xyz.stratalab.shared.models.BalanceResponseDTO
-import xyz.stratalab.shared.models.FellowshipDTO
-import xyz.stratalab.shared.models.SimpleErrorDTO
-import xyz.stratalab.shared.models.TemplateDTO
 import com.raquo.laminar.api.L._
 import io.circe.Json
 import io.circe.generic.auto._
 import io.circe.parser.parse
+import xyz.stratalab.shared.models.{BalanceRequestDTO, BalanceResponseDTO, FellowshipDTO, SimpleErrorDTO, TemplateDTO}
 
 case class FromSectionComponent(
   currentSection:  Var[TxSection],
@@ -284,7 +280,7 @@ case class FromSectionComponent(
           child.text <-- lvlBalance.signal.map(x =>
             x match {
               case Left(error) => error
-              case Right(_)    => s"Successfully obtained balance."
+              case Right(_)    => "Successfully obtained balance."
             }
           )
         ),

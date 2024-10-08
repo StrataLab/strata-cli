@@ -2,10 +2,10 @@ package xyz.stratalab.strata.cli.controllers
 
 import cats.Monad
 import cats.effect.kernel.Sync
-import xyz.stratalab.strata.cli.TokenType
 import co.topl.brambl.codecs.AddressCodecs
 import co.topl.brambl.dataApi.{GenusQueryAlgebra, WalletStateAlgebra}
 import co.topl.brambl.display.DisplayOps.DisplayTOps
+import xyz.stratalab.strata.cli.TokenType
 
 class GenusQueryController[F[_]: Sync](
   walletStateAlgebra: WalletStateAlgebra[F],

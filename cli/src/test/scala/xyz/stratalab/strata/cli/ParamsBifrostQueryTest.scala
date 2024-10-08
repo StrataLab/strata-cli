@@ -1,7 +1,6 @@
 package xyz.stratalab.strata.cli
 
 import munit.FunSuite
-
 import scopt.OParser
 
 class ParamsBifrostQueryTest extends FunSuite {

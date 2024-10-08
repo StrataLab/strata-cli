@@ -1,30 +1,21 @@
 package xyz.stratalab.strata.cli.impl
 
-import cats.effect.kernel.Resource
-import cats.effect.kernel.Sync
+import cats.effect.kernel.{Resource, Sync}
 import co.topl.brambl.Context
-import co.topl.brambl.dataApi.BifrostQueryAlgebra
-import co.topl.brambl.dataApi.WalletStateAlgebra
-import co.topl.brambl.models.Datum
-import co.topl.brambl.models.Event
+import co.topl.brambl.dataApi.{BifrostQueryAlgebra, WalletStateAlgebra}
 import co.topl.brambl.models.transaction.IoTransaction
+import co.topl.brambl.models.{Datum, Event}
 import co.topl.brambl.syntax.cryptoToPbKeyPair
 import co.topl.brambl.utils.Encoding
-import co.topl.brambl.validation.TransactionAuthorizationError
-import co.topl.brambl.validation.TransactionSyntaxError
-import co.topl.brambl.validation.TransactionSyntaxError.EmptyInputs
-import co.topl.brambl.validation.TransactionSyntaxError.InvalidDataLength
-import co.topl.brambl.validation.TransactionSyntaxInterpreter
-import co.topl.brambl.wallet.CredentiallerInterpreter
-import co.topl.brambl.wallet.WalletApi
+import co.topl.brambl.validation.TransactionSyntaxError.{EmptyInputs, InvalidDataLength}
+import co.topl.brambl.validation.{TransactionAuthorizationError, TransactionSyntaxError, TransactionSyntaxInterpreter}
+import co.topl.brambl.wallet.{CredentiallerInterpreter, WalletApi}
 import co.topl.crypto.signing.ExtendedEd25519
-import co.topl.quivr.runtime.QuivrRuntimeError
-import co.topl.quivr.runtime.QuivrRuntimeErrors
+import co.topl.quivr.runtime.{QuivrRuntimeError, QuivrRuntimeErrors}
 import io.grpc.ManagedChannel
 import quivr.models.KeyPair
 
-import java.io.FileInputStream
-import java.io.FileOutputStream
+import java.io.{FileInputStream, FileOutputStream}
 
 trait TransactionAlgebra[F[_]] {
 

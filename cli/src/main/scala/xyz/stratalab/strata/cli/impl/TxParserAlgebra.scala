@@ -1,18 +1,15 @@
 package xyz.stratalab.strata.cli.impl
 
 import cats.data.Validated
-import cats.effect.kernel.Resource
-import cats.effect.kernel.Sync
+import cats.effect.kernel.{Resource, Sync}
 import co.topl.brambl.builders.TransactionBuilderApi
 import co.topl.brambl.builders.locks.LockTemplate
-import xyz.stratalab.strata.cli.NetworkIdentifiers
 import co.topl.brambl.models.box.Value
-import co.topl.brambl.models.transaction.IoTransaction
-import co.topl.brambl.models.transaction.SpentTransactionOutput
+import co.topl.brambl.models.transaction.{IoTransaction, SpentTransactionOutput}
 import co.topl.brambl.utils.Encoding
 import com.google.protobuf.ByteString
-import quivr.models.Int128
-import quivr.models.VerificationKey
+import quivr.models.{Int128, VerificationKey}
+import xyz.stratalab.strata.cli.NetworkIdentifiers
 
 import scala.io.BufferedSource
 

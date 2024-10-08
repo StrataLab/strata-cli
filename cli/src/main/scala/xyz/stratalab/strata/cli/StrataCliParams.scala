@@ -1,12 +1,10 @@
 package xyz.stratalab.strata.cli
 
 import co.topl.brambl.constants.NetworkConstants
-import co.topl.brambl.models.LockAddress
+import co.topl.brambl.models.{GroupId, LockAddress, SeriesId}
 
 import java.io.File
 import scala.collection.immutable.IndexedSeq
-import co.topl.brambl.models.GroupId
-import co.topl.brambl.models.SeriesId
 
 object StrataCliMode extends Enumeration {
   type StrataCliMode = Value

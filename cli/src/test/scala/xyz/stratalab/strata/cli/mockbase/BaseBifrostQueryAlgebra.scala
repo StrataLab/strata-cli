@@ -3,9 +3,8 @@ package xyz.stratalab.strata.cli.mockbase
 import co.topl.brambl.dataApi.BifrostQueryAlgebra
 import co.topl.brambl.models.TransactionId
 import co.topl.brambl.models.transaction.IoTransaction
-import co.topl.consensus.models.BlockId
+import co.topl.consensus.models.{BlockHeader, BlockId}
 import co.topl.node.models.BlockBody
-import co.topl.consensus.models.BlockHeader
 import co.topl.node.services.SynchronizationTraversalRes
 
 abstract class BaseBifrostQueryAlgebra[F[_]] extends BifrostQueryAlgebra[F] {

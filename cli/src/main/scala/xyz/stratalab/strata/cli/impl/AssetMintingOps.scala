@@ -1,23 +1,21 @@
 package xyz.stratalab.strata.cli.impl
 
-import cats.effect.kernel.Resource
-import cats.effect.kernel.Sync
+import cats.effect.kernel.{Resource, Sync}
 import co.topl.brambl.builders.TransactionBuilderApi
 import co.topl.brambl.dataApi.WalletStateAlgebra
-import co.topl.brambl.models.Indices
-import co.topl.brambl.models.LockAddress
-import co.topl.brambl.models.box.AssetMintingStatement
-import co.topl.brambl.models.box.Lock
+import co.topl.brambl.models.box.{AssetMintingStatement, Lock}
+import co.topl.brambl.models.{Indices, LockAddress}
 import co.topl.brambl.utils.Encoding
 import co.topl.brambl.wallet.WalletApi
 import co.topl.genus.services.Txo
 import com.google.protobuf.ByteString
 import com.google.protobuf.struct.Struct
+import io.circe.Json
 import quivr.models.KeyPair
 
 import java.io.FileOutputStream
+
 import TransactionBuilderApi.implicits._
-import io.circe.Json
 
 trait AssetMintingOps[G[_]] extends CommonTxOps {
 

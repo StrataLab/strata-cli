@@ -2,12 +2,11 @@ package xyz.stratalab.strata.cli.impl
 
 import cats.Monad
 import cats.data.ValidatedNel
-import co.topl.brambl.builders.locks.LockTemplate
-import co.topl.brambl.builders.locks.PropositionTemplate
+import co.topl.brambl.builders.locks.{LockTemplate, PropositionTemplate}
 import co.topl.brambl.utils.Encoding
 import com.google.protobuf.ByteString
-import quivr.models.Data
 import quivr.models
+import quivr.models.Data
 
 sealed trait ParseError {
   val location: Int

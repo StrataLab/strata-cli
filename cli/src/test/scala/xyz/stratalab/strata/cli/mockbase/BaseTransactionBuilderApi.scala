@@ -1,19 +1,10 @@
 package xyz.stratalab.strata.cli.mockbase
 
-import co.topl.brambl.builders.BuilderError
-import co.topl.brambl.builders.TransactionBuilderApi
-import co.topl.brambl.models.Datum
+import co.topl.brambl.builders.{BuilderError, TransactionBuilderApi}
 import co.topl.brambl.models.Event.{GroupPolicy, SeriesPolicy}
-import co.topl.brambl.models.GroupId
-import co.topl.brambl.models.LockAddress
-import co.topl.brambl.models.SeriesId
-import co.topl.brambl.models.box.AssetMintingStatement
-import co.topl.brambl.models.box.Attestation
-import co.topl.brambl.models.box.FungibilityType
-import co.topl.brambl.models.box.Lock
-import co.topl.brambl.models.box.QuantityDescriptorType
-import co.topl.brambl.models.transaction.IoTransaction
-import co.topl.brambl.models.transaction.UnspentTransactionOutput
+import co.topl.brambl.models.box.{AssetMintingStatement, Attestation, FungibilityType, Lock, QuantityDescriptorType}
+import co.topl.brambl.models.transaction.{IoTransaction, UnspentTransactionOutput}
+import co.topl.brambl.models.{Datum, GroupId, LockAddress, SeriesId}
 import co.topl.brambl.syntax.ValueTypeIdentifier
 import co.topl.genus.services.Txo
 import com.google.protobuf.ByteString

@@ -2,19 +2,13 @@ package xyz.stratalab.strata.cli.impl
 
 import cats.data.EitherT
 import cats.effect.IO
-import xyz.stratalab.strata.cli.NetworkIdentifiers
-import xyz.stratalab.strata.cli.TokenType
-import xyz.stratalab.strata.cli.controllers.SimpleTransactionController
-import xyz.stratalab.strata.cli.controllers.TxController
-import xyz.stratalab.strata.cli.modules.SimpleTransactionModeModule
-import xyz.stratalab.strata.cli.modules.TxModeModule
-import xyz.stratalab.strata.cli.modules.WalletModeModule
 import co.topl.brambl.constants.NetworkConstants
-import co.topl.brambl.models.LockAddress
-import co.topl.brambl.models.GroupId
+import co.topl.brambl.models.{GroupId, LockAddress, SeriesId}
 import co.topl.brambl.utils.Encoding
 import com.google.protobuf.ByteString
-import co.topl.brambl.models.SeriesId
+import xyz.stratalab.strata.cli.controllers.{SimpleTransactionController, TxController}
+import xyz.stratalab.strata.cli.modules.{SimpleTransactionModeModule, TxModeModule, WalletModeModule}
+import xyz.stratalab.strata.cli.{NetworkIdentifiers, TokenType}
 
 object FullTxOps extends WalletModeModule with SimpleTransactionModeModule with TxModeModule {
 

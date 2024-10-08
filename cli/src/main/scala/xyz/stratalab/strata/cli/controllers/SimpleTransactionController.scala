@@ -3,16 +3,11 @@ package xyz.stratalab.strata.cli.controllers
 import cats.Monad
 import cats.data.Validated
 import cats.effect.kernel.Sync
+import co.topl.brambl.dataApi.WalletStateAlgebra
+import co.topl.brambl.models.{GroupId, LockAddress, SeriesId}
+import co.topl.brambl.syntax.{AssetType, GroupType, LvlType, SeriesType}
 import xyz.stratalab.strata.cli.TokenType
 import xyz.stratalab.strata.cli.impl.SimpleTransactionAlgebra
-import co.topl.brambl.dataApi.WalletStateAlgebra
-import co.topl.brambl.models.GroupId
-import co.topl.brambl.models.LockAddress
-import co.topl.brambl.models.SeriesId
-import co.topl.brambl.syntax.AssetType
-import co.topl.brambl.syntax.GroupType
-import co.topl.brambl.syntax.LvlType
-import co.topl.brambl.syntax.SeriesType
 
 class SimpleTransactionController[F[_]: Sync](
   walletStateAlgebra:  WalletStateAlgebra[F],

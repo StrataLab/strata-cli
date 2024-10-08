@@ -1,12 +1,10 @@
 package xyz.stratalab.strata.cli.modules
 
 import cats.effect.IO
-import xyz.stratalab.strata.cli.controllers.FellowshipsController
 import co.topl.brambl.servicekit.{FellowshipStorageApi, WalletStateResource}
-import xyz.stratalab.strata.cli.StrataCliSubCmd
-import xyz.stratalab.strata.cli.StrataCliParams
 import scopt.OParser
-import xyz.stratalab.strata.cli.StrataCliParamsParserModule
+import xyz.stratalab.strata.cli.controllers.FellowshipsController
+import xyz.stratalab.strata.cli.{StrataCliParams, StrataCliParamsParserModule, StrataCliSubCmd}
 
 trait FellowshipsModeModule extends WalletStateResource {
 
